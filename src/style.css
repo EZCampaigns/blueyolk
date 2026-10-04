@@ -163,16 +163,19 @@ html[lang="ar"] .tag { font-family: var(--font-arabic); text-transform: none; le
 .exhibit-top { padding-block-start: calc(var(--header-h) + var(--space-8)); }
 .exhibit-hero { aspect-ratio: 21 / 9; min-height: 280px; overflow: hidden; background: #000; border-radius: var(--radius-image); margin-inline: var(--gutter); }
 .exhibit-hero img { width: 100%; height: 100%; object-fit: cover; }
+.exhibit-hero.is-video { aspect-ratio: var(--ratio, 1.7778); min-height: 0; }
+.exhibit-hero.is-video iframe { display: block; width: 100%; height: 100%; border: 0; }
+.exhibit-caption { margin: var(--space-3) var(--gutter) 0; }
 .exhibit-title { font-size: clamp(2.5rem, 8vw, 6.5rem); max-width: 14ch; margin-block: var(--space-5); }
 html[lang="ar"] .exhibit-title { max-width: none; font-size: clamp(2.5rem, 7vw, 5.5rem); }
-.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); margin: 0 0 var(--space-7); padding-block: var(--space-4); border-block: 1px solid var(--divider); }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--space-5); margin: 0 0 var(--space-7); padding-block: var(--space-4); border-block: 1px solid var(--divider); }
 .facts dt { color: var(--ink-muted); }
 .facts dd { margin: var(--space-1) 0 0; font-size: 16px; line-height: 26px; }
 .exhibit-body { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: var(--space-8); }
 .credits { list-style: none; margin: 0; padding: 0; }
 .credits li { padding-block: var(--space-3); border-block-end: 1px solid var(--divider); display: flex; justify-content: space-between; gap: var(--space-4); }
 .credits li span:first-child { color: var(--ink-muted); }
-@media (max-width: 760px) { .exhibit-body { grid-template-columns: 1fr; gap: var(--space-7); } .facts { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 760px) { .exhibit-body { grid-template-columns: 1fr; gap: var(--space-7); } }
 
 .prose { max-width: var(--measure); }
 .prose p { margin: 0 0 var(--space-5); }
