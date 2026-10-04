@@ -37,6 +37,10 @@ function loadCollection(dir, re, build) {
 
 const work = loadCollection('content/work', /^(\d+)-(.+)\.(en|ar)\.md$/, (m, d) => ({ order: Number(m[1]), slug: m[2], ...d }));
 const journal = loadCollection('content/journal', /^(\d{4}-\d{2}-\d{2})-(.+)\.(en|ar)\.md$/, (m, d) => ({ slug: m[2], date: d.date || m[1], ...d }));
+// Stand-in exhibits retire themselves as soon as real work exists. Their files stay in the repo untouched.
+for (const l of LANGS) {
+  if (work[l].some((e) => !e.standin)) work[l] = work[l].filter((e) => !e.standin);
+}
 for (const l of LANGS) {
   work[l].sort((a, b) => a.order - b.order);
   journal[l].sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -63,7 +67,12 @@ const fmtDate = (iso, lang) =>
 const pad = (n) => String(n).padStart(2, '0');
 const ARROW = '<span class="arr" aria-hidden="true">→</span>';
 
+// Films live on Cloudflare Stream. `video` is the Stream video ID; `still` is the second used for the poster frame.
+const STREAM = 'https://customer-38v2r0uca4gfzf5b.cloudflarestream.com';
+const streamStill = (id, sec, h = 1000) => `${STREAM}/${id}/thumbnails/thumbnail.jpg?time=${Number(sec) || 0}s&height=${h}`;
+
 function imgFor(item, lang) {
+  if (item.video) return { src: streamStill(item.video, item.still), alt: item.imageAlt || '' };
   if (item.image) return { src: item.image, alt: item.imageAlt || '' };
   const n = Number(item.plate) || 1;
   return { src: `/img/plate-${n}.svg`, alt: plateAlt[lang][n] || '' };
@@ -270,12 +279,15 @@ function exhibitPage(lang, ex, i) {
   <h1 class="exhibit-title">${esc(ex.title)}</h1>
   ${ex.standin ? `<p class="mono" style="margin:-8px 0 24px">${tag(t)} <span class="muted">${esc(t.standinNote)}</span></p>` : ''}
   <dl class="facts mono">
-    <div><dt class="caps">${esc(t.year)}</dt><dd>${esc(ex.year)}</dd></div>
-    <div><dt class="caps">${esc(t.role)}</dt><dd>${esc(ex.role || '')}</dd></div>
+    ${ex.year ? `<div><dt class="caps">${esc(t.year)}</dt><dd>${esc(ex.year)}</dd></div>` : ''}
+    ${ex.role ? `<div><dt class="caps">${esc(t.role)}</dt><dd>${esc(ex.role)}</dd></div>` : ''}
     <div><dt class="caps">${esc(t.discipline)}</dt><dd>${esc(t.disciplines[ex.discipline] || ex.discipline)}</dd></div>
   </dl>
 </div>
-<div class="exhibit-hero"><img src="${im.src}" alt="${esc(im.alt)}" width="1600" height="1000"></div>
+${ex.video
+  ? `<div class="exhibit-hero is-video" style="--ratio:${Number(ex.ratio) || 1.7778}"><iframe src="${STREAM}/${ex.video}/iframe?poster=${encodeURIComponent(streamStill(ex.video, ex.still, 1080))}" title="${esc(ex.title)}" loading="lazy" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen></iframe></div>`
+  : `<div class="exhibit-hero"><img src="${im.src}" alt="${esc(im.alt)}" width="1600" height="1000"></div>`}
+${ex.caption ? `<p class="by-caption exhibit-caption"${lang === 'ar' ? ' lang="ar"' : ''}>${esc(ex.caption)}</p>` : ''}
 <div class="wrap" style="padding-block-start:clamp(36px,5vw,72px)">
   <div class="exhibit-body">
     <div class="prose">${ex.body}</div>
