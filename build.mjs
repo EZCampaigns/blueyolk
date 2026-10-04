@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { parseFile, render, esc } from './lib/markdown.mjs';
 import { SITE, LANGS, T } from './lib/strings.mjs';
-import { plate, plateCount, plateAlt, smooth } from './lib/plates.mjs';
+import { plate, plateCount, plateAlt } from './lib/plates.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const DIST = join(ROOT, 'dist');
@@ -47,10 +47,11 @@ const page = (name, lang) => {
 };
 
 /* ---------- shared bits ---------- */
-const BLOB_PTS = JSON.parse(read('lib/blob-points.json'));
-const BLOB_D = smooth(BLOB_PTS);
-const BLOB_PTS_ATTR = esc(JSON.stringify(BLOB_PTS));
-const css = read('src/style.css');
+// The master dot path from the brand files (viewBox 0 0 1000 990.4). Never redrawn, never a perfect circle.
+const DOT_D = 'M505.2 0.3C793.8 -10.0 1000.0 247.7 1000.0 536.4C1000.0 804.4 752.6 1000.3 474.2 990.0C216.5 990.0 0.0 783.8 0.0 495.1C0.0 227.1 237.1 10.6 505.2 0.3Z';
+// Brand tokens + components are loaded first, then the site's own layout. The Google Fonts @import is
+// replaced by a <link> in the page head so fonts do not block the stylesheet.
+const css = [read('src/brand/tokens.css').replace(/@import url\([^)]*\);?/, ''), read('src/brand/components.css'), read('src/style.css')].join('\n');
 const js = read('src/app.js');
 const CSS_V = hash(css), JS_V = hash(js);
 
@@ -69,8 +70,15 @@ function imgFor(item, lang) {
 }
 const tag = (t) => `<span class="tag">${esc(t.standin)}</span>`;
 
-function blobSvg(cls = '', amp = 3.2) {
-  return `<svg class="${cls}" viewBox="0 0 200 200" data-blob data-amp="${amp}" data-pts="${BLOB_PTS_ATTR}" aria-hidden="true" focusable="false"><path class="blob-path" d="${BLOB_D}"/></svg>`;
+function dotSvg(cls = '') {
+  return `<svg class="${cls}" viewBox="0 0 1000 990.4" aria-hidden="true" focusable="false"><path class="dot-path" d="${DOT_D}"/></svg>`;
+}
+// Header logo: the supplied files as they are. Light file on light grounds, dark file on dark grounds.
+function logo(lang, name) {
+  const file = lang === 'ar' ? 'blue-yolk-horizontal-bilingual-rtl' : 'blue-yolk-horizontal';
+  const w = lang === 'ar' ? 6057 : 3568.3;
+  const width = Math.round((28 * w) / 990.4);
+  return `<picture><source media="(prefers-color-scheme: dark)" srcset="/logos/${file}-dark.svg"><img src="/logos/${file}-light.svg" alt="${esc(name)}" width="${width}" height="28"></picture>`;
 }
 
 /* ---------- layout ---------- */
@@ -98,7 +106,7 @@ function layout(lang, { path, title, desc, main, bodyClass = '', jsonld = '', og
 <link rel="canonical" href="${abs(lang, path)}">
 ${alternates}
 ${noindex ? '<meta name="robots" content="noindex">' : ''}
-<meta name="theme-color" content="#F2F3F7">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta property="og:site_name" content="Blue Yolk">
 <meta property="og:type" content="${ogType}">
 <meta property="og:title" content="${esc(pageTitle)}">
@@ -111,19 +119,14 @@ ${noindex ? '<meta name="robots" content="noindex">' : ''}
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Outfit:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&family=Bodoni+Moda:wght@500&display=swap">
 <link rel="stylesheet" href="/assets/style.css?v=${CSS_V}">
 ${jsonld}
 </head>
 <body class="${bodyClass}">
 <a class="skip" href="#main">${esc(t.skip)}</a>
-<div class="veil" aria-hidden="true"></div>
-<div class="cursor" aria-hidden="true"></div>
 <header class="site-header">
-  <a class="wordmark" href="${href(lang, '/')}" aria-label="${esc(t.siteName)}">
-    <svg viewBox="20 20 160 160" aria-hidden="true" focusable="false"><path d="${BLOB_D}" fill="#1F41E0"/></svg>
-    <span>${esc(t.siteName)}</span>
-  </a>
+  <a class="wordmark" href="${href(lang, '/')}">${logo(lang, t.siteName)}</a>
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav" data-open="${esc(t.menu)}" data-close="${esc(t.close)}">${esc(t.menu)}</button>
   <nav class="nav" id="nav" aria-label="${esc(t.siteName)}">
     ${nav}
@@ -207,10 +210,8 @@ function home(lang) {
   const main = `
 <section class="hero">
   <p class="hero-eyebrow mono caps muted">${esc(t.eyebrow)}</p>
-  <div class="hero-stage">
-    ${blobSvg('', 3.4)}
-    <h1 class="hero-statement display">${esc(t.tagline)}</h1>
-  </div>
+  ${dotSvg('hero-dot')}
+  <h1 class="hero-statement display">${esc(t.tagline)}</h1>
   <p class="hero-cta"><a href="${href(lang, '/work/')}"><span>${esc(t.enter)}</span>${ARROW}</a></p>
 </section>
 <section class="section wrap">
@@ -222,7 +223,7 @@ function home(lang) {
   <ul class="rows">${journal[lang].slice(0, 3).map((p) => journalRow(lang, p)).join('\n')}</ul>
 </section>
 <section class="section wrap">
-  <p class="display" style="font-size:clamp(2rem,6vw,5.5rem);max-width:16ch">${esc(t.invite)}</p>
+  <p class="display accent-type">${esc(t.invite)}</p>
   <p style="margin-top:28px"><a class="mono arrow-link caps" href="${href(lang, '/contact/')}">${esc(t.inviteAction)} ${ARROW}</a></p>
 </section>`;
   emit(lang, '/', layout(lang, { path: '/', title: t.homeTitle, desc: t.homeDesc, main, jsonld, bodyClass: 'page-home' }));
@@ -232,8 +233,8 @@ function workIndex(lang) {
   const t = T[lang];
   const discs = [...new Set(work[lang].map((e) => e.discipline))];
   const filters = `<div class="filters" data-filters=".grid .card" role="group" aria-label="${esc(t.discipline)}">
-  <button type="button" data-filter="all" aria-pressed="true">${esc(t.filterAll)}</button>
-  ${discs.map((d) => `<button type="button" data-filter="${esc(d)}" aria-pressed="false">${esc(t.disciplines[d] || d)}</button>`).join('')}
+  <button class="by-chip" type="button" data-filter="all" aria-pressed="true">${esc(t.filterAll)}</button>
+  ${discs.map((d) => `<button class="by-chip" type="button" data-filter="${esc(d)}" aria-pressed="false">${esc(t.disciplines[d] || d)}</button>`).join('')}
 </div>`;
   const cards = work[lang].map((ex) => {
     const im = imgFor(ex, lang);
@@ -292,8 +293,8 @@ function journalIndex(lang) {
   const t = T[lang];
   const cats = [...new Set(journal[lang].map((p) => p.category))];
   const filters = `<div class="filters" data-filters=".rows .journal-row" role="group" aria-label="${esc(t.journalTitle)}">
-  <button type="button" data-filter="all" aria-pressed="true">${esc(t.filterAll)}</button>
-  ${cats.map((c) => `<button type="button" data-filter="${esc(c)}" aria-pressed="false">${esc(t.categories[c] || c)}</button>`).join('')}
+  <button class="by-chip" type="button" data-filter="all" aria-pressed="true">${esc(t.filterAll)}</button>
+  ${cats.map((c) => `<button class="by-chip" type="button" data-filter="${esc(c)}" aria-pressed="false">${esc(t.categories[c] || c)}</button>`).join('')}
 </div>`;
   const main = `<div class="wrap">
   <h1 class="page-title">${esc(t.journalTitle)}</h1>
@@ -343,7 +344,7 @@ function aboutPage(lang) {
   <h1 class="page-title" style="font-size:clamp(2.2rem,5vw,4rem);padding-block-end:0">${esc(t.aboutTitle)}</h1>
   <div class="about-grid section" style="padding-block-start:clamp(24px,4vw,56px)">
     <aside class="about-aside">
-      ${blobSvg('blob-mini', 2.4)}
+      ${dotSvg('dot-mini')}
       <p class="display about-name">${esc(p.data.name)}</p>
       <p class="mono caps muted" style="margin-top:8px">${esc(p.data.role)} · Blue Yolk</p>
     </aside>
