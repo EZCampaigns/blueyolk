@@ -91,6 +91,7 @@ function layout(lang, { path, title, desc, main, bodyClass = '', jsonld = '', og
 <html lang="${t.lang}" dir="${t.dir}">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.className+=" js"</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(pageTitle)}</title>
 <meta name="description" content="${esc(desc)}">
