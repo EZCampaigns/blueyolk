@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Outfit:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&family=Bodoni+Moda:wght@500&display=swap');
+/* Blue Yolk design tokens. Light is the default; set data-theme="dark" on <html> for dark. */
+:root, [data-theme="light"] {
+  --bg: #FFFFFF;
+  --bg-raised: #F2F2F7;
+  --bg-hover: #E5E5EA;
+  --divider: #E5E5EA;
+  --line-control: #6E6E73;
+  --ink: #1C1C1E;
+  --ink-muted: #636366;
+  --ink-faint: #8E8E93;
+  --brand: #334FDE;
+  --on-brand: #FFFFFF;
+  --accent: #F5B731;
+  --on-accent: #1C1C1E;
+  --danger: #C4161C;
+  --success: #1F7A3A;
+  --warning: #A33D00;
+}
+[data-theme="dark"] {
+  --bg: #000000;
+  --bg-raised: #1C1C1E;
+  --bg-hover: #2C2C2E;
+  --divider: #38383A;
+  --line-control: #8E8E93;
+  --ink: #FFFFFF;
+  --ink-muted: #AEAEB2;
+  --ink-faint: #8E8E93;
+  --brand: #4262FF;
+  --on-brand: #FFFFFF;
+  --accent: #F5B731;
+  --on-accent: #1C1C1E;
+  --danger: #FF6961;
+  --success: #30D158;
+  --warning: #FFB340;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+  --bg: #000000;
+  --bg-raised: #1C1C1E;
+  --bg-hover: #2C2C2E;
+  --divider: #38383A;
+  --line-control: #8E8E93;
+  --ink: #FFFFFF;
+  --ink-muted: #AEAEB2;
+  --ink-faint: #8E8E93;
+  --brand: #4262FF;
+  --on-brand: #FFFFFF;
+  --accent: #F5B731;
+  --on-accent: #1C1C1E;
+  --danger: #FF6961;
+  --success: #30D158;
+  --warning: #FFB340;
+  }
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --radius-input: 14px;
+  --radius-image: 16px;
+  --radius-card: 24px;
+  --radius-pill: 999px;
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-text: "Outfit", "Helvetica Neue", Arial, sans-serif;
+  --font-accent: "Bodoni Moda", Didot, Georgia, serif;
+  --font-arabic: "IBM Plex Sans Arabic", Tahoma, Arial, sans-serif;
+}

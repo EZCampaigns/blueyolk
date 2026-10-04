@@ -1,0 +1,63 @@
+/* Blue Yolk UI basics. Every value comes from tokens.css. */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-text);font-size:16px;line-height:26px;padding:24px}
+[dir="rtl"],.by-ar{font-family:var(--font-arabic)}
+:where(a){color:var(--ink);text-decoration:underline;text-decoration-color:var(--brand);text-decoration-thickness:2px;text-underline-offset:4px}
+:where(a:hover){text-decoration-thickness:4px}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+
+/* Buttons */
+.by-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);min-height:44px;padding:0 var(--space-5);border:0;border-radius:var(--radius-pill);font:500 16px/1 var(--font-text);cursor:pointer;text-decoration:none;transition:transform .12s ease}
+.by-btn:active{transform:scale(.98)}
+.by-btn-primary{background:var(--brand);color:var(--on-brand)}
+.by-btn-primary:hover{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
+.by-btn-secondary{background:var(--bg-raised);color:var(--ink)}
+.by-btn-secondary:hover{background:var(--bg-hover)}
+.by-btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line-control)}
+.by-btn-ghost:hover{background:var(--bg-raised)}
+.by-btn[disabled],.by-btn[aria-disabled="true"]{background:var(--bg-raised);color:var(--ink-faint);box-shadow:none;cursor:not-allowed;text-decoration:none}
+.by-btn-sm{min-height:36px;padding:0 var(--space-4);font-size:14px}
+.by-btn-lg{min-height:52px;padding:0 var(--space-6);font-size:17px}
+
+/* Chips */
+.by-chip{display:inline-flex;align-items:center;gap:var(--space-2);min-height:36px;padding:0 var(--space-4);border:0;border-radius:var(--radius-pill);background:var(--bg-raised);color:var(--ink);font:400 14px/1 var(--font-text);cursor:pointer}
+.by-chip:hover{background:var(--bg-hover)}
+.by-chip[aria-pressed="true"]{background:var(--bg-hover);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.by-chip[aria-pressed="true"]::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand)}
+
+/* Fields */
+.by-field{display:flex;flex-direction:column;gap:var(--space-2);max-width:360px}
+.by-label{font:500 14px/20px var(--font-text);color:var(--ink)}
+.by-input{width:100%;min-height:48px;padding:0 var(--space-4);border:1.5px solid var(--line-control);border-radius:var(--radius-input);background:var(--bg-raised);color:var(--ink);font:400 16px/1 var(--font-text)}
+.by-input::placeholder{color:var(--ink-muted)}
+.by-input:hover{background:var(--bg-hover)}
+.by-input:focus{outline:2px solid var(--brand);outline-offset:2px;border-color:var(--brand)}
+.by-input[disabled]{color:var(--ink-faint);cursor:not-allowed}
+.by-input[aria-invalid="true"]{border-color:var(--danger)}
+.by-help{font:400 13px/19px var(--font-text);color:var(--ink-muted)}
+.by-error{display:flex;align-items:center;gap:var(--space-2);font:500 13px/19px var(--font-text);color:var(--danger)}
+.by-success{display:flex;align-items:center;gap:var(--space-2);font:500 13px/19px var(--font-text);color:var(--success)}
+.by-warning{display:flex;align-items:center;gap:var(--space-2);font:500 13px/19px var(--font-text);color:var(--warning)}
+.by-error svg,.by-success svg,.by-warning svg{flex:none}
+
+/* Cards and images */
+.by-card{display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-5);border-radius:var(--radius-card);background:var(--bg-raised);color:var(--ink)}
+a.by-card{text-decoration:none}
+a.by-card:hover{background:var(--bg-hover)}
+.by-card h3{margin:0;font:500 19px/25px var(--font-display)}
+.by-card p{margin:0;color:var(--ink-muted);font-size:15px;line-height:24px}
+.by-image{display:block;overflow:hidden;border-radius:var(--radius-image);background:#000;aspect-ratio:4/5;width:100%}
+.by-image img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* Captions: bracketed, lowercase in English, light weight in Arabic */
+.by-caption{font:400 13px/19px var(--font-text);color:var(--ink-muted);margin:0}
+.by-caption[lang="ar"]{font-family:var(--font-arabic);font-weight:300;font-size:15px;line-height:26px}
+
+/* Loader and wobble */
+.by-dot{display:block;width:64px;height:auto}
+.by-fill-rect{animation:by-fill 2.4s cubic-bezier(.45,0,.25,1) infinite}
+@keyframes by-fill{0%{transform:translateY(1000px)}70%,100%{transform:translateY(0)}}
+@keyframes by-wobble{0%{transform:scale(1,1)}18%{transform:scale(1.08,.92)}38%{transform:scale(.96,1.04)}58%{transform:scale(1.04,.96)}78%{transform:scale(.99,1.01)}100%{transform:scale(1,1)}}
+.by-wobble{animation:by-wobble 1.2s ease-out 1}
+@media (prefers-reduced-motion:reduce){.by-fill-rect{animation:none;transform:translateY(500px)}.by-wobble{animation:none}}
