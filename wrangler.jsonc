@@ -1,0 +1,11 @@
+{
+  // Cloudflare Workers static assets: serves ./dist as a static site. No Worker script is needed.
+  // The name must match the Worker's name in the Cloudflare dashboard.
+  "name": "blueyolk",
+  "compatibility_date": "2026-10-04",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}
