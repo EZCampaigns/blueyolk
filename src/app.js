@@ -332,7 +332,7 @@
     var cardName = $('b', card), cardSub = $('small', card);
     var world = null, G = null, img = new Image(), offscreen = null;
     var scale = 0.3, tScale = 0.3, ox = 0, oy = 0, W = 0, H = 0, dpr = 1, mx = 0, my = 0, mdrag = false, lx = 0, ly = 0, raf = 0, zraf = 0, cellKey = '', ready = false;
-    var PYF = 0.46, MIN = 0.26, MAX = 3;
+    var PYF = 0.46, MIN = 0.26, MAX = 3, MA = null, TI = {};
     var ss = function (a, b, x) { x = Math.max(0, Math.min(1, (x - a) / (b - a))); return x * x * (3 - 2 * x); };
     var hash = function (a, b) { var h = a * 374761393 + b * 668265263; h = (h ^ (h >> 13)) * 1274126177; return ((h ^ (h >> 16)) >>> 0) / 4294967295; };
     var vnoise = function (x, y) {
@@ -343,17 +343,24 @@
     Promise.all([
       fetch(museum.getAttribute('data-world')).then(function (r) { return r.json(); }),
       new Promise(function (res, rej) { img.onload = res; img.onerror = rej; img.src = museum.getAttribute('data-atlas'); })
-    ]).then(function (r) { G = r[0]; build(); ready = true; resize(); center(); setScale(0.3); museum.classList.add('ready', 'far'); draw(); }, function () { /* the index still works */ });
+    ]).then(function (r) { G = r[0]; build(); ready = true; resize(); setScale(startScale()); museum.classList.add('ready', 'far'); draw(); }, function () { /* the index still works */ });
 
     /* the territory: a land with an unclear edge. Each tile fades with a noisy distance; the soft mask is the smoothed result. */
     function build() {
       var C = G.cols, R = G.rows, N = G.cell, S = C * N;
       var m = doc.createElement('canvas'); m.width = C; m.height = R;
       var mc = m.getContext('2d'), id = mc.createImageData(C, R);
+      MA = new Float32Array(C * R);
       for (var r = 0; r < R; r++) for (var c = 0; c < C; c++) {
-        var dx = c - (C - 1) / 2, dy = r - (R - 1) / 2, d = Math.hypot(dx, dy);
-        var nz = (vnoise(c * 0.5 + 3, r * 0.5 + 9) - 0.5) * 4.2 + (vnoise(c * 1.3, r * 1.3) - 0.5) * 1.4;
-        var a = 1 - ss(4.6, 8.2, d + nz), o = (r * C + c) * 4;
+        var dx = c - (C - 1) / 2, dy = r - (R - 1) / 2, d = Math.hypot(dx, dy), th = Math.atan2(dy, dx);
+        /* an irregular coastline: a wobbling radius, never a straight run */
+        var R0 = 4.5 + 1.0 * Math.sin(2 * th + 1.1) + 0.7 * Math.sin(3 * th + 0.4) + 0.4 * Math.sin(5 * th + 2.0);
+        var nz = (vnoise(c * 0.6 + 3, r * 0.6 + 9) - 0.5) * 1.8;
+        var a = 1 - ss(R0 - 1.3, R0 + 0.9, d + nz);
+        if (a > 0.02 && a < 0.98) a *= 0.55 + 0.45 * hash(c + 7, r + 3);
+        if (r === 0 || c === 0 || r === R - 1 || c === C - 1) a = 0;
+        MA[r * C + c] = a;
+        var o = (r * C + c) * 4;
         id.data[o] = id.data[o + 1] = id.data[o + 2] = 255; id.data[o + 3] = Math.round(a * 255);
       }
       mc.putImageData(id, 0, 0);
@@ -362,6 +369,17 @@
       wc.globalCompositeOperation = 'destination-in'; wc.imageSmoothingEnabled = true; wc.imageSmoothingQuality = 'high';
       wc.drawImage(m, 0, 0, S, S);
       offscreen = wc;
+    }
+    /* open close enough that the territory fills the screen, never a small island */
+    function startScale() { return Math.max(0.3, Math.min(0.58, 0.82 * Math.min(W, H * 0.8) / 700)); }
+    /* sharper tiles replace the atlas once a cell is big enough to see */
+    function tile(f) {
+      var t = TI[f];
+      if (t) return t;
+      t = TI[f] = { ok: false, img: new Image() };
+      t.img.onload = function () { t.ok = true; if (!raf && !zraf) draw(); };
+      t.img.src = f;
+      return t;
     }
     function WS() { return G.cols * G.cell; }
     function center() { var s = WS() * scale; ox = W / 2 - s / 2; oy = H * PYF - s / 2; }
@@ -395,6 +413,17 @@
       ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
       ctx.imageSmoothingEnabled = true;
       ctx.drawImage(world, ox, oy, WS() * scale, WS() * scale);
+      if (scale >= 1) {
+        var ks = G.cell * scale, c0 = Math.max(0, Math.floor(-ox / ks)), c1 = Math.min(G.cols - 1, Math.floor((W - ox) / ks)), r0 = Math.max(0, Math.floor(-oy / ks)), r1 = Math.min(G.rows - 1, Math.floor((H - oy) / ks));
+        for (var rr = r0; rr <= r1; rr++) for (var cc = c0; cc <= c1; cc++) {
+          var al = MA[rr * G.cols + cc];
+          if (al < 0.12) continue;
+          var tl = tile(G.tiles[G.d[rr][cc]].f);
+          if (!tl.ok) continue;
+          ctx.globalAlpha = al; ctx.drawImage(tl.img, cc * ks + ox, rr * ks + oy, ks + 0.6, ks + 0.6);
+        }
+        ctx.globalAlpha = 1;
+      }
       var far = scale < 0.6;
       museum.classList.toggle('far', far);
       var c = cellAt(), cs = G.cell * scale;
