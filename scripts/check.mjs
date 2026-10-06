@@ -30,7 +30,7 @@ for (const f of pages) {
   if (dup.length) problems.push(`${rel}: duplicate ids ${dup.join(',')}`);
   if (/\[object Object\]|undefined|NaN/.test(html.replace(/<script[\s\S]*?<\/script>/g, ''))) problems.push(`${rel}: stray undefined/NaN/[object Object]`);
   const isAr = rel.startsWith('/ar/');
-  if (!/<html lang="(en|ar)" dir="(ltr|rtl)">/.test(html)) problems.push(`${rel}: html lang/dir`);
+  if (!/<html lang="(en|ar)" dir="(ltr|rtl)"( data-theme="(light|dark)")?>/.test(html)) problems.push(`${rel}: html lang/dir`);
   if (isAr && !html.includes('lang="ar" dir="rtl"')) problems.push(`${rel}: Arabic page not rtl`);
   if (!isAr && rel !== '/404.html' && !html.includes('lang="en" dir="ltr"')) problems.push(`${rel}: English page not ltr`);
   // images need width/height and alt attribute
