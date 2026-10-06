@@ -267,3 +267,28 @@ html[lang="ar"] .offers li { font-family: var(--font-arabic); }
   .l-yolk.back, .l-fade, .reveal-in { transition: none; }
   .reveal-in { opacity: 1; transform: none; }
 }
+
+/* ---------- film theatre: the yolk opens ---------- */
+html.th-lock { overflow: hidden; }
+.theatre { position: fixed; inset: 0; z-index: 200; background: #000; color: #f4f2ee; overflow: hidden; animation: th-in .4s ease both; }
+@keyframes th-in { from { opacity: 0; } to { opacity: 1; } }
+.th-stage { position: absolute; inset: 0; display: grid; place-items: center; opacity: 0; transition: opacity .6s ease; }
+.theatre.open .th-stage { opacity: 1; }
+.th-frame { width: min(100vw, calc(100vh * var(--ratio, 1.7778))); aspect-ratio: var(--ratio, 1.7778); max-height: 100vh; background: #000; }
+.th-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+.th-dot { position: absolute; inset-inline-start: 50%; top: 42%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; background: var(--brand, #4262ff); animation: y-settle .7s cubic-bezier(.2,.8,.2,1) both, y-swell 2.4s .7s ease-in-out infinite; transition: opacity .5s; pointer-events: none; }
+[dir="rtl"] .th-dot { margin: -42px -42px 0 0; }
+.th-dot.go { animation: y-wobble .5s ease-out both, th-iris .9s .5s cubic-bezier(.7,0,.2,1) forwards; }
+.th-dot.gone { opacity: 0; }
+@keyframes th-iris { to { transform: scale(16); } }
+.th-info { position: absolute; left: 0; right: 0; top: calc(42% + 72px); text-align: center; padding-inline: 20px; transition: opacity .35s; }
+.th-info.out { opacity: 0; }
+.th-title { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(26px, 6vw, 44px); line-height: 1.05; }
+.th-meta { margin: 10px 0 0; color: #a9a9b2; font-size: 12px; }
+.th-status { margin: 18px 0 0; color: #7e7e88; font-size: 11px; }
+.th-x { position: absolute; top: max(14px, env(safe-area-inset-top)); inset-inline-end: 14px; z-index: 5; width: 44px; height: 44px; border-radius: 50%; border: 1px solid #ffffff44; background: #00000080; color: #fff; font-size: 16px; cursor: pointer; }
+.th-x:hover, .th-x:focus-visible { background: #ffffff22; }
+.th-now { position: absolute; top: max(14px, env(safe-area-inset-top)); inset-inline-start: 14px; z-index: 5; display: flex; align-items: center; gap: 8px; margin: 0; padding: 8px 12px 8px 10px; border-radius: 99px; background: #000000aa; border: 1px solid #ffffff2a; font-size: 11px; pointer-events: none; }
+.th-now[hidden] { display: none; }
+.th-now i { width: 10px; height: 10px; border-radius: 50%; background: var(--brand, #4262ff); animation: y-swell 2.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .th-dot, .th-now i { animation: none !important; } .th-dot.go { transform: scale(16); } .theatre { animation: none; } }

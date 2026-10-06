@@ -179,6 +179,94 @@
     });
   }
 
+
+  /* ---------- project page: the film theatre (the yolk opens) ---------- */
+  var watchBtn = $('[data-watch]');
+  if (watchBtn) {
+    var th = null, timers = [], opener = null, sdkTried = false;
+    var later = function (ms, f) { timers.push(setTimeout(f, ms)); };
+    var build = function () {
+      var d = doc.createElement('div');
+      d.className = 'theatre'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
+      d.setAttribute('aria-label', watchBtn.getAttribute('data-title'));
+      d.innerHTML = '<div class="th-stage"><div class="th-frame"></div></div>' +
+        '<div class="th-dot" aria-hidden="true"></div>' +
+        '<div class="th-info"><p class="th-title"></p><p class="th-meta mono caps"></p><p class="th-status mono caps"></p></div>' +
+        '<p class="th-now mono caps" hidden><i aria-hidden="true"></i><span></span></p>' +
+        '<button type="button" class="th-x"></button>';
+      d.querySelector('.th-title').textContent = watchBtn.getAttribute('data-title');
+      d.querySelector('.th-meta').textContent = watchBtn.getAttribute('data-meta') || '';
+      d.querySelector('.th-status').textContent = watchBtn.getAttribute('data-starting');
+      d.querySelector('.th-now span').textContent = watchBtn.getAttribute('data-now');
+      var x = d.querySelector('.th-x'); x.textContent = '✕'; x.setAttribute('aria-label', watchBtn.getAttribute('data-close'));
+      d.style.setProperty('--ratio', watchBtn.getAttribute('data-ratio') || '1.7778');
+      doc.body.appendChild(d);
+      x.addEventListener('click', closeTheatre);
+      return d;
+    };
+    var closeTheatre = function () {
+      if (!th) return;
+      timers.forEach(clearTimeout); timers = [];
+      th.remove(); th = null;
+      doc.documentElement.classList.remove('th-lock');
+      doc.removeEventListener('keydown', onKey);
+      if (opener) opener.focus();
+    };
+    var onKey = function (e) {
+      if (e.key === 'Escape') closeTheatre();
+      if (e.key === 'Tab' && th) { e.preventDefault(); th.querySelector('.th-x').focus(); }
+    };
+    var openTheatre = function (e) {
+      e.preventDefault();
+      if (th) return;
+      opener = watchBtn;
+      th = build();
+      var cur = th, t0 = Date.now(), revealed = false;
+      doc.documentElement.classList.add('th-lock');
+      doc.addEventListener('keydown', onKey);
+      cur.querySelector('.th-x').focus();
+      var frame = document.createElement('iframe');
+      frame.title = watchBtn.getAttribute('data-title');
+      frame.allow = 'accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;';
+      frame.setAttribute('allowfullscreen', '');
+      cur.querySelector('.th-frame').appendChild(frame);
+      var reveal = function () {
+        if (revealed || th !== cur) return;
+        revealed = true;
+        var dot = cur.querySelector('.th-dot');
+        dot.classList.add('go');
+        cur.querySelector('.th-info').classList.add('out');
+        later(reduce ? 0 : 560, function () { cur.classList.add('open'); });
+        later(reduce ? 0 : 1000, function () { dot.classList.add('gone'); });
+        later(1300, function () { try { hookPlayer(cur, frame); } catch (er) {} });
+      };
+      frame.addEventListener('load', function () {
+        later(Math.max(0, 2300 - (Date.now() - t0)), reveal);
+      });
+      later(12000, reveal);
+      frame.src = watchBtn.getAttribute('data-src');
+    };
+    /* "Now playing" chip, only if Stream's player SDK is reachable */
+    var hookPlayer = function (cur, frame) {
+      var chip = cur.querySelector('.th-now');
+      var attach = function () {
+        if (!window.Stream || th !== cur) return;
+        var p = window.Stream(frame);
+        p.addEventListener('playing', function () { chip.hidden = false; });
+        p.addEventListener('pause', function () { chip.hidden = true; });
+        p.addEventListener('ended', function () { chip.hidden = true; });
+      };
+      if (window.Stream) return attach();
+      if (sdkTried) return;
+      sdkTried = true;
+      var s = doc.createElement('script');
+      s.src = 'https://embed.cloudflarestream.com/embed/sdk.latest.js';
+      s.onload = attach;
+      doc.head.appendChild(s);
+    };
+    watchBtn.addEventListener('click', openTheatre);
+  }
+
   /* ---------- stills: the contact sheet ---------- */
   var big = $('#s-big');
   if (big) {
