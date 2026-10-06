@@ -5,6 +5,7 @@ role:
 discipline: film
 video: 784eace440b251b48ff4708b6143f8fc
 still: 388
+seconds: 775
 ratio: 2.35
 imageAlt: A dark concert hall, a figure standing in the stage light
 caption: [ episode one · web series pilot · 13 min ]

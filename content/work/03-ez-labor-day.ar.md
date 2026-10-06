@@ -5,6 +5,7 @@ role:
 discipline: campaign
 video: 7570f99790771cffd56c316e10b781c0
 still: 99
+seconds: 142
 ratio: 1.7778
 imageAlt: رجل وامرأة في غرفة خافتة الإضاءة، ترتدي وشاحًا أزرق وقرط لؤلؤ
 caption: [ فيلم حملة لـ EZ · دقيقتان ]

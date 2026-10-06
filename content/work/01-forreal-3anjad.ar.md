@@ -5,6 +5,7 @@ role:
 discipline: film
 video: 784eace440b251b48ff4708b6143f8fc
 still: 388
+seconds: 775
 ratio: 2.35
 imageAlt: قاعة حفلات معتمة وشخص يقف تحت ضوء المسرح
 caption: [ الحلقة الأولى · حلقة تجريبية لمسلسل ويب · ١٣ دقيقة ]
