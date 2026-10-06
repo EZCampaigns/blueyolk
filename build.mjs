@@ -73,6 +73,7 @@ const streamStill = (id, sec, h = 1000) => `${STREAM}/${id}/thumbnails/thumbnail
 
 function imgFor(item, lang) {
   if (item.video) return { src: streamStill(item.video, item.still), alt: item.imageAlt || '' };
+  if (item.stills) return { src: `/stills/${item.stills}-${pad(item.cover || 1)}.jpg`, alt: item.imageAlt || '' };
   if (item.image) return { src: item.image, alt: item.imageAlt || '' };
   const n = Number(item.plate) || 1;
   return { src: `/img/plate-${n}.svg`, alt: plateAlt[lang][n] || '' };
@@ -183,7 +184,7 @@ function exhibitRow(lang, ex, i) {
     <span class="mono num">${pad(i + 1)}</span>
     <span class="title">${esc(ex.title)}${ex.standin ? ' ' + tag(t) : ''}</span>
     <span class="mono disc caps">${esc(t.disciplines[ex.discipline] || ex.discipline)}</span>
-    <span class="mono yr">${esc(ex.year)}</span>
+    <span class="mono yr">${esc(ex.year || "")}</span>
     ${ARROW}
     <span class="thumb" aria-hidden="true"><img src="${im.src}" alt="" loading="lazy" width="1600" height="1000"></span>
   </a>
@@ -217,15 +218,17 @@ function home(lang) {
     parentOrganization: { '@type': 'Organization', name: 'EZ', sameAs: [SITE.instagram] },
   })}</script>`;
   const main = `
-<section class="hero">
+<section class="hero" data-mosaic="${href(lang, '/mosaic.json')}">
+  <div class="mosaic" aria-hidden="true"></div>
   <p class="hero-eyebrow mono caps muted">${esc(t.eyebrow)}</p>
   ${dotSvg('hero-dot')}
   <h1 class="hero-statement display">${esc(t.tagline)}</h1>
   <p class="hero-cta"><a href="${href(lang, '/work/')}"><span>${esc(t.enter)}</span>${ARROW}</a></p>
+  <a class="mosaic-open" href="${href(lang, '/work/')}" hidden></a>
 </section>
 <section class="section wrap">
   <div class="section-head"><h2>${esc(t.selected)}</h2><a class="mono arrow-link" href="${href(lang, '/work/')}">${esc(t.allWork)} ${ARROW}</a></div>
-  <ul class="rows">${work[lang].map((ex, i) => exhibitRow(lang, ex, i)).join('\n')}</ul>
+  <ul class="rows">${work[lang].slice(0, 6).map((ex, i) => exhibitRow(lang, ex, i)).join('\n')}</ul>
 </section>
 <section class="section wrap">
   <div class="section-head"><h2>${esc(t.fromJournal)}</h2><a class="mono arrow-link" href="${href(lang, '/journal/')}">${esc(t.allJournal)} ${ARROW}</a></div>
@@ -249,7 +252,7 @@ function workIndex(lang) {
     const im = imgFor(ex, lang);
     return `<a class="card reveal-in" data-cat="${esc(ex.discipline)}" href="${href(lang, `/work/${ex.slug}/`)}">
   <div class="frame"><img src="${im.src}" alt="" loading="lazy" width="1600" height="1000"></div>
-  <div class="meta mono caps"><span>${esc(t.disciplines[ex.discipline] || ex.discipline)}</span><span>${esc(ex.year)}</span></div>
+  <div class="meta mono caps"><span>${esc(t.disciplines[ex.discipline] || ex.discipline)}</span><span>${esc(ex.year || "")}</span></div>
   <h3>${esc(ex.title)}${ex.standin ? ' ' + tag(t) : ''}</h3>
   <p>${esc(ex.summary || '')}</p>
 </a>`;
@@ -279,7 +282,7 @@ function exhibitPage(lang, ex, i) {
   <h1 class="exhibit-title">${esc(ex.title)}</h1>
   ${ex.standin ? `<p class="mono" style="margin:-8px 0 24px">${tag(t)} <span class="muted">${esc(t.standinNote)}</span></p>` : ''}
   <dl class="facts mono">
-    ${ex.year ? `<div><dt class="caps">${esc(t.year)}</dt><dd>${esc(ex.year)}</dd></div>` : ''}
+    ${ex.year ? `<div><dt class="caps">${esc(t.year)}</dt><dd>${esc(ex.year || "")}</dd></div>` : ''}
     ${ex.role ? `<div><dt class="caps">${esc(t.role)}</dt><dd>${esc(ex.role)}</dd></div>` : ''}
     <div><dt class="caps">${esc(t.discipline)}</dt><dd>${esc(t.disciplines[ex.discipline] || ex.discipline)}</dd></div>
   </dl>
@@ -288,6 +291,7 @@ ${ex.video
   ? `<div class="exhibit-hero is-video" style="--ratio:${Number(ex.ratio) || 1.7778}"><iframe src="${STREAM}/${ex.video}/iframe?poster=${encodeURIComponent(streamStill(ex.video, ex.still, 1080))}" title="${esc(ex.title)}" loading="lazy" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen></iframe></div>`
   : `<div class="exhibit-hero"><img src="${im.src}" alt="${esc(im.alt)}" width="1600" height="1000"></div>`}
 ${ex.caption ? `<p class="by-caption exhibit-caption"${lang === 'ar' ? ' lang="ar"' : ''}>${esc(ex.caption)}</p>` : ''}
+${ex.stills && ex.count > 1 ? `<div class="wrap"><ul class="gallery">${Array.from({ length: ex.count }, (_, k) => `<li><img src="/stills/${ex.stills}-${pad(k + 1)}.jpg" alt="${esc(ex.imageAlt || ex.title)} (${k + 1}/${ex.count})" loading="lazy" width="1400" height="788"></li>`).join('')}</ul></div>` : ''}
 <div class="wrap" style="padding-block-start:clamp(36px,5vw,72px)">
   <div class="exhibit-body">
     <div class="prose">${ex.body}</div>
@@ -401,6 +405,21 @@ rmSync(DIST, { recursive: true, force: true });
 mkdirSync(DIST, { recursive: true });
 
 if (existsSync(join(ROOT, 'public'))) cpSync(join(ROOT, 'public'), DIST, { recursive: true });
+// The mosaic: every exhibit with real images contributes tiles. Films on Stream contribute frames at several moments.
+for (const l of LANGS) {
+  const tiles = [];
+  for (const ex of work[l]) {
+    const label = `${ex.title}`;
+    const url = href(l, `/work/${ex.slug}/`);
+    if (ex.stills) for (let k = 1; k <= (ex.count || 1); k++) tiles.push({ s: `/tiles/${ex.stills}-${pad(k)}.jpg`, t: label, u: url, d: ex.discipline });
+    else if (ex.video) {
+      const dur = Number(ex.seconds) || 120;
+      const secs = Array.from({ length: 10 }, (_, i) => Math.round(((i + 0.5) * dur) / 10));
+      secs.forEach((x, k) => tiles.push({ s: streamStill(ex.video, x, 220), t: label, u: url, d: ex.discipline, f: secs.map((y) => streamStill(ex.video, y + 2, 220)) }));
+    }
+  }
+  write(l === 'en' ? 'mosaic.json' : 'ar/mosaic.json', JSON.stringify({ tiles, open: T[l].enter }));
+}
 write('assets/style.css', css);
 write('assets/app.js', js);
 for (let n = 1; n <= plateCount; n++) write(`img/plate-${n}.svg`, plate(n));
