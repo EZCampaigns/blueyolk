@@ -93,6 +93,7 @@ function logo(lang, name, tone = 'dark', h = 28) {
 }
 
 /* ---------- work data helpers ---------- */
+const metaOf = (lang, ex) => [catLabel(lang, catOf(ex)), ex.year, ex.country, ex.seconds ? T[lang].minutes(Math.max(1, Math.round(Number(ex.seconds) / 60))) : ''].filter(Boolean).map(String);
 const catOf = (ex) => ex.discipline || 'film';
 const catLabel = (lang, k) => T[lang].disciplines[k] || k;
 const cover = (ex, lang, h = 720) => imgFor(ex, lang, false);
@@ -330,17 +331,17 @@ function exhibitPage(lang, ex, i) {
   <div class="wrap proj-info">
     <p class="r-count mono caps"><i aria-hidden="true"></i><span data-reel-count>${pad(1)} / ${pad(fr.length)}</span></p>
     <h1 class="exhibit-title">${esc(ex.title)}</h1>
-    <p class="proj-meta mono caps muted">${esc(catLabel(lang, catOf(ex)))}${ex.year ? ' · ' + esc(ex.year) : ''}${ex.role ? ' · ' + esc(ex.role) : ''}</p>
+    <p class="proj-meta mono caps muted">${esc(metaOf(lang, ex).join(' · '))}${ex.role ? ' · ' + esc(ex.role) : ''}</p>
     ${ex.standin ? `<p class="mono" style="margin:0 0 16px">${tag(t)} <span class="muted">${esc(t.standinNote)}</span></p>` : ''}
     ${ex.caption ? `<p class="by-caption exhibit-caption"${lang === 'ar' ? ' lang="ar"' : ''}>${esc(ex.caption)}</p>` : ''}
     <div class="prose proj-prose">${ex.body}</div>
     <div class="acts">
-      ${ex.video ? `<a class="by-btn by-btn-primary" href="#film">${esc(t.watch)}</a>` : ''}
+      ${ex.video ? `<a class="by-btn by-btn-primary" href="#film" data-watch data-src="${STREAM}/${ex.video}/iframe?poster=${encodeURIComponent(streamStill(ex.video, ex.still, 1080))}&amp;autoplay=true&amp;primaryColor=%234262ff&amp;letterboxColor=000000" data-title="${esc(ex.title)}" data-meta="${esc(metaOf(lang, ex).join(' · '))}" data-ratio="${Number(ex.ratio) || 1.7778}" data-starting="${esc(t.startingFilm)}" data-now="${esc(t.nowPlaying)}" data-close="${esc(t.close)}">${esc(t.watch)}</a>` : ''}
       <a class="by-btn by-btn-secondary" href="${href(lang, `/work/${ex.slug}/stills/`)}">${esc(t.stills)}</a>
     </div>
     ${credits ? `<div class="credits-block"><h2 class="mono caps muted" style="margin:0 0 8px;font-weight:400">${esc(t.credits)}</h2><ul class="credits mono">${credits}</ul></div>` : ''}
   </div>
-  ${ex.video ? `<div class="wrap" id="film"><div class="exhibit-hero is-video" style="--ratio:${Number(ex.ratio) || 1.7778}"><iframe src="${STREAM}/${ex.video}/iframe?poster=${encodeURIComponent(streamStill(ex.video, ex.still, 1080))}" title="${esc(ex.title)}" loading="lazy" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen></iframe></div></div>` : ''}
+ ${ex.video ? `<noscript><div class="wrap" id="film"><div class="exhibit-hero is-video" style="--ratio:${Number(ex.ratio) || 1.7778}"><iframe src="${STREAM}/${ex.video}/iframe?poster=${encodeURIComponent(streamStill(ex.video, ex.still, 1080))}" title="${esc(ex.title)}" loading="lazy" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen></iframe></div></div></noscript>` : ''}
   <div class="wrap">
     <p class="mono caps back" style="margin-block-start:var(--space-6)"><a href="${href(lang, '/work/')}">← ${esc(t.back)}</a></p>
     <a class="next-exhibit" href="${href(lang, `/work/${next.slug}/`)}">
