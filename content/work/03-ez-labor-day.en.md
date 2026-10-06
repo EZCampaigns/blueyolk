@@ -1,5 +1,6 @@
 ---
-title: EZ Labor Day
+title: Labor Day
+slug: labor-day
 year:
 role:
 discipline: campaign
@@ -8,7 +9,7 @@ still: 99
 seconds: 142
 ratio: 1.7778
 imageAlt: A man and a woman in a dim room, she wears a blue headscarf and a pearl earring
-caption: [ campaign film for ez · 2 min ]
-summary: A campaign film for EZ about the girl with the pearl earring, to say that it is never easy.
+caption: [ campaign film · 2 min ]
+summary: A campaign film about the girl with the pearl earring, to say that it is never easy.
 ---
-A campaign film made for EZ. It is about the girl with the pearl earring, all to say that it is never easy.
+A campaign film about the girl with the pearl earring, all to say that it is never easy.
