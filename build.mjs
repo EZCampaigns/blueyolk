@@ -498,7 +498,7 @@ function worldJson(lang) {
   const tiles = WORLD.tiles.map((f) => {
     const slug = f.replace(/-\d+$/, '');
     const ex = byStills.get(slug);
-    return ex ? { n: ex.title, u: href(lang, `/work/${ex.slug}/`), c: catLabel(lang, catOf(ex)) } : { n: slug, u: href(lang, '/work/'), c: '' };
+    return ex ? { n: ex.title, u: href(lang, `/work/${ex.slug}/`), c: catLabel(lang, catOf(ex)), f: `/wt/${f}.jpg` } : { n: slug, u: href(lang, '/work/'), c: '', f: `/wt/${f}.jpg` };
   });
   return JSON.stringify({ cols: WORLD.cols, rows: WORLD.rows, cell: WORLD.cell, d: WORLD.d, tiles });
 }
@@ -540,6 +540,9 @@ write('_headers', `/*
   Cache-Control: public, max-age=31536000, immutable
 
 /img/*
+  Cache-Control: public, max-age=86400
+
+/wt/*
   Cache-Control: public, max-age=86400
 
 /world.webp
