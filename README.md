@@ -1,6 +1,6 @@
 # Blue Yolk (blueyolk.org)
 
-The production lab and studio of EZ. A small static site in English and Arabic, built with plain Node (no packages to install).
+A production lab and studio. A small static site in English and Arabic, built with plain Node (no packages to install).
 
 ## Run it on your computer
 

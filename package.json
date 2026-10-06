@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "blueyolk.org: the production lab and studio of EZ. A dependency-free static site, English and Arabic.",
+  "description": "blueyolk.org: a production lab and studio. A dependency-free static site, English and Arabic.",
   "scripts": {
     "build": "node build.mjs && node scripts/check.mjs",
     "dev": "node build.mjs && node serve.mjs"

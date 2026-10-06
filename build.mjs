@@ -154,7 +154,6 @@ ${main}
     </div>
     <ul class="mono caps">${navKeys.map((k) => `<li><a href="${href(lang, `/${k}/`)}">${esc(t.nav[k])}</a></li>`).join('')}</ul>
     <ul class="mono">
-      <li><a href="${SITE.instagram}" rel="noopener" target="_blank">EZ · Instagram</a></li>
       <li><a href="${href(other, path)}" hreflang="${other}" lang="${other}">${esc(T[other].switchLabel)}</a></li>
     </ul>
   </div>
@@ -215,7 +214,6 @@ function home(lang) {
     email: SITE.email,
     description: T.en.homeDesc,
     founder: { '@type': 'Person', name: SITE.founder },
-    parentOrganization: { '@type': 'Organization', name: 'EZ', sameAs: [SITE.instagram] },
   })}</script>`;
   const main = `
 <section class="hero" data-mosaic="${href(lang, '/mosaic.json')}">
@@ -378,9 +376,7 @@ function contactPage(lang) {
   <h1 class="page-title">${esc(t.contactTitle)}</h1>
   <p class="page-intro">${esc(t.contactBody)}</p>
   <a class="contact-mail" href="mailto:${SITE.email}">${SITE.email}</a>
-  <ul class="mono" style="list-style:none;padding:0;margin:0 0 clamp(56px,9vw,130px)">
-    <li><a href="${SITE.instagram}" rel="noopener" target="_blank">EZ · ${esc(t.contactEz)} ${ARROW}</a></li>
-  </ul>
+  <div style="height:clamp(56px,9vw,130px)"></div>
 </div>`;
   emit(lang, '/contact/', layout(lang, { path: '/contact/', title: t.contactTitle, desc: t.contactDesc, main, bodyClass: 'page-contact' }));
 }
@@ -411,11 +407,11 @@ for (const l of LANGS) {
   for (const ex of work[l]) {
     const label = `${ex.title}`;
     const url = href(l, `/work/${ex.slug}/`);
-    if (ex.stills) for (let k = 1; k <= (ex.count || 1); k++) tiles.push({ s: `/tiles/${ex.stills}-${pad(k)}.jpg`, t: label, u: url, d: ex.discipline });
+    if (ex.stills) for (let k = 1; k <= (ex.count || 1); k++) tiles.push({ s: `/tiles/${ex.stills}-${pad(k)}.jpg`, t: label, u: url, d: T[l].disciplines[ex.discipline] || ex.discipline });
     else if (ex.video) {
       const dur = Number(ex.seconds) || 120;
       const secs = Array.from({ length: 10 }, (_, i) => Math.round(((i + 0.5) * dur) / 10));
-      secs.forEach((x, k) => tiles.push({ s: streamStill(ex.video, x, 220), t: label, u: url, d: ex.discipline, f: secs.map((y) => streamStill(ex.video, y + 2, 220)) }));
+      secs.forEach((x, k) => tiles.push({ s: streamStill(ex.video, x, 220), t: label, u: url, d: T[l].disciplines[ex.discipline] || ex.discipline, f: secs.map((y) => streamStill(ex.video, y + 2, 220)) }));
     }
   }
   write(l === 'en' ? 'mosaic.json' : 'ar/mosaic.json', JSON.stringify({ tiles, open: T[l].enter }));
