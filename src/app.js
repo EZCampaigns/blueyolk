@@ -47,7 +47,9 @@
   }
 
 
-  /* mosaic home: every tile is a frame from the work; from far away the tiles form the dot */
+  /* mosaic home: every tile is a frame from the work; from far away the tiles form the dot.
+     The pointer acts as a soft lens: tiles swell smoothly around it, and when it rests the
+     tile settles and a "now playing" card slides up. */
   var hero = doc.querySelector('[data-mosaic]');
   if (hero) {
     var host = hero.querySelector('.mosaic');
@@ -55,13 +57,26 @@
       var tiles = data.tiles || [];
       if (!tiles.length) return;
       var rtl = doc.documentElement.dir === 'rtl';
-      var cells = [], cols = 0, rows = 0, active = null, last = null, cap = null;
+      var cells = [], cols = 0, rows = 0, pitch = 60;
+      var px = -1e4, py = -1e4, has = false, touch = false;
+      var center = null, settled = false, lastMove = 0, raf = 0, hideT = 0, frameT = 0, overPlayer = false, tapped = null;
       var small = function () { return window.innerWidth < 700; };
       function rnd(seed) { var a = seed; return function () { a = (a * 16807) % 2147483647; return a / 2147483647; }; }
+
+      /* the now-playing card */
+      var player = doc.createElement('a');
+      player.className = 'm-player';
+      player.innerHTML = '<span class="m-thumb"></span><span class="m-meta"><b></b><small></small></span><span class="m-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="m-go" aria-hidden="true">→</span>';
+      hero.appendChild(player);
+      var pThumb = player.querySelector('.m-thumb'), pTitle = player.querySelector('b'), pSub = player.querySelector('small');
+      player.addEventListener('pointerenter', function () { overPlayer = true; clearTimeout(hideT); });
+      player.addEventListener('pointerleave', function () { overPlayer = false; if (!touch) release(); });
+
       function build() {
         host.innerHTML = ''; cells = [];
         var W = hero.clientWidth, H = hero.clientHeight, size = small() ? 38 : 56, gap = 2;
-        cols = Math.ceil(W / (size + gap)); rows = Math.ceil(H / (size + gap));
+        pitch = size + gap;
+        cols = Math.ceil(W / pitch); rows = Math.ceil(H / pitch);
         host.style.gridTemplateColumns = 'repeat(' + cols + ',' + size + 'px)';
         host.style.gridTemplateRows = 'repeat(' + rows + ',' + size + 'px)';
         var cx = cols * (small() ? 0.5 : (rtl ? 0.38 : 0.62)), cy = rows * (small() ? 0.42 : 0.5);
@@ -78,56 +93,106 @@
           var el = doc.createElement('div');
           el.className = 'm-cell'; el.style.backgroundImage = 'url(' + tile.s + ')';
           el.style.setProperty('--o', (1 - b).toFixed(2));
-          el.innerHTML = '<i></i>'; el._tile = tile; el._x = x; el._y = y; el._b = b;
+          el.innerHTML = '<i></i>';
+          el._tile = tile; el._x = x; el._y = y; el._b = b; el._s = 1; el._k = 0; el._z = 0;
           frag.appendChild(el); cells.push(el);
         }
         host.appendChild(frag);
-        if (!cap) { cap = doc.createElement('div'); cap.className = 'm-cap'; hero.appendChild(cap); }
       }
-      var timer = null;
-      function frames(el) {
-        clearInterval(timer);
-        var f = el._tile.f; if (!f) return; var k = 0;
-        timer = setInterval(function () { k = (k + 1) % f.length; el.style.backgroundImage = 'url(' + f[k] + ')'; }, 450);
-      }
-      function setActive(el) {
-        if (el === active) return;
-        if (active) { active.classList.remove('is-active'); active.style.backgroundImage = 'url(' + active._tile.s + ')'; clearInterval(timer); }
-        cells.forEach(function (c) { if (c.classList.contains('is-near')) c.classList.remove('is-near'); });
-        active = el;
-        if (!el) { cap.classList.remove('on'); return; }
-        // keep the lifted tile fully on screen: nudge its origin toward the middle at the edges
-        var ox = el._x < 2 ? '0%' : el._x > cols - 3 ? '100%' : '50%', oy = el._y < 2 ? '0%' : el._y > rows - 3 ? '100%' : '50%';
-        el.style.transformOrigin = ox + ' ' + oy;
-        el.classList.add('is-active'); frames(el);
-        cells.forEach(function (c) { if (Math.abs(c._x - el._x) < 3 && Math.abs(c._y - el._y) < 3) c.classList.add('is-near'); });
-        cap.innerHTML = '<a href="' + el._tile.u + '">' + el._tile.t.replace(/</g, '&lt;') + ' →</a>';
-        cap.classList.add('on');
-      }
-      function cellAt(e) {
-        var el = doc.elementFromPoint(e.clientX, e.clientY);
-        return el && el.closest ? el.closest('.m-cell') : null;
-      }
-      host.addEventListener('pointermove', function (e) { var c = cellAt(e); if (c) setActive(c); });
-      host.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') setActive(null); });
-      host.addEventListener('click', function (e) {
-        var c = cellAt(e); if (!c) return;
-        if (e.pointerType === 'touch' || window.matchMedia('(hover: none)').matches) {
-          if (c === active && last === c) { location.href = c._tile.u; return; }
-          setActive(c); last = c; return;
+
+      function showPlayer(c) {
+        var t = c._tile;
+        pTitle.textContent = t.t; pSub.textContent = t.d || '';
+        pThumb.style.backgroundImage = 'url(' + t.s + ')';
+        player.setAttribute('href', t.u);
+        player.classList.add('on');
+        clearInterval(frameT);
+        if (t.f && !reduce) {
+          var k = 0;
+          frameT = setInterval(function () {
+            k = (k + 1) % t.f.length;
+            c.style.backgroundImage = 'url(' + t.f[k] + ')'; pThumb.style.backgroundImage = 'url(' + t.f[k] + ')';
+          }, 700);
         }
-        location.href = c._tile.u;
+      }
+      function hidePlayer() { player.classList.remove('on'); clearInterval(frameT); }
+      function reset(c) { if (c) c.style.backgroundImage = 'url(' + c._tile.s + ')'; }
+      function release() {
+        clearTimeout(hideT);
+        hideT = setTimeout(function () {
+          if (overPlayer) return;
+          has = false; reset(center); center = null; settled = false; hidePlayer(); wake();
+        }, 650);
+      }
+
+      function frame() {
+        raf = 0;
+        var now = performance.now(), busy = false;
+        var fx = px / pitch - 0.5, fy = py / pitch - 0.5;
+        var ci = Math.round(fx), cj = Math.round(fy);
+        var cc = has && ci >= 0 && cj >= 0 && ci < cols && cj < rows ? cells[cj * cols + ci] : null;
+        if (cc !== center) {
+          reset(center); center = cc; settled = false; hidePlayer(); clearInterval(frameT);
+          if (cc) {
+            var ox = cc._x < 2 ? '0%' : cc._x > cols - 3 ? '100%' : '50%', oy = cc._y < 2 ? '0%' : cc._y > rows - 3 ? '100%' : '50%';
+            cc.style.transformOrigin = ox + ' ' + oy;
+          }
+        }
+        if (cc && !settled && now - lastMove > 420) { settled = true; showPlayer(cc); }
+        var f = reduce ? 1 : 0.13, sig = touch ? 1.5 : 1.35, amp = touch ? 0.6 : 0.5;
+        var big = small() ? 2.9 : 3.3, mid = small() ? 1.8 : 1.95;
+        for (var i = 0; i < cells.length; i++) {
+          var c = cells[i], tS = 1, tK = 0;
+          if (has) {
+            var dx = c._x - fx, dy = c._y - fy, d2 = dx * dx + dy * dy;
+            if (d2 < 30) { var g = Math.exp(-d2 / (2 * sig * sig)); tS = 1 + amp * g; tK = g; }
+            if (c === center) { tS = settled ? big : mid; tK = 1; }
+          }
+          var ds = tS - c._s, dk = tK - c._k;
+          if (ds > 0.002 || ds < -0.002 || dk > 0.004 || dk < -0.004) {
+            c._s += ds * f; c._k += dk * f; busy = true;
+            c.style.transform = c._s > 1.004 ? 'scale(' + c._s.toFixed(3) + ')' : '';
+            c.style.setProperty('--k', c._k.toFixed(3));
+            var z = c === center ? 6 : (c._s > 1.05 ? 3 : 0);
+            if (z !== c._z) { c.style.zIndex = z || ''; c._z = z; }
+          }
+        }
+        if (busy || (has && !settled) || has) raf = requestAnimationFrame(frame);
+      }
+      function wake() { if (!raf) raf = requestAnimationFrame(frame); }
+
+      function point(e) {
+        var r = hero.getBoundingClientRect();
+        px = e.clientX - r.left; py = e.clientY - r.top;
+      }
+      host.addEventListener('pointerenter', function (e) { touch = e.pointerType === 'touch'; clearTimeout(hideT); });
+      host.addEventListener('pointermove', function (e) {
+        touch = e.pointerType === 'touch'; point(e); has = true; lastMove = performance.now(); clearTimeout(hideT); wake();
       });
-      host.parentNode.addEventListener('keydown', function () {});
+      host.addEventListener('pointerdown', function (e) {
+        touch = e.pointerType === 'touch'; tapped = center; point(e); has = true; clearTimeout(hideT);
+        lastMove = touch ? performance.now() - 1000 : performance.now(); wake();
+      });
+      host.addEventListener('pointerleave', function (e) { if (e.pointerType !== 'touch') release(); });
+      host.addEventListener('click', function (e) {
+        if (!center) return;
+        if (touch) { if (tapped === center && settled) location.href = center._tile.u; return; }
+        location.href = center._tile.u;
+      });
+      doc.addEventListener('pointerdown', function (e) { if (touch && !hero.contains(e.target)) release(); });
+
       build(); hero.classList.add('has-mosaic');
-      host.removeAttribute('aria-hidden');
-      // idle life: a tile lifts now and then when nobody is touching it
+      /* idle life: now and then a bright tile settles by itself so the page is never dead */
       if (!reduce) setInterval(function () {
-        if (doc.hidden || host.matches(':hover')) return;
-        var c = cells[Math.floor(Math.random() * cells.length)];
-        if (c && c._b > 0.5) { setActive(c); setTimeout(function () { if (active === c && !host.matches(':hover')) setActive(null); }, 2600); }
-      }, 4200);
-      var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { setActive(null); build(); }, 250); });
+        if (doc.hidden || has) return;
+        var pick = null, tries = 0;
+        while (tries++ < 40) { var c = cells[Math.floor(Math.random() * cells.length)]; if (c._b > 0.6) { pick = c; break; } }
+        if (!pick) return;
+        var r = hero.getBoundingClientRect();
+        px = (pick._x + 0.5) * pitch; py = (pick._y + 0.5) * pitch; has = true; touch = false; lastMove = performance.now(); wake();
+        setTimeout(function () { if (center === pick) { has = false; release(); } }, 3600);
+      }, 6500);
+      var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { has = false; center = null; hidePlayer(); build(); }, 250); });
     }).catch(function () {});
   }
 
