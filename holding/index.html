@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Blue Yolk · بلو يولك</title>
+<meta name="description" content="Blue Yolk is a creative space in Beirut. A new home for ideas, films and everything in between, opening soon.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="Blue Yolk · Still in the making">
+<meta property="og:description" content="A new home for ideas, films and everything in between. Made in Beirut, opening soon.">
+<meta property="og:image" content="https://blueyolk.org/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Outfit:wght@300;400;500&family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--raise:#1c1c1e;--line:#38383a;--ink:#fff;--mute:#aeaeb2;--blue:#4262ff;--ctl:#8e8e93;color-scheme:dark}
+*{box-sizing:border-box}
+html{background:#000}
+body{background:var(--bg);color:var(--ink);font:400 16px/26px Outfit,'IBM Plex Sans Arabic',sans-serif;margin:0;min-height:100vh;min-height:100dvh}
+[dir=rtl] body{font-family:'IBM Plex Sans Arabic',Outfit,sans-serif}
+button,a{font:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.page{position:relative;min-height:100vh;min-height:100dvh;padding:calc(24px + env(safe-area-inset-top,0px)) 16px calc(32px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;overflow:hidden}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;max-width:1100px;width:100%;margin:0 auto}
+.name{display:flex;align-items:center;gap:10px;font:500 15px/1 'Bricolage Grotesque','IBM Plex Sans Arabic',sans-serif}
+[dir=rtl] .name{font-family:'IBM Plex Sans Arabic';font-weight:600}
+.name svg{width:20px;height:auto}
+.tr{display:flex;align-items:center;gap:16px}
+.cap{font:400 13px/19px Outfit,'IBM Plex Sans Arabic',sans-serif;color:var(--mute);margin:0}
+[dir=rtl] .cap{font-family:'IBM Plex Sans Arabic';font-weight:300;font-size:15px}
+#lang{border:1px solid var(--ctl);background:none;color:var(--ink);border-radius:999px;min-width:44px;height:44px;padding:0 14px;cursor:pointer;font-size:14px}
+#lang:hover{background:#ffffff1a}
+.mid{flex:1;display:flex;flex-direction:column;justify-content:center;max-width:1100px;width:100%;margin:0 auto;padding-block:32px;position:relative;z-index:1}
+.tc{font:400 clamp(14px,2vw,18px)/1 Outfit,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:var(--mute);display:flex;gap:12px;align-items:center;margin-bottom:28px;direction:ltr}
+[dir=rtl] .tc{justify-content:flex-end}
+.tc i{display:block;width:10px;height:10px;border-radius:50%;background:var(--blue);animation:rec 1.2s steps(1) infinite}
+@keyframes rec{50%{opacity:.15}}
+h1{font:700 clamp(40px,9vw,104px)/1.02 'Bricolage Grotesque','IBM Plex Sans Arabic',sans-serif;margin:0;text-wrap:balance;max-width:14ch}
+[dir=rtl] h1{line-height:1.3;font-family:'IBM Plex Sans Arabic';font-weight:700}
+.sub{font-size:18px;line-height:30px;color:var(--mute);max-width:46ch;margin:20px 0 0}
+[dir=rtl] .sub{font-size:19px;line-height:34px}
+.bars{display:grid;grid-template-columns:repeat(24,1fr);gap:3px;margin-top:40px;max-width:560px;direction:ltr}
+.bars b{height:6px;border-radius:3px;background:var(--line)}
+.bars b.on{background:var(--blue)}
+.dot{position:absolute;width:56px;height:auto;inset-inline-end:8%;top:30%;animation:swell 4.5s ease-in-out infinite}
+@keyframes swell{50%{transform:scale(1.06)}}
+.contact{max-width:1100px;width:100%;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:24px}
+.contact p{margin:0;max-width:34ch;color:var(--mute)}
+.mail{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.addr{display:inline-block;background:var(--blue);color:#fff;border-radius:999px;padding:12px 24px;font-weight:500;text-decoration:none;direction:ltr}
+.addr:hover{text-decoration:underline}
+.cp{border:1px solid var(--ctl);background:none;color:var(--ink);border-radius:999px;height:44px;padding:0 18px;font-size:14px;cursor:pointer}
+.cp:hover{background:#ffffff1a}
+@media (max-width:640px){.dot{top:84px}}
+@media (prefers-reduced-motion:reduce){.dot,.tc i{animation:none}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="top">
+    <span class="name"><svg viewBox="0 0 1000 990.4" aria-hidden="true"><path fill="#4262ff" d="M505.2 0.3C793.8 -10.0 1000.0 247.7 1000.0 536.4C1000.0 804.4 752.6 1000.3 474.2 990.0C216.5 990.0 0.0 783.8 0.0 495.1C0.0 227.1 237.1 10.6 505.2 0.3Z"/></svg><span data-t="name">Blue Yolk</span></span>
+    <div class="tr"><p class="cap" data-t="cap">[ beirut, lebanon ]</p><button id="lang" type="button" aria-label="Switch language">ع</button></div>
+  </div>
+  <main class="mid">
+    <div class="tc" aria-hidden="true"><i></i><span id="tc">00:00:00:00</span></div>
+    <h1 data-t="h">Still in the making.</h1>
+    <p class="sub" data-t="s">A new home for ideas, films and everything in between. Made in Beirut, opening soon.</p>
+    <div class="bars" aria-hidden="true" id="bars"></div>
+  </main>
+  <svg class="dot" viewBox="0 0 1000 990.4" aria-hidden="true"><path fill="#4262ff" d="M505.2 0.3C793.8 -10.0 1000.0 247.7 1000.0 536.4C1000.0 804.4 752.6 1000.3 474.2 990.0C216.5 990.0 0.0 783.8 0.0 495.1C0.0 227.1 237.1 10.6 505.2 0.3Z"/></svg>
+  <footer class="contact">
+    <p data-t="cp">Want to work with us, or be first through the door? Write to us.</p>
+    <div class="mail"><a class="addr" id="addr" href="mailto:hello@blueyolk.org">hello@blueyolk.org</a><button class="cp" id="cp" type="button" data-t="copy">Copy</button></div>
+  </footer>
+</div>
+<noscript><style>#lang,#cp{display:none}</style></noscript>
+<script>
+(function(){
+var T={en:{name:'Blue Yolk',cap:'[ beirut, lebanon ]',h:'Still in the making.',s:'A new home for ideas, films and everything in between. Made in Beirut, opening soon.',cp:'Want to work with us, or be first through the door? Write to us.',copy:'Copy',copied:'Copied',btn:'ع',title:'Blue Yolk · بلو يولك'},
+ar:{name:'بلو يولك',cap:'[ بيروت، لبنان ]',h:'ما زال قيد الصنع.',s:'بيت جديد للأفكار والأفلام وكل ما بينهما. يُصنع في بيروت، ويفتح قريباً.',cp:'تريد العمل معنا، أو أن تكون أول من يعرف؟ راسلنا.',copy:'نسخ',copied:'تم النسخ',btn:'EN',title:'بلو يولك · Blue Yolk'}};
+var l='en',EMAIL='hello@blueyolk.org';
+try{var sv=localStorage.getItem('by-lang');if(sv==='ar'||sv==='en')l=sv;else if(/^\/ar(\/|$)/.test(location.pathname)||/^ar/i.test(navigator.language||''))l='ar'}catch(e){if(/^\/ar(\/|$)/.test(location.pathname))l='ar'}
+function apply(){var u=T[l];document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';document.title=u.title;
+ [].forEach.call(document.querySelectorAll('[data-t]'),function(e){e.textContent=u[e.dataset.t]});document.getElementById('lang').textContent=u.btn;
+ document.getElementById('lang').setAttribute('aria-label',l==='en'?'العربية':'English')}
+document.getElementById('lang').onclick=function(){l=l==='en'?'ar':'en';try{localStorage.setItem('by-lang',l)}catch(e){}apply()};
+document.getElementById('cp').onclick=function(){var b=this,u=T[l];function ok(){b.textContent=u.copied;setTimeout(function(){b.textContent=T[l].copy},1500)}
+ function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('addr'));var s=getSelection();s.removeAllRanges();s.addRange(r);ok()}
+ try{navigator.clipboard.writeText(EMAIL).then(ok,sel)}catch(e){sel()}};
+var bars=document.getElementById('bars');for(var i=0;i<24;i++)bars.appendChild(document.createElement('b'));
+var bs=bars.children,el=document.getElementById('tc'),t0=Date.now(),still=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+function p(n){return (n<10?'0':'')+n}
+function tick(){var ms=Date.now()-t0,f=Math.floor(ms/1000*24)%24,s=Math.floor(ms/1000)%60,m=Math.floor(ms/60000)%60;el.textContent='00:'+p(m)+':'+p(s)+':'+p(f);
+ var n=Math.floor((ms/180)%25);for(var i=0;i<bs.length;i++)bs[i].className=i<n?'on':''}
+if(still){for(var i=0;i<9;i++)bs[i].className='on'}else{tick();setInterval(tick,42)}
+apply();
+})();
+</script>
+</body>
+</html>
