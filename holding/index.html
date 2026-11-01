@@ -1,103 +1,673 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Blue Yolk · بلو يولك</title>
-<meta name="description" content="Blue Yolk is a creative space in Beirut. A new home for ideas, films and everything in between, opening soon.">
-<meta name="theme-color" content="#000000">
-<meta property="og:title" content="Blue Yolk · Still in the making">
-<meta property="og:description" content="A new home for ideas, films and everything in between. Made in Beirut, opening soon.">
-<meta property="og:image" content="https://blueyolk.org/og.png">
+<title>بلو يولك · Blue Yolk</title>
+<meta name="theme-color" content="#F5F3E9">
 <meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://blueyolk.org/">
+<meta name="twitter:card" content="summary">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Outfit:wght@300;400;500&family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<meta name="description" content="بلو يولك: مختبر مونتاج عن بُعد لأصحاب المشاريع. صوّرت بجوالك؟ ارسل المقاطع ونرجّعها لك جاهزة للنشر.">
+<meta property="og:title" content="بلو يولك · صوّرتها؟ المونتاج علينا.">
+<meta property="og:description" content="مختبر مونتاج عن بُعد لأصحاب المشاريع في السعودية. ابدأ على واتساب.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&display=swap">
 <style>
-:root{--bg:#000;--raise:#1c1c1e;--line:#38383a;--ink:#fff;--mute:#aeaeb2;--blue:#4262ff;--ctl:#8e8e93;color-scheme:dark}
+/* Layout: an edit bay. Hero = headline beside a working timeline; sections read like the stages of a cut.
+   Colour: the Post Lab 2.0 identity, bright first. Cream ground, near-black ink, deep blue type, lime buttons,
+   the edit bay as a night monitor, one full blue band at the end. "Lights" switch to the night room. */
+:root{
+  --cream:#F5F3E9; --night:#0B0B0B; --blue-master:#2055F5; --blue-deep:#0017F5; --blue-lit:#4A78FF;
+  --lime:#C6F432; --stone:#5E5C55; --ash:#A3A19A;
+  --bg:var(--cream); --bg-2:#ECE9DC; --bg-3:#E2DECF; --line:#D9D5C6;
+  --fg:var(--night); --fg-2:var(--stone); --egg:var(--cream);
+  --blue:var(--blue-master); --blue-text:var(--blue-deep);
+  --btn:var(--lime); --on-btn:var(--night);
+  --clip-a:#C9D4FB; --clip-b:#DCD8C9; --wave:var(--ash);
+  --tile-top:rgba(255,255,255,.7); --tile-bot:rgba(255,255,255,.25); --tile-edge:rgba(11,11,11,.12);
+  --f-display:"Noto Kufi Arabic","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:14px;
+  color-scheme:light;
+}
+/* the night room: the lights switch, and the edit-bay monitor */
+:root[data-theme="dark"],.night{
+  --bg:var(--night); --bg-2:#151513; --bg-3:#1E1D1A; --line:#2A2A28;
+  --fg:var(--cream); --fg-2:var(--ash); --egg:var(--cream);
+  --blue:var(--blue-master); --blue-text:var(--blue-lit);
+  --clip-a:#24357A; --clip-b:#33322E; --wave:var(--stone);
+  --tile-top:rgba(245,243,233,.10); --tile-bot:rgba(245,243,233,.02); --tile-edge:rgba(245,243,233,.16);
+  color-scheme:dark;
+}
+/* the blue band */
+.blueband{
+  --bg:var(--blue-master); --bg-2:#2E61F6; --line:#5A80F8;
+  --fg:var(--cream); --fg-2:#DCE3FF; --blue-text:var(--lime);
+  background:var(--bg); color:var(--fg);
+}
+.night{background:var(--bg-2);color:var(--fg)}
 *{box-sizing:border-box}
-html{background:#000}
-body{background:var(--bg);color:var(--ink);font:400 16px/26px Outfit,'IBM Plex Sans Arabic',sans-serif;margin:0;min-height:100vh;min-height:100dvh}
-[dir=rtl] body{font-family:'IBM Plex Sans Arabic',Outfit,sans-serif}
-button,a{font:inherit}
-:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-.page{position:relative;min-height:100vh;min-height:100dvh;padding:calc(24px + env(safe-area-inset-top,0px)) 16px calc(32px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;overflow:hidden}
-.top{display:flex;justify-content:space-between;align-items:center;gap:16px;max-width:1100px;width:100%;margin:0 auto}
-.name{display:flex;align-items:center;gap:10px;font:500 15px/1 'Bricolage Grotesque','IBM Plex Sans Arabic',sans-serif}
-[dir=rtl] .name{font-family:'IBM Plex Sans Arabic';font-weight:600}
-.name svg{width:20px;height:auto}
-.tr{display:flex;align-items:center;gap:16px}
-.cap{font:400 13px/19px Outfit,'IBM Plex Sans Arabic',sans-serif;color:var(--mute);margin:0}
-[dir=rtl] .cap{font-family:'IBM Plex Sans Arabic';font-weight:300;font-size:15px}
-#lang{border:1px solid var(--ctl);background:none;color:var(--ink);border-radius:999px;min-width:44px;height:44px;padding:0 14px;cursor:pointer;font-size:14px}
-#lang:hover{background:#ffffff1a}
-.mid{flex:1;display:flex;flex-direction:column;justify-content:center;max-width:1100px;width:100%;margin:0 auto;padding-block:32px;position:relative;z-index:1}
-.tc{font:400 clamp(14px,2vw,18px)/1 Outfit,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:var(--mute);display:flex;gap:12px;align-items:center;margin-bottom:28px;direction:ltr}
-[dir=rtl] .tc{justify-content:flex-end}
-.tc i{display:block;width:10px;height:10px;border-radius:50%;background:var(--blue);animation:rec 1.2s steps(1) infinite}
-@keyframes rec{50%{opacity:.15}}
-h1{font:700 clamp(40px,9vw,104px)/1.02 'Bricolage Grotesque','IBM Plex Sans Arabic',sans-serif;margin:0;text-wrap:balance;max-width:14ch}
-[dir=rtl] h1{line-height:1.3;font-family:'IBM Plex Sans Arabic';font-weight:700}
-.sub{font-size:18px;line-height:30px;color:var(--mute);max-width:46ch;margin:20px 0 0}
-[dir=rtl] .sub{font-size:19px;line-height:34px}
-.bars{display:grid;grid-template-columns:repeat(24,1fr);gap:3px;margin-top:40px;max-width:560px;direction:ltr}
-.bars b{height:6px;border-radius:3px;background:var(--line)}
-.bars b.on{background:var(--blue)}
-.dot{position:absolute;width:56px;height:auto;inset-inline-end:8%;top:30%;animation:swell 4.5s ease-in-out infinite}
-@keyframes swell{50%{transform:scale(1.06)}}
-.contact{max-width:1100px;width:100%;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:24px}
-.contact p{margin:0;max-width:34ch;color:var(--mute)}
-.mail{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.addr{display:inline-block;background:var(--blue);color:#fff;border-radius:999px;padding:12px 24px;font-weight:500;text-decoration:none;direction:ltr}
-.addr:hover{text-decoration:underline}
-.cp{border:1px solid var(--ctl);background:none;color:var(--ink);border-radius:999px;height:44px;padding:0 18px;font-size:14px;cursor:pointer}
-.cp:hover{background:#ffffff1a}
-@media (max-width:640px){.dot{top:84px}}
-@media (prefers-reduced-motion:reduce){.dot,.tc i{animation:none}}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:inherit}
+.wrap{max-width:1180px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+:lang(en) body,.page:lang(en){font-family:"IBM Plex Sans Arabic",system-ui,sans-serif}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.35}
+h2{font-size:clamp(28px,4vw,40px);font-weight:800}
+h3{font-size:19px;font-weight:700}
+p{margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:13px;letter-spacing:.06em;color:var(--fg-2)}
+.muted{color:var(--fg-2)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--blue-text);outline-offset:3px;border-radius:6px}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:20px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-display);font-weight:700;font-size:17px;white-space:nowrap}
+.brand svg{width:40px;height:auto}
+nav{display:flex;gap:22px;margin-inline-start:auto;font-size:15px}
+nav a{text-decoration:none;color:var(--fg-2)}
+nav a:hover{color:var(--fg)}
+.tools{display:flex;gap:8px;align-items:center}
+.icon-btn{background:transparent;border:1px solid var(--line);color:var(--fg);border-radius:999px;height:38px;min-width:38px;padding:0 12px;font:500 14px/1 var(--f-body);cursor:pointer}
+.icon-btn:hover{background:var(--bg-2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 24px;border-radius:999px;font:600 16px/1 var(--f-body);text-decoration:none;cursor:pointer;border:1px solid transparent}
+.btn-primary{background:var(--btn);color:var(--on-btn);font-weight:700;transition:transform .2s ease}
+.btn-primary:hover{transform:translateY(-2px) rotate(-1.5deg)}
+@media (prefers-reduced-motion: reduce){.btn-primary,.btn-primary:hover{transition:none;transform:none}}
+.btn-ghost{border-color:var(--line);color:var(--fg);background:transparent}
+.btn-ghost:hover{background:var(--bg-2)}
+.btn svg{width:20px;height:20px;flex:none}
+.bar .btn{min-height:40px;padding:0 16px;font-size:14px}
+@media (max-width:900px){nav{display:none}.bar .tools{margin-inline-start:auto}}
+@media (max-width:420px){.bar .btn span{display:none}.bar .btn{padding:0 12px}}
+
+/* hero */
+.hero{padding-block:clamp(40px,7vw,88px) 40px}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(28px,5vw,64px);align-items:center}
+.hero-copy{display:grid;gap:22px;min-width:0}
+.tile{width:88px;aspect-ratio:1;border-radius:22px;display:grid;place-items:center;background:linear-gradient(160deg,var(--tile-top),var(--tile-bot));border:1px solid var(--tile-edge);box-shadow:inset 0 1px 0 var(--tile-edge);position:relative;overflow:hidden}
+.tile::before,.tile::after{content:"";position:absolute;width:26px;height:26px;border-radius:22px;pointer-events:none}
+.tile::before{top:-1px;inset-inline-start:-1px;border-top:1.5px solid var(--blue-text);border-inline-start:1.5px solid var(--blue-text);border-start-start-radius:22px}
+.tile::after{bottom:-1px;inset-inline-end:-1px;border-bottom:1.5px solid var(--fg-2);border-inline-end:1.5px solid var(--fg-2);border-end-end-radius:22px}
+.tile svg{width:62px;height:auto}
+.hero h1{font-size:clamp(40px,7vw,76px);font-weight:800;line-height:1.25}
+.hero h1 .b{color:var(--blue-text)}
+.lead{font-size:clamp(17px,1.6vw,20px);max-width:34em;color:var(--fg-2)}
+.lead strong{color:var(--fg);font-weight:600}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.slip{font-size:14px;color:var(--fg-2)}
+
+/* edit bay */
+.bay{background:var(--bg-2);border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;gap:12px;min-width:0}
+.bay-top{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13px;color:var(--fg-2)}
+.tc{font-size:22px;color:var(--fg);letter-spacing:.04em}
+.viewer{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:stretch}
+.frame{width:96px;aspect-ratio:9/16;max-width:100%;border-radius:10px;border:1px solid var(--line);background:
+  radial-gradient(60% 40% at 50% 62%,color-mix(in srgb,var(--blue) 55%,transparent),transparent 70%),var(--bg-3);position:relative;overflow:hidden}
+.frame::after{content:"";position:absolute;inset:auto 12px 18px;height:6px;border-radius:3px;background:var(--fg);opacity:.75}
+.frame::before{content:"";position:absolute;inset:auto 22px 30px;height:4px;border-radius:2px;background:var(--fg);opacity:.4}
+.meta{display:grid;align-content:space-between;gap:8px;font-size:13px;min-width:0}
+.meta dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0}
+.meta dt{color:var(--fg-2)}
+.meta dd{margin:0}
+.tracks{position:relative;display:grid;gap:6px;direction:ltr;padding-top:18px}
+.ruler{position:absolute;top:0;left:34px;right:0;height:14px;display:flex;justify-content:space-between;font:10px/1 var(--f-mono);color:var(--fg-2)}
+.lane{display:grid;grid-template-columns:28px 1fr;gap:6px;align-items:center}
+.lane b{font:500 11px/1 var(--f-mono);color:var(--fg-2)}
+.strip{display:flex;gap:3px;height:30px}
+.clip{border-radius:5px;background:var(--clip-b);font:10px/1 var(--f-mono);color:var(--fg-2);padding:5px 6px;overflow:hidden;white-space:nowrap}
+.clip.v{background:var(--clip-a);color:var(--fg)}
+.clip.t{background:transparent;border:1px dashed var(--fg-2);color:var(--fg)}
+.wave{height:30px;display:flex;align-items:center;gap:2px;overflow:hidden}
+.wave i{display:block;width:3px;flex:none;border-radius:2px;background:var(--wave)}
+.playhead{position:absolute;top:0;bottom:0;left:34px;width:2px;background:var(--lime);box-shadow:0 0 0 1px color-mix(in srgb,var(--bg) 70%,transparent);transform:translateX(0)}
+.playhead::before{content:"";position:absolute;top:0;left:-5px;width:12px;height:10px;background:var(--lime);border-radius:2px;outline:1px solid var(--bg)}
+.bay-note{font-size:13px;color:var(--fg-2);font-family:var(--f-mono)}
+.formats{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.fmt{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:14px}
+.fmt .r{display:inline-block;border:1.5px solid var(--fg-2);border-radius:2px}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}}
+
+/* sections */
+section{padding-block:clamp(56px,8vw,96px)}
+.sec-head{display:grid;gap:10px;max-width:640px;margin-bottom:36px}
+.band{background:var(--bg-2);border-block:1px solid var(--line)}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{border:1px solid var(--line);border-radius:var(--r);padding:22px;display:grid;gap:10px;align-content:start;min-width:0;background:var(--bg)}
+.band .card{background:var(--bg)}
+.card .k{font:500 12px/1 var(--f-mono);color:var(--fg-2)}
+@media (max-width:1000px){.grid-4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.grid-4{grid-template-columns:1fr}}
+.who{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;align-items:center}
+.who span.lbl{color:var(--fg-2);font-size:15px;margin-inline-end:6px}
+.chip{padding:6px 14px;border-radius:999px;background:var(--bg-3);font-size:14px}
+
+/* tips */
+.tips{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 36px;list-style:none;padding:0;margin:0}
+.tips li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--blue-text);margin-top:11px}
+@media (max-width:900px){.tips{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.tips{grid-template-columns:1fr}}
+
+/* steps */
+.steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.steps li{padding:22px;display:grid;gap:8px;align-content:start;border-inline-end:1px solid var(--line);min-width:0}
+.steps li:last-child{border-inline-end:0}
+.steps .n{font:500 13px/1 var(--f-mono);color:var(--blue-text)}
+@media (max-width:1000px){.steps{grid-template-columns:1fr}.steps li{border-inline-end:0;border-bottom:1px solid var(--line)}.steps li:last-child{border-bottom:0}}
+.status{display:flex;flex-wrap:wrap;gap:6px 0;align-items:center;margin-top:20px;font-size:14px;color:var(--fg-2)}
+.status b{font-weight:500;color:var(--fg)}
+.status .sep{margin-inline:10px;opacity:.5}
+
+/* form */
+.brief{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(28px,5vw,64px);align-items:start}
+@media (max-width:900px){.brief{grid-template-columns:1fr}}
+form{display:grid;gap:20px;background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,3vw,28px);min-width:0}
+fieldset{border:0;padding:0;margin:0;display:grid;gap:10px;min-width:0}
+legend,label.l{font-weight:600;font-size:15px;padding:0;margin-bottom:2px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.opt span{display:inline-flex;align-items:center;min-height:42px;padding:0 16px;border:1px solid var(--line);border-radius:999px;font-size:15px;cursor:pointer}
+.opt input:checked+span{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.opt input:focus-visible+span{outline:2px solid var(--blue-text);outline-offset:2px}
+.field{display:grid;gap:8px}
+input[type=text],input[type=url],input[type=date],textarea{width:100%;min-height:48px;border-radius:12px;border:1px solid var(--fg-2);background:var(--bg-2);color:var(--fg);padding:10px 14px;font:16px/1.5 var(--f-body)}
+input::placeholder,textarea::placeholder{color:var(--fg-2)}
+.hint{font-size:13px;color:var(--fg-2)}
+.out{display:grid;gap:12px;border-top:1px solid var(--line);padding-top:18px}
+.out pre{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--bg-2);border-radius:12px;padding:14px;font:14px/1.7 var(--f-body);max-height:240px;overflow:auto}
+.num{direction:ltr;unicode-bidi:isolate;font-family:var(--f-mono);font-variant-numeric:tabular-nums;user-select:all}
+.copy-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* pay */
+.pay{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
+@media (max-width:900px){.pay{grid-template-columns:1fr}}
+.points{list-style:none;padding:0;margin:0;display:grid;gap:18px}
+.points li{display:grid;grid-template-columns:28px 1fr;gap:12px}
+.points svg{width:24px;height:24px;margin-top:4px;color:var(--blue-text)}
+.paybox{border:1px solid var(--line);border-radius:18px;padding:clamp(18px,3vw,28px);display:grid;gap:16px;background:var(--bg)}
+.lock{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--fg-2)}
+.lock svg{width:16px;height:16px}
+.warn{font-size:14px;padding:12px 14px;border-radius:12px;background:var(--bg-2);border:1px solid var(--line)}
+
+/* closed */
+.closed{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:900px){.closed{grid-template-columns:1fr}}
+
+/* faq */
+.faq{display:grid;gap:0;border-top:1px solid var(--line);max-width:820px}
+details{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;padding:20px 0;font-weight:600;font-size:18px;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--f-mono);color:var(--fg-2);font-weight:400}
+details[open] summary::after{content:"–"}
+details p{padding-bottom:20px;color:var(--fg-2);max-width:62ch}
+
+/* end */
+.end{text-align:start}
+.end-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:end}
+@media (max-width:900px){.end-grid{grid-template-columns:1fr}}
+.end h2{font-size:clamp(32px,5vw,56px)}
+.contact{display:grid;gap:14px}
+.contact .line{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:18px}
+footer{border-top:1px solid var(--line);padding-block:28px;font-size:14px;color:var(--fg-2)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.playhead{transition:none!important}}
 </style>
+
 </head>
 <body>
-<div class="page">
-  <div class="top">
-    <span class="name"><svg viewBox="0 0 1000 990.4" aria-hidden="true"><path fill="#4262ff" d="M505.2 0.3C793.8 -10.0 1000.0 247.7 1000.0 536.4C1000.0 804.4 752.6 1000.3 474.2 990.0C216.5 990.0 0.0 783.8 0.0 495.1C0.0 227.1 237.1 10.6 505.2 0.3Z"/></svg><span data-t="name">Blue Yolk</span></span>
-    <div class="tr"><p class="cap" data-t="cap">[ beirut, lebanon ]</p><button id="lang" type="button" aria-label="Switch language">ع</button></div>
+<div class="page" dir="rtl" lang="ar">
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="Blue Yolk">
+      <svg viewBox="0 0 120 64" aria-hidden="true"><ellipse cx="60" cy="40" rx="56" ry="6" fill="var(--egg)"/><path d="M39 37 A21 12.2 0 0 1 81 37 A21 1 0 0 1 39 37 Z" fill="var(--blue)"/></svg>
+      <span data-en="Blue Yolk">بلو يولك</span>
+    </a>
+    <nav aria-label="الأقسام">
+      <a href="#services" data-en="Services">الخدمات</a>
+      <a href="#shoot" data-en="Before you shoot">قبل التصوير</a>
+      <a href="#how" data-en="How it works">كيف نشتغل</a>
+      <a href="#pay" data-en="Payment">الدفع</a>
+      <a href="#faq" data-en="Questions">أسئلة</a>
+    </nav>
+    <div class="tools">
+      <button class="icon-btn" id="lang" type="button" aria-label="English">EN</button>
+      <button class="icon-btn" id="lights" type="button" aria-label="الإضاءة" title="الإضاءة">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a class="btn btn-primary wa" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8L4 20z"/></svg>
+        <span data-en="WhatsApp">واتساب</span>
+      </a>
+    </div>
   </div>
-  <main class="mid">
-    <div class="tc" aria-hidden="true"><i></i><span id="tc">00:00:00:00</span></div>
-    <h1 data-t="h">Still in the making.</h1>
-    <p class="sub" data-t="s">A new home for ideas, films and everything in between. Made in Beirut, opening soon.</p>
-    <div class="bars" aria-hidden="true" id="bars"></div>
-  </main>
-  <svg class="dot" viewBox="0 0 1000 990.4" aria-hidden="true"><path fill="#4262ff" d="M505.2 0.3C793.8 -10.0 1000.0 247.7 1000.0 536.4C1000.0 804.4 752.6 1000.3 474.2 990.0C216.5 990.0 0.0 783.8 0.0 495.1C0.0 227.1 237.1 10.6 505.2 0.3Z"/></svg>
-  <footer class="contact">
-    <p data-t="cp">Want to work with us, or be first through the door? Write to us.</p>
-    <div class="mail"><a class="addr" id="addr" href="mailto:hello@blueyolk.org">hello@blueyolk.org</a><button class="cp" id="cp" type="button" data-t="copy">Copy</button></div>
-  </footer>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="tile" aria-hidden="true">
+        <svg viewBox="0 0 120 64"><ellipse cx="60" cy="40" rx="56" ry="6" fill="var(--egg)"/><path d="M39 37 A21 12.2 0 0 1 81 37 A21 1 0 0 1 39 37 Z" fill="var(--blue)"/></svg>
+      </div>
+      <p class="eyebrow" data-en="[ a remote editing lab ]">[ مختبر مونتاج عن بُعد ]</p>
+      <h1 data-en="You shot it?<br><span class='b'>We'll cut it.</span>">صوّرتها؟<br><span class="b">المونتاج علينا.</span></h1>
+      <p class="lead" data-en="For business owners who shoot on their phones and have no time to edit. <strong>Send us the footage</strong>, and we send it back cut, graded and ready to post.">لأصحاب المشاريع اللي يصوّرون بجوالهم وما عندهم وقت للمونتاج. <strong>ترسل لنا المقاطع</strong>، ونرجّعها لك مقطّعة وملوّنة وجاهزة للنشر.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary wa" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8L4 20z"/></svg>
+          <span data-en="Start on WhatsApp">ابدأ على واتساب</span>
+        </a>
+        <a class="btn btn-ghost" href="#how" data-en="See how it works">شوف كيف نشتغل</a>
+      </div>
+      <p class="slip" data-en="We deliver on Earth time, wherever you are.">نسلّم بتوقيت الأرض، وين ما كنت.</p>
+    </div>
+
+    <div class="bay night" aria-label="مثال من غرفة المونتاج">
+      <div class="bay-top">
+        <span class="mono tc" id="tc">00:00:14:22</span>
+        <span class="mono">REEL_V03 · 9:16 · 30 fps</span>
+      </div>
+      <div class="viewer">
+        <div class="frame" aria-hidden="true"></div>
+        <div class="meta">
+          <dl>
+            <dt data-en="Source">المصدر</dt><dd data-en="iPhone, 47 clips">آيفون، ٤٧ مقطع</dd>
+            <dt data-en="Used">المستخدم</dt><dd data-en="9 shots">٩ لقطات</dd>
+            <dt data-en="Length">الطول</dt><dd class="mono">00:00:30:00</dd>
+            <dt data-en="Text">النص</dt><dd data-en="Arabic + English">عربي + إنجليزي</dd>
+          </dl>
+          <p class="bay-note" data-en="[ frame 1,204: boom mic in shot. removed. ]">[ الكادر ١٢٠٤: المايك ظاهر فوق. شلناه. ]</p>
+        </div>
+      </div>
+      <div class="tracks" id="tracks" aria-hidden="true">
+        <div class="ruler"><span>00:00</span><span>00:10</span><span>00:20</span><span>00:30</span></div>
+        <div class="lane"><b>T1</b><div class="strip"><div class="clip" style="flex:.6;background:transparent"></div><div class="clip t" style="flex:1.4">TITLE</div><div class="clip" style="flex:1.2;background:transparent"></div><div class="clip t" style="flex:1">CTA</div></div></div>
+        <div class="lane"><b>V1</b><div class="strip"><div class="clip v" style="flex:1">C0012</div><div class="clip v" style="flex:.7">C0019</div><div class="clip v" style="flex:1.3">C0023</div><div class="clip v" style="flex:.5">C0031</div><div class="clip v" style="flex:.9">C0040</div></div></div>
+        <div class="lane"><b>A1</b><div class="wave" id="wave"></div></div>
+        <div class="playhead" id="ph"></div>
+      </div>
+      <div class="formats" aria-label="المقاسات">
+        <span class="fmt"><span class="r" style="width:9px;height:16px"></span><span class="mono">9:16</span> <span data-en="Snap · TikTok · Reels">سناب · تيك توك · ريلز</span></span>
+        <span class="fmt"><span class="r" style="width:12px;height:15px"></span><span class="mono">4:5</span> <span data-en="Feed">إنستقرام</span></span>
+        <span class="fmt"><span class="r" style="width:13px;height:13px"></span><span class="mono">1:1</span> <span data-en="Post">منشور</span></span>
+        <span class="fmt"><span class="r" style="width:18px;height:10px"></span><span class="mono">16:9</span> <span data-en="YouTube · web">يوتيوب · الموقع</span></span>
+      </div>
+    </div>
+  </div>
 </div>
-<noscript><style>#lang,#cp{display:none}</style></noscript>
+
+<!-- SERVICES -->
+<section id="services" class="band">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" data-en="[ what we do ]">[ وش نسوي ]</p>
+      <h2 data-en="Everything that happens after you stop recording.">كل اللي يصير بعد ما توقف التصوير.</h2>
+    </div>
+    <div class="grid-4">
+      <article class="card">
+        <span class="k">EDIT</span>
+        <h3 data-en="Reels and ad edits">مونتاج الريلز والإعلانات</h3>
+        <p class="muted" data-en="We pick the best takes, cut to the beat, add on-screen text and music, and export every size you need.">نختار أحسن اللقطات، نقصّ على الإيقاع، نضيف النص والموسيقى، ونطلّعه بكل المقاسات اللي تحتاجها.</p>
+      </article>
+      <article class="card">
+        <span class="k">TEXT</span>
+        <h3 data-en="Subtitles and on-screen text">الترجمة والنص على الشاشة</h3>
+        <p class="muted" data-en="Your words on screen in Arabic or English, readable with the sound off.">نكتب كلامك على الفيديو بالعربي أو الإنجليزي، بخط واضح ينقرأ والصوت مقفول.</p>
+      </article>
+      <article class="card">
+        <span class="k">GRADE · MIX</span>
+        <h3 data-en="Colour and sound">التلوين وتنظيف الصوت</h3>
+        <p class="muted" data-en="We balance colour and light so phone footage looks finished, and clean wind and traffic out of the sound.">نضبط الألوان والإضاءة عشان تصوير الجوال يطلع مرتّب، وننظّف الصوت من الهوا والزحمة.</p>
+      </article>
+      <article class="card">
+        <span class="k">PRODUCT</span>
+        <h3 data-en="Product video and photos">فيديو وصور المنتج</h3>
+        <p class="muted" data-en="Product shots for ads and your store: dust and fingerprints gone, colour corrected, shape held.">لقطات المنتج للإعلان والمتجر: ننظّف الغبار والبصمات، نصحّح اللون، ونثبّت الشكل.</p>
+      </article>
+    </div>
+    <div class="who">
+      <span class="lbl" data-en="We edit for:">نشتغل مع:</span>
+      <span class="chip" data-en="Restaurants and cafés">المطاعم والكافيهات</span>
+      <span class="chip" data-en="Perfume and oud">العطور والعود</span>
+      <span class="chip" data-en="Abayas and fashion">العبايات والأزياء</span>
+      <span class="chip" data-en="Beauty and care">التجميل والعناية</span>
+      <span class="chip" data-en="Online stores">المتاجر الإلكترونية</span>
+      <span class="chip" data-en="Real estate">العقار</span>
+      <span class="chip" data-en="Coaches and creators">المدرّبين وصنّاع المحتوى</span>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE YOU SHOOT -->
+<section id="shoot">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" data-en="[ before you shoot ]">[ قبل ما تصوّر ]</p>
+      <h2 data-en="Six things that change the result.">ست نصايح، وتفرق كثير في النتيجة.</h2>
+    </div>
+    <ul class="tips">
+      <li><span class="dot"></span><p data-en="Shoot vertical if the video is for Snapchat, TikTok or Reels.">صوّر عمودي إذا الفيديو لسناب أو تيك توك أو الريلز.</p></li>
+      <li><span class="dot"></span><p data-en="Hold the phone with both hands, or rest it on something.">ثبّت الجوال بيدينك الثنتين، أو اسنده على شي.</p></li>
+      <li><span class="dot"></span><p data-en="Face the window so light falls on the product, not behind it.">قف قدّام الشباك، والضوء يجي على المنتج مو من وراه.</p></li>
+      <li><span class="dot"></span><p data-en="Keep every take at least ten seconds. Start before the action and keep rolling after.">خلّ كل لقطة عشر ثواني على الأقل. ابدأ قبل الحركة وكمّل بعدها.</p></li>
+      <li><span class="dot"></span><p data-en="Keep the phone close to whoever speaks, or use a small clip-on mic.">قرّب الجوال من اللي يتكلم، أو استخدم مايك صغير.</p></li>
+      <li><span class="dot"></span><p data-en="Shoot more than you need. Choosing is our job.">صوّر أكثر من اللازم. الاختيار علينا.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how" class="band">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" data-en="[ how it works ]">[ كيف نشتغل ]</p>
+      <h2 data-en="Five steps, all on your phone.">خمس خطوات، كلها من جوالك.</h2>
+    </div>
+    <ol class="steps">
+      <li><span class="n">01</span><h3 data-en="You send">ترسل</h3><p class="muted" data-en="On WhatsApp: what you need, where it will run, and a link to the footage.">على واتساب: وش تبي، ووين بتنشره، ورابط المقاطع.</p></li>
+      <li><span class="n">02</span><h3 data-en="We quote">نرسل لك السعر</h3><p class="muted" data-en="One fixed price in writing and a clear delivery date, before you pay anything.">سعر ثابت مكتوب وموعد تسليم واضح، قبل ما تدفع ريال.</p></li>
+      <li><span class="n">03</span><h3 data-en="You pay safely">تدفع بأمان</h3><p class="muted" data-en="Through a secure payment link. Then we start.">عبر رابط دفع آمن. وبعدها نبدأ.</p></li>
+      <li><span class="n">04</span><h3 data-en="You review">تشوف وتعدّل</h3><p class="muted" data-en="You get a first cut, send notes, and approve.">توصلك النسخة الأولى، ترسل ملاحظاتك، وتعتمد.</p></li>
+      <li><span class="n">05</span><h3 data-en="You receive">تستلم</h3><p class="muted" data-en="Final files in every size you asked for.">الملفات النهائية بكل المقاسات اللي طلبتها.</p></li>
+    </ol>
+    <p class="status">
+      <span data-en="You get a message at every stage:">توصلك رسالة مع كل مرحلة:</span><span class="sep">·</span>
+      <b data-en="Received">استلمنا</b><span class="sep">›</span><b data-en="Mounted">ركّبنا</b><span class="sep">›</span><b data-en="In the bay">في غرفة المونتاج</b><span class="sep">›</span><b data-en="Locked">اعتمدنا</b><span class="sep">›</span><b data-en="Finished">خلصنا</b><span class="sep">›</span><b data-en="Landed">وصلت</b><span class="sep">›</span><b data-en="Erased">انمسحت</b>
+    </p>
+  </div>
+</section>
+
+<!-- BRIEF -->
+<section id="brief">
+  <div class="wrap brief">
+    <div class="sec-head">
+      <p class="eyebrow" data-en="[ start ]">[ ابدأ ]</p>
+      <h2 data-en="Tell us in thirty seconds.">قول لنا في ثلاثين ثانية.</h2>
+      <p class="muted" data-en="Fill in what you know. We turn it into a ready WhatsApp message you send yourself.">عبّي اللي تعرفه، ونجهّز لك رسالة واتساب جاهزة ترسلها بنفسك.</p>
+      <p class="hint" data-en="Don't send large videos on WhatsApp: it lowers the quality. Upload to Google Drive, WeTransfer or iCloud and paste the link.">لا ترسل الفيديوهات الكبيرة على واتساب لأنه يضعّف الجودة. ارفعها على Google Drive أو WeTransfer أو iCloud وحط الرابط.</p>
+    </div>
+    <form id="briefForm" novalidate>
+      <fieldset>
+        <legend data-en="What are we finishing?">وش نشتغل عليه؟</legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="kind" id="k-video" value="فيديو|Video" checked><span data-en="Video">فيديو</span></label>
+          <label class="opt"><input type="radio" name="kind" id="k-photo" value="صور|Photos"><span data-en="Photos">صور</span></label>
+          <label class="opt"><input type="radio" name="kind" id="k-both" value="الاثنين|Both"><span data-en="Both">الاثنين</span></label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend data-en="Where will it run?">وين بتنشره؟</legend>
+        <div class="opts">
+          <label class="opt"><input type="checkbox" name="where" id="w-snap" value="سناب|Snapchat"><span data-en="Snapchat">سناب</span></label>
+          <label class="opt"><input type="checkbox" name="where" id="w-tt" value="تيك توك|TikTok"><span data-en="TikTok">تيك توك</span></label>
+          <label class="opt"><input type="checkbox" name="where" id="w-ig" value="إنستقرام|Instagram"><span data-en="Instagram">إنستقرام</span></label>
+          <label class="opt"><input type="checkbox" name="where" id="w-yt" value="يوتيوب|YouTube"><span data-en="YouTube">يوتيوب</span></label>
+          <label class="opt"><input type="checkbox" name="where" id="w-store" value="المتجر|Online store"><span data-en="Online store">المتجر</span></label>
+        </div>
+      </fieldset>
+      <div class="field">
+        <label class="l" for="link" data-en="Link to the footage">رابط المقاطع</label>
+        <input type="url" id="link" inputmode="url" placeholder="https://drive.google.com/…" dir="ltr">
+        <span class="hint" data-en="No link yet? Leave it empty and send it later.">ما عندك رابط الحين؟ خلّها فاضية وأرسله بعدين.</span>
+      </div>
+      <div class="field">
+        <label class="l" for="when" data-en="When do you need it?">متى تحتاجه؟</label>
+        <input type="date" id="when">
+      </div>
+      <div class="field">
+        <label class="l" for="who" data-en="Your name and business">اسمك واسم نشاطك</label>
+        <input type="text" id="who" autocomplete="name" placeholder="مثال: نورة، متجر عطور" data-en-ph="e.g. Noura, perfume store">
+      </div>
+      <div class="field">
+        <label class="l" for="note" data-en="Anything else? (optional)">شي ثاني؟ (اختياري)</label>
+        <textarea id="note" rows="3"></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit" id="sendBrief">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8L4 20z"/></svg>
+        <span data-en="Prepare my WhatsApp message">جهّز رسالتي على واتساب</span>
+      </button>
+      <div class="out" id="out" hidden>
+        <a class="btn btn-primary" id="waGo" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8L4 20z"/></svg>
+          <span data-en="Open WhatsApp and press Send">افتح واتساب واضغط إرسال</span>
+        </a>
+        <p class="hint" data-en="Your message is ready. If WhatsApp doesn't open, copy it and send it to:">رسالتك جاهزة. إذا ما انفتح واتساب، انسخها وأرسلها على الرقم:</p>
+        <div class="copy-row"><span class="num" data-num>+966 53 813 3750</span></div>
+        <pre id="msg"></pre>
+        <div class="copy-row"><button class="icon-btn" type="button" id="copyMsg" data-en="Copy message">انسخ الرسالة</button><span class="hint" id="copyMsgState" aria-live="polite"></span></div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- PAY -->
+<section id="pay" class="band">
+  <div class="wrap pay">
+    <div>
+      <div class="sec-head">
+        <p class="eyebrow" data-en="[ payment ]">[ الدفع ]</p>
+        <h2 data-en="Pay safely. Your card never passes through us.">ادفع بأمان. رقم بطاقتك ما يمر علينا.</h2>
+      </div>
+      <ul class="points">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h4"/></svg><div><h3 data-en="The price comes first">السعر قبل الدفع</h3><p class="muted" data-en="A fixed price in writing. What you see is what you pay.">عرض سعر ثابت ومكتوب. اللي تشوفه هو اللي تدفعه.</p></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><div><h3 data-en="An encrypted payment page">صفحة دفع مشفّرة</h3><p class="muted" data-en="You pay on the payment provider's own page. We only see that the payment arrived.">تدفع في صفحة بوابة الدفع نفسها، واحنا نشوف بس إن الدفعة وصلت.</p></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h7"/><circle cx="18" cy="16" r="3"/></svg><div><h3 data-en="One code per project">رمز لكل مشروع</h3><p class="muted" data-en="Every project has a code. Check it matches on the quote and the payment page.">كل مشروع له رمز. تأكد إنه نفسه في عرض السعر وصفحة الدفع.</p></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg><div><h3 data-en="A receipt every time">فاتورة مع كل دفعة</h3><p class="muted" data-en="You get an invoice after every payment.">توصلك فاتورة بعد كل دفعة.</p></div></li>
+      </ul>
+    </div>
+    <div class="paybox">
+      <h3 data-en="Pay for your project">ادفع لمشروعك</h3>
+      <div class="field">
+        <label class="l" for="code" data-en="Project code (from your quote)">رمز المشروع (من عرض السعر)</label>
+        <input type="text" id="code" dir="ltr" placeholder="BY-0000" autocomplete="off">
+      </div>
+      <a class="btn btn-primary" id="payBtn" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h3"/></svg>
+        <span id="payLabel">اطلب رابط الدفع</span>
+      </a>
+      <p class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span id="payNote">نرسل لك رابط دفع آمن على واتساب، باسم المشروع ورمزه.</span></p>
+      <p class="warn" data-en="We never ask for a card number or a verification code on WhatsApp. If someone asks in our name, don't send it.">ما نطلب رقم بطاقة ولا رمز تحقق في واتساب أبداً. لو أحد طلبه باسمنا، لا ترسله.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSED -->
+<section id="closed">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" data-en="[ closed by default ]">[ مغلق افتراضياً ]</p>
+      <h2 data-en="Your work stays yours.">شغلك يبقى لك.</h2>
+    </div>
+    <div class="closed">
+      <div class="card"><span class="k">NDA</span><h3 data-en="Signed before the first upload">اتفاقية سرية قبل أول ملف</h3><p class="muted" data-en="We sign a confidentiality agreement with you before you send anything.">نوقّع معك اتفاقية سرية قبل ما ترسل أي شي.</p></div>
+      <div class="card"><span class="k">CLOSED</span><h3 data-en="No names, no frames">لا اسم ولا لقطة</h3><p class="muted" data-en="We don't show your name or footage, and we don't say we worked with you.">ما نعرض اسمك ولا لقطاتك، ولا نقول إننا اشتغلنا معك.</p></div>
+      <div class="card"><span class="k">+30 D</span><h3 data-en="Raw footage erased">نمسح المواد الخام</h3><p class="muted" data-en="Thirty days after delivery we erase your raw footage and send you a message: Erased.">بعد ٣٠ يوم من التسليم نمسح موادك الخام، ونرسل لك رسالة: انمسحت.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="band">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" data-en="[ questions ]">[ أسئلة ]</p>
+      <h2 data-en="What people ask us.">اللي يسألونه الناس.</h2>
+    </div>
+    <div class="faq">
+      <details><summary data-en="Does my footage need to be professional?">لازم يكون تصويري احترافي؟</summary><p data-en="No. Most of what reaches us is shot on a phone. The six tips above make a big difference.">لا. أغلب اللي يوصلنا مصوّر بالجوال. النصايح الست فوق تفرق كثير.</p></details>
+      <details><summary data-en="How do I send large videos?">كيف أرسل الفيديوهات الكبيرة؟</summary><p data-en="Upload them to Google Drive, WeTransfer or iCloud and send the link. WhatsApp lowers the quality.">ارفعها على Google Drive أو WeTransfer أو iCloud وأرسل الرابط. واتساب يضعّف الجودة.</p></details>
+      <details><summary data-en="How much does it cost?">كم السعر؟</summary><p data-en="It depends on the length, the number of sizes and how much footage there is. You get a fixed price in writing before you pay.">يعتمد على طول الفيديو وعدد المقاسات وكمية المواد. يوصلك سعر ثابت مكتوب قبل ما تدفع.</p></details>
+      <details><summary data-en="How long does it take?">كم ياخذ وقت؟</summary><p data-en="The delivery date is written on your quote, and we keep to it.">موعد التسليم مكتوب في عرض السعر، ونلتزم فيه.</p></details>
+      <details><summary data-en="Can I ask for changes?">أقدر أطلب تعديلات؟</summary><p data-en="Yes. You see a first cut and send notes. The number of revision rounds is written on your quote.">أكيد. تشوف النسخة الأولى وترسل ملاحظاتك. عدد جولات التعديل مكتوب في العرض.</p></details>
+      <details><summary data-en="Where are you?">وين مكانكم؟</summary><p data-en="We work remotely, from anywhere. We reply on Saudi time, in Arabic or English.">نشتغل عن بُعد، من أي مكان. ونرد بتوقيت السعودية، بالعربي أو الإنجليزي.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- END -->
+<section class="end blueband">
+  <div class="wrap end-grid">
+    <div class="sec-head" style="margin:0">
+      <h2 data-en="Got footage on your phone right now?">عندك مقاطع في جوالك الحين؟</h2>
+      <p class="muted" data-en="Send them over. Work with us once and you'll be back.">أرسلها لنا. اشتغل معنا مرة، وبترجع.</p>
+    </div>
+    <div class="contact">
+      <a class="btn btn-primary wa" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8L4 20z"/></svg>
+        <span data-en="Message us on WhatsApp">راسلنا على واتساب</span>
+      </a>
+      <div class="line"><span class="num" data-num>+966 53 813 3750</span><button class="icon-btn" type="button" id="copyNum" data-en="Copy number">انسخ الرقم</button><span class="hint" id="copyNumState" aria-live="polite"></span></div>
+      <div class="line"><span class="num" style="font-size:16px">hello@blueyolk.org</span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span data-en="Blue Yolk · a remote editing lab · from anywhere">بلو يولك · مختبر مونتاج عن بُعد · من أي مكان</span>
+    <span class="mono">© 2026 blueyolk.org</span>
+  </div>
+</footer>
+</div>
+
 <script>
-(function(){
-var T={en:{name:'Blue Yolk',cap:'[ beirut, lebanon ]',h:'Still in the making.',s:'A new home for ideas, films and everything in between. Made in Beirut, opening soon.',cp:'Want to work with us, or be first through the door? Write to us.',copy:'Copy',copied:'Copied',btn:'ع',title:'Blue Yolk · بلو يولك'},
-ar:{name:'بلو يولك',cap:'[ بيروت، لبنان ]',h:'ما زال قيد الصنع.',s:'بيت جديد للأفكار والأفلام وكل ما بينهما. يُصنع في بيروت، ويفتح قريباً.',cp:'تريد العمل معنا، أو أن تكون أول من يعرف؟ راسلنا.',copy:'نسخ',copied:'تم النسخ',btn:'EN',title:'بلو يولك · Blue Yolk'}};
-var l='en',EMAIL='hello@blueyolk.org';
-try{var sv=localStorage.getItem('by-lang');if(sv==='ar'||sv==='en')l=sv;else if(/^\/ar(\/|$)/.test(location.pathname)||/^ar/i.test(navigator.language||''))l='ar'}catch(e){if(/^\/ar(\/|$)/.test(location.pathname))l='ar'}
-function apply(){var u=T[l];document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';document.title=u.title;
- [].forEach.call(document.querySelectorAll('[data-t]'),function(e){e.textContent=u[e.dataset.t]});document.getElementById('lang').textContent=u.btn;
- document.getElementById('lang').setAttribute('aria-label',l==='en'?'العربية':'English')}
-document.getElementById('lang').onclick=function(){l=l==='en'?'ar':'en';try{localStorage.setItem('by-lang',l)}catch(e){}apply()};
-document.getElementById('cp').onclick=function(){var b=this,u=T[l];function ok(){b.textContent=u.copied;setTimeout(function(){b.textContent=T[l].copy},1500)}
- function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('addr'));var s=getSelection();s.removeAllRanges();s.addRange(r);ok()}
- try{navigator.clipboard.writeText(EMAIL).then(ok,sel)}catch(e){sel()}};
-var bars=document.getElementById('bars');for(var i=0;i<24;i++)bars.appendChild(document.createElement('b'));
-var bs=bars.children,el=document.getElementById('tc'),t0=Date.now(),still=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
-function p(n){return (n<10?'0':'')+n}
-function tick(){var ms=Date.now()-t0,f=Math.floor(ms/1000*24)%24,s=Math.floor(ms/1000)%60,m=Math.floor(ms/60000)%60;el.textContent='00:'+p(m)+':'+p(s)+':'+p(f);
- var n=Math.floor((ms/180)%25);for(var i=0;i<bs.length;i++)bs[i].className=i<n?'on':''}
-if(still){for(var i=0;i<9;i++)bs[i].className='on'}else{tick();setInterval(tick,42)}
-apply();
-})();
+/* ===== Settings: edit these two lines ===== */
+const CONFIG = {
+  whatsapp: "966538133750",   // international format, no + or spaces
+  payUrl: ""                  // paste your payment link here (Whish, NetCommerce, Moyasar…). Empty = ask for a link on WhatsApp.
+};
+/* ========================================= */
+
+const page = document.querySelector(".page");
+const root = document.documentElement;
+let lang = "ar";
+try { if (localStorage.getItem("by-lang") === "en") lang = "en"; } catch(e) {}
+
+const waLink = (text) => "https://wa.me/" + CONFIG.whatsapp + (text ? "?text=" + encodeURIComponent(text) : "");
+const T = (ar, en) => lang === "ar" ? ar : en;
+
+function setWa(){
+  const t = T("السلام عليكم، عندي مقاطع وأبغى مونتاج.", "Hi, I have footage and need it edited.");
+  document.querySelectorAll("a.wa").forEach(a => a.href = waLink(t));
+}
+
+/* language */
+const tx = [...document.querySelectorAll("[data-en]")];
+tx.forEach(el => el.dataset.ar = el.innerHTML);
+const ph = [...document.querySelectorAll("[data-en-ph]")];
+ph.forEach(el => el.dataset.arPh = el.placeholder);
+function applyLang(){
+  const ar = lang === "ar";
+  page.dir = ar ? "rtl" : "ltr"; page.lang = lang;
+  root.dir = page.dir; root.lang = lang;
+  tx.forEach(el => el.innerHTML = ar ? el.dataset.ar : el.dataset.en);
+  ph.forEach(el => el.placeholder = ar ? el.dataset.arPh : el.dataset.enPh);
+  const lb = document.getElementById("lang");
+  lb.textContent = ar ? "EN" : "ع"; lb.setAttribute("aria-label", ar ? "English" : "العربية");
+  document.title = ar ? "بلو يولك · Blue Yolk" : "Blue Yolk · بلو يولك";
+  setWa(); setPay(); buildWave();
+}
+document.getElementById("lang").addEventListener("click", () => {
+  lang = lang === "ar" ? "en" : "ar";
+  try { localStorage.setItem("by-lang", lang); } catch(e) {}
+  applyLang();
+});
+
+/* lights */
+document.getElementById("lights").addEventListener("click", () => {
+  const cur = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+  root.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
+});
+
+/* waveform (fixed pattern, not random) */
+function buildWave(){
+  const w = document.getElementById("wave"); w.innerHTML = "";
+  for (let i = 0; i < 120; i++) {
+    const h = 6 + Math.abs(Math.sin(i * 0.37) * 12 + Math.sin(i * 1.7) * 6 + Math.cos(i * 0.11) * 4);
+    const b = document.createElement("i"); b.style.height = Math.min(28, h) + "px"; w.appendChild(b);
+  }
+}
+
+/* playhead + timecode */
+const ph1 = document.getElementById("ph"), tc = document.getElementById("tc"), tracks = document.getElementById("tracks");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let frame = 442; // 00:00:14:22 at 30 fps
+function drawHead(){
+  const total = 900, span = tracks.clientWidth - 34 - 2;
+  ph1.style.transform = "translateX(" + (frame / total * span) + "px)";
+  const s = Math.floor(frame / 30), f = frame % 30;
+  tc.textContent = "00:00:" + String(s).padStart(2,"0") + ":" + String(f).padStart(2,"0");
+}
+drawHead();
+addEventListener("resize", drawHead);
+if (!reduce) setInterval(() => { frame = (frame + 1) % 900; drawHead(); }, 1000 / 30);
+
+/* brief → WhatsApp */
+const form = document.getElementById("briefForm");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const pick = (v) => { const [a, b] = v.split("|"); return T(a, b); };
+  const kind = pick(form.querySelector("input[name=kind]:checked").value);
+  const where = [...form.querySelectorAll("input[name=where]:checked")].map(i => pick(i.value)).join("، ") || T("ما حددت", "Not sure yet");
+  const link = document.getElementById("link").value.trim() || T("أرسله بعدين", "Will send later");
+  const when = document.getElementById("when").value || T("مرن", "Flexible");
+  const who = document.getElementById("who").value.trim() || "—";
+  const note = document.getElementById("note").value.trim();
+  const msg = T(
+    "السلام عليكم، طلب مونتاج جديد:\n• الشغل: " + kind + "\n• النشر على: " + where + "\n• رابط المقاطع: " + link + "\n• التسليم: " + when + "\n• الاسم والنشاط: " + who + (note ? "\n• ملاحظات: " + note : ""),
+    "Hi, a new editing request:\n• Work: " + kind + "\n• Runs on: " + where + "\n• Footage link: " + link + "\n• Needed by: " + when + "\n• Name and business: " + who + (note ? "\n• Notes: " + note : "")
+  );
+  document.getElementById("msg").textContent = msg;
+  document.getElementById("out").hidden = false;
+  const go = document.getElementById("waGo");
+  go.href = waLink(msg);
+  try { const w = window.open(go.href, "_blank", "noopener"); if (!w) go.focus(); } catch(err) { go.focus(); }
+});
+
+/* copy helpers */
+function copy(text, stateEl, okAr, okEn){
+  const done = () => stateEl.textContent = T(okAr, okEn);
+  const fail = () => stateEl.textContent = T("حدّد النص وانسخه يدوياً.", "Select the text and copy it by hand.");
+  try { navigator.clipboard.writeText(text).then(done, fail); } catch(e) { fail(); }
+}
+document.getElementById("copyMsg").addEventListener("click", () =>
+  copy(document.getElementById("msg").textContent, document.getElementById("copyMsgState"), "انتسخت.", "Copied."));
+document.getElementById("copyNum").addEventListener("click", () =>
+  copy("+" + CONFIG.whatsapp, document.getElementById("copyNumState"), "انتسخ الرقم.", "Number copied."));
+
+/* payment */
+const payBtn = document.getElementById("payBtn"), code = document.getElementById("code");
+function setPay(){
+  const c = code.value.trim();
+  if (CONFIG.payUrl) {
+    payBtn.href = CONFIG.payUrl;
+    document.getElementById("payLabel").textContent = T("ادفع الآن", "Pay now");
+    document.getElementById("payNote").textContent = T("تنفتح صفحة الدفع المشفّرة في نافذة جديدة. تأكد من الرمز قبل ما تدفع.", "The encrypted payment page opens in a new tab. Check the code before you pay.");
+  } else {
+    payBtn.href = waLink(T("السلام عليكم، أبغى رابط الدفع لمشروعي", "Hi, please send the payment link for my project") + (c ? ": " + c : "."));
+    document.getElementById("payLabel").textContent = T("اطلب رابط الدفع", "Ask for the payment link");
+    document.getElementById("payNote").textContent = T("نرسل لك رابط دفع آمن على واتساب، باسم المشروع ورمزه.", "We send a secure payment link on WhatsApp, with your project name and code.");
+  }
+}
+code.addEventListener("input", setPay);
+
+applyLang();
 </script>
+
 </body>
 </html>
