@@ -69,7 +69,7 @@ h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.3
 h2{font-size:clamp(28px,4vw,40px);font-weight:800}
 h3{font-size:19px;font-weight:700}
 p{margin:0}
-.eyebrow{font-family:var(--f-mono);font-size:13px;letter-spacing:.06em;color:var(--fg-2)}
+.eyebrow{font-family:var(--f-body);font-size:14px;font-weight:500;color:var(--fg-2)}
 .muted{color:var(--fg-2)}
 .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
 :focus-visible{outline:2px solid var(--blue-text);outline-offset:3px;border-radius:6px}
@@ -116,7 +116,12 @@ nav a:hover{color:var(--fg)}
 .lead{font-size:clamp(17px,1.6vw,20px);max-width:34em;color:var(--fg-2)}
 .lead strong{color:var(--fg);font-weight:600}
 .cta-row{display:flex;flex-wrap:wrap;gap:12px}
-.slip{font-size:14px;color:var(--fg-2)}
+.promise{display:inline-flex;align-items:center;gap:10px;justify-self:start;font-size:17px;padding:8px 16px 8px 18px;border-radius:999px;border:1.5px solid var(--fg);background:var(--bg)}
+.promise b{color:var(--blue-text);font-weight:700}
+.clock{width:16px;height:16px;border-radius:50%;border:2px solid var(--fg);position:relative;flex:none}
+.clock::before,.clock::after{content:"";position:absolute;left:50%;bottom:50%;width:2px;background:var(--fg);transform-origin:50% 100%;border-radius:1px}
+.clock::before{height:5px;margin-left:-1px}
+.clock::after{height:4px;margin-left:-1px;transform:rotate(90deg)}
 
 @media (max-width:900px){.hero-grid{grid-template-columns:1fr}}
 
@@ -127,7 +132,7 @@ section{padding-block:clamp(56px,8vw,96px)}
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .card{border:1px solid var(--line);border-radius:var(--r);padding:22px;display:grid;gap:10px;align-content:start;min-width:0;background:var(--bg)}
 .band .card{background:var(--bg)}
-.card .k{font:500 12px/1 var(--f-mono);color:var(--fg-2)}
+.card .k{font:600 13px/1.2 var(--f-body);color:var(--fg-2)}
 @media (max-width:1000px){.grid-4{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:560px){.grid-4{grid-template-columns:1fr}}
 .who{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;align-items:center}
@@ -139,7 +144,7 @@ section{padding-block:clamp(56px,8vw,96px)}
 .tips details{border-bottom:1px solid var(--line)}
 .tips summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:12px;align-items:center;padding:16px 0;font-size:17px;font-weight:500}
 .tips summary::-webkit-details-marker{display:none}
-.tips summary .n{font:500 13px/1 var(--f-mono);color:var(--fg-2)}
+.tips summary .n{font:600 15px/1 var(--f-body);color:var(--fg-2)}
 .tips summary::after{content:"+";font-family:var(--f-mono);font-size:20px;color:var(--fg-2)}
 .tips details[open] summary::after{content:"–"}
 .tips details[open] summary{color:var(--blue-text)}
@@ -152,15 +157,25 @@ section{padding-block:clamp(56px,8vw,96px)}
 .ani .yes{fill:var(--fg);font-weight:800}
 .shoot-toggle{margin-top:4px}
 
-/* the strip: a slot for Tony's own looping film (media/reel/strip.mp4); hidden until the file loads */
-.reel{position:relative;overflow:hidden;height:clamp(76px,6.25vw,160px);border-block:1px solid var(--line);background:var(--bg-2)}
-.reel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* the crawl: a light band of words sliding by; no video */
+.reel{position:relative;overflow:hidden;border-block:1px solid var(--line);background:var(--bg-2);direction:ltr}
+.reel .run{display:flex;width:max-content;align-items:center;animation:run 55s linear infinite}
+.reel .set{display:flex;align-items:center}
+.reel .w{display:flex;align-items:center;gap:28px;padding-inline:14px;white-space:nowrap;height:clamp(64px,6vw,88px);color:var(--fg)}
+.reel .w::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--blue);flex:none}
+.reel .t{direction:rtl}
+.f-wide{font-family:var(--f-display);font-weight:800;font-size:clamp(1.3rem,2.3vw,2rem);line-height:1}
+.f-cond{font-family:var(--f-body);font-weight:600;font-size:clamp(1.3rem,2.3vw,2rem);line-height:1}
+.f-it{font-family:"Aref Ruqaa",var(--f-display);font-weight:700;font-size:clamp(1.6rem,2.8vw,2.5rem);line-height:1.1}
+.f-blue{color:var(--blue-text)}
+@keyframes run{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+@media (prefers-reduced-motion: reduce){.reel .run{animation:none}}
 
 /* steps */
 .steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
 .steps li{padding:22px;display:grid;gap:8px;align-content:start;border-inline-end:1px solid var(--line);min-width:0}
 .steps li:last-child{border-inline-end:0}
-.steps .n{font:500 13px/1 var(--f-mono);color:var(--blue-text)}
+.steps .n{font:600 15px/1 var(--f-body);color:var(--blue-text)}
 @media (max-width:1000px){.steps{grid-template-columns:1fr}.steps li{border-inline-end:0;border-bottom:1px solid var(--line)}.steps li:last-child{border-bottom:0}}
 .status{display:flex;flex-wrap:wrap;gap:6px 0;align-items:center;margin-top:20px;font-size:14px;color:var(--fg-2)}
 .status b{font-weight:500;color:var(--fg)}
@@ -224,9 +239,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.playhead{transition:none!important}}
 </style>
 
-</head>
-<body>
-<div class="page" dir="rtl" lang="ar">
+</head><body><div class="page" dir="rtl" lang="ar">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <symbol id="egg" viewBox="0 0 120 64"><ellipse cx="60" cy="40" rx="56" ry="6" style="fill:var(--egg-disc)"/><path d="M39 37 A21 12.2 0 0 1 81 37 A21 1 0 0 1 39 37 Z" style="fill:var(--blue)"/></symbol>
   <symbol id="egglime" viewBox="0 0 120 64"><ellipse cx="60" cy="40" rx="56" ry="6" style="fill:var(--egg-disc)"/><path d="M39 37 A21 12.2 0 0 1 81 37 A21 1 0 0 1 39 37 Z" style="fill:var(--lime)"/></symbol>
@@ -246,7 +259,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       <a href="#faq" data-en="Questions">أسئلة</a>
     </nav>
     <div class="tools">
-      <button class="icon-btn" id="lang" type="button" aria-label="English">EN</button>
       <button class="icon-btn" id="lights" type="button" aria-label="الإضاءة" title="الإضاءة">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       </button>
@@ -273,7 +285,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
         </a>
         <a class="btn btn-ghost" href="#how" data-en="See how it works">شوف كيف نشتغل</a>
       </div>
-      <p class="slip" data-en="We deliver on Earth time, wherever you are.">نسلّم بتوقيت الأرض، وين ما كنت.</p>
+      <p class="promise"><span class="clock" aria-hidden="true"></span>التسليم خلال <b>١ إلى ٣ ساعات</b> كحد أقصى.</p>
     </div>
 
     <figure class="ident" id="identBox">
@@ -283,8 +295,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
   </div>
 </div>
 
-<!-- REEL: Tony's strip film goes here -->
-<div class="reel" id="reel" hidden aria-hidden="true"><video muted loop playsinline autoplay preload="none" data-src="media/reel/strip.mp4"></video></div>
+<!-- CRAWL -->
+<div class="reel" aria-hidden="true"><div class="run"><span class="set"><span class="w"><span class="t f-wide">ريلز</span></span><span class="w"><span class="t f-it">إعلانات</span></span><span class="w"><span class="t f-cond">فيديو منتج</span></span><span class="w"><span class="t f-wide">فيديو كليب</span></span><span class="w"><span class="t f-it">بودكاست</span></span><span class="w"><span class="t f-cond">مقابلات</span></span><span class="w"><span class="t f-wide">تغطية فعاليات</span></span><span class="w"><span class="t f-it">صور منتجات</span></span><span class="w"><span class="t f-cond">فيديو تعريفي</span></span><span class="w"><span class="t f-wide">أفلام قصيرة</span></span><span class="w"><span class="t f-cond">محاضرات جغرافيا</span></span><span class="w"><span class="t f-it">حملات</span></span><span class="w"><span class="t f-wide f-blue">التسليم خلال ١ إلى ٣ ساعات</span></span></span><span class="set"><span class="w"><span class="t f-wide">ريلز</span></span><span class="w"><span class="t f-it">إعلانات</span></span><span class="w"><span class="t f-cond">فيديو منتج</span></span><span class="w"><span class="t f-wide">فيديو كليب</span></span><span class="w"><span class="t f-it">بودكاست</span></span><span class="w"><span class="t f-cond">مقابلات</span></span><span class="w"><span class="t f-wide">تغطية فعاليات</span></span><span class="w"><span class="t f-it">صور منتجات</span></span><span class="w"><span class="t f-cond">فيديو تعريفي</span></span><span class="w"><span class="t f-wide">أفلام قصيرة</span></span><span class="w"><span class="t f-cond">محاضرات جغرافيا</span></span><span class="w"><span class="t f-it">حملات</span></span><span class="w"><span class="t f-wide f-blue">التسليم خلال ١ إلى ٣ ساعات</span></span></span></div></div>
 
 <!-- SERVICES -->
 <section id="services" class="band">
@@ -295,22 +307,22 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     </div>
     <div class="grid-4">
       <article class="card">
-        <span class="k">EDIT</span>
+        <span class="k">مونتاج</span>
         <h3 data-en="Reels and ad edits">مونتاج الريلز والإعلانات</h3>
         <p class="muted" data-en="We pick the best takes, cut to the beat, add on-screen text and music, and export every size you need.">نختار أحسن اللقطات، نقصّ على الإيقاع، نضيف النص والموسيقى، ونطلّعه بكل المقاسات اللي تحتاجها.</p>
       </article>
       <article class="card">
-        <span class="k">TEXT</span>
+        <span class="k">نص</span>
         <h3 data-en="Subtitles and on-screen text">الترجمة والنص على الشاشة</h3>
         <p class="muted" data-en="Your words on screen in Arabic or English, readable with the sound off.">نكتب كلامك على الفيديو بالعربي أو الإنجليزي، بخط واضح ينقرأ والصوت مقفول.</p>
       </article>
       <article class="card">
-        <span class="k">GRADE · MIX</span>
+        <span class="k">لون · صوت</span>
         <h3 data-en="Colour and sound">التلوين وتنظيف الصوت</h3>
         <p class="muted" data-en="We balance colour and light so phone footage looks finished, and clean wind and traffic out of the sound.">نضبط الألوان والإضاءة عشان تصوير الجوال يطلع مرتّب، وننظّف الصوت من الهوا والزحمة.</p>
       </article>
       <article class="card">
-        <span class="k">PRODUCT</span>
+        <span class="k">منتج</span>
         <h3 data-en="Product video and photos">فيديو وصور المنتج</h3>
         <p class="muted" data-en="Product shots for ads and your store: dust and fingerprints gone, colour corrected, shape held.">لقطات المنتج للإعلان والمتجر: ننظّف الغبار والبصمات، نصحّح اللون، ونثبّت الشكل.</p>
       </article>
@@ -337,29 +349,29 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       <p class="muted" data-en="Open any tip to see it.">افتح أي نصيحة وشوفها.</p>
     </div>
     <ul class="tips">
-      <li><details><summary><span class="n">01</span><span data-en="Shoot vertical if the video is for Snapchat, TikTok or Reels.">صوّر عمودي إذا الفيديو لسناب أو تيك توك أو الريلز.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g fill="none" stroke="var(--fg)" stroke-width="4"><rect x="110" y="12" width="100" height="150" rx="16"/><path d="M146 24h28" stroke-linecap="round"/>
+      <li><details><summary><span class="n">٠١</span><span data-en="Shoot vertical if the video is for Snapchat, TikTok or Reels.">صوّر عمودي إذا الفيديو لسناب أو تيك توك أو الريلز.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g fill="none" stroke="var(--fg)" stroke-width="4"><rect x="110" y="12" width="100" height="150" rx="16"/><path d="M146 24h28" stroke-linecap="round"/>
 <animateTransform attributeName="transform" type="rotate" values="-90 160 87;-90 160 87;0 160 87;0 160 87;-90 160 87" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/></g>
 <use href="#egglime" x="115" y="64" width="90" height="48"/><g><animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='no'>✗ </tspan>Horizontal"><tspan class="no">✗ </tspan>أفقي</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl yes-lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='yes'>✓ </tspan>Vertical 9:16"><tspan class="yes">✓ </tspan>عمودي ٩:١٦</text></g></svg></span></div></details></li>
-      <li><details><summary><span class="n">02</span><span data-en="Hold the phone with both hands, or rest it on something.">ثبّت الجوال بيدينك الثنتين، أو اسنده على شي.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g><animateTransform attributeName="transform" type="translate" values="0 0;-6 3;6 -3;-5 -4;5 4;-4 2;0 0;0 0" keyTimes="0;.08;.16;.24;.32;.4;.48;1" dur="5s" repeatCount="indefinite"/>
+      <li><details><summary><span class="n">٠٢</span><span data-en="Hold the phone with both hands, or rest it on something.">ثبّت الجوال بيدينك الثنتين، أو اسنده على شي.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g><animateTransform attributeName="transform" type="translate" values="0 0;-6 3;6 -3;-5 -4;5 4;-4 2;0 0;0 0" keyTimes="0;.08;.16;.24;.32;.4;.48;1" dur="5s" repeatCount="indefinite"/>
 <g fill="none" stroke="var(--fg)" stroke-width="4" stroke-linecap="round"><path d="M70 48V22h28M250 48V22h-28M70 128v26h28M250 128v26h-28"/></g>
 <g opacity=".3"><use href="#egglime" x="80" y="52" width="150" height="80"/><use href="#egglime" x="100" y="58" width="150" height="80"/><animate attributeName="opacity" values=".3;.3;0;0;.3" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/></g>
 <use href="#egglime" x="85" y="55" width="150" height="80"/></g><g><animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='no'>✗ </tspan>Shaky"><tspan class="no">✗ </tspan>يهتز</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl yes-lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='yes'>✓ </tspan>Steady"><tspan class="yes">✓ </tspan>ثابت</text></g></svg></span></div></details></li>
-      <li><details><summary><span class="n">03</span><span data-en="Face the window so light falls on the product, not behind it.">قف قدّام الشباك، والضوء يجي على المنتج مو من وراه.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g><animateTransform attributeName="transform" type="translate" values="150 -22;150 -22;0 0;0 0;150 -22" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/>
+      <li><details><summary><span class="n">٠٣</span><span data-en="Face the window so light falls on the product, not behind it.">قف قدّام الشباك، والضوء يجي على المنتج مو من وراه.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g><animateTransform attributeName="transform" type="translate" values="150 -22;150 -22;0 0;0 0;150 -22" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/>
 <polygon points="78,38 78,96 200,128 200,82" fill="var(--fg)" fill-opacity=".1" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/></polygon>
 <g fill="none" stroke="var(--fg)" stroke-width="4"><rect x="40" y="36" width="38" height="60" rx="3"/><path d="M59 36v60M40 66h38"/></g></g>
 <use href="#egglime" x="146" y="62" width="140" height="75"/>
 <use href="#eggshade" x="146" y="62" width="140" height="75"><animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/></use><g><animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='no'>✗ </tspan>Light behind the product"><tspan class="no">✗ </tspan>الضوء من ورا المنتج</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl yes-lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='yes'>✓ </tspan>Light on the product"><tspan class="yes">✓ </tspan>الضوء على المنتج</text></g></svg></span></div></details></li>
-      <li><details><summary><span class="n">04</span><span data-en="Keep every take at least ten seconds. Start before the action and keep rolling after.">خلّ كل لقطة عشر ثواني على الأقل. ابدأ قبل الحركة وكمّل بعدها.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><use href="#egglime" x="90" y="22" width="140" height="75"><animateTransform attributeName="transform" type="translate" values="0 0;0 0;0 -16;0 0;0 0" keyTimes="0;.38;.46;.54;1" dur="5s" repeatCount="indefinite"/></use>
+      <li><details><summary><span class="n">٠٤</span><span data-en="Keep every take at least ten seconds. Start before the action and keep rolling after.">خلّ كل لقطة عشر ثواني على الأقل. ابدأ قبل الحركة وكمّل بعدها.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><use href="#egglime" x="90" y="22" width="140" height="75"><animateTransform attributeName="transform" type="translate" values="0 0;0 0;0 -16;0 0;0 0" keyTimes="0;.38;.46;.54;1" dur="5s" repeatCount="indefinite"/></use>
 <rect x="40" y="122" width="240" height="12" rx="6" fill="var(--bg)" stroke="var(--fg)" stroke-width="1.5"/>
 <rect x="40" y="122" width="240" height="12" rx="6" fill="var(--fg)"><animate attributeName="width" values="0;240;240" keyTimes="0;.85;1" dur="5s" repeatCount="indefinite"/></rect>
-<text x="40" y="156" font-family="IBM Plex Mono,monospace" font-size="13" fill="var(--fg-2)">0s</text>
-<text x="160" y="156" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="13" fill="var(--fg-2)">5s</text>
-<text x="280" y="156" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="13" fill="var(--fg-2)">10s</text><text class="lbl yes-lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='yes'>✓ </tspan>Ten seconds, action in the middle"><tspan class="yes">✓ </tspan>عشر ثواني، والحركة في النص</text></svg></span></div></details></li>
-      <li><details><summary><span class="n">05</span><span data-en="Keep the phone close to whoever speaks, or use a small clip-on mic.">قرّب الجوال من اللي يتكلم، أو استخدم مايك صغير.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><use href="#egglime" x="182" y="48" width="130" height="69"/>
+<text x="40" y="156" font-family="IBM Plex Sans Arabic,sans-serif" font-size="13" fill="var(--fg-2)">٠ ث</text>
+<text x="160" y="156" text-anchor="middle" font-family="IBM Plex Sans Arabic,sans-serif" font-size="13" fill="var(--fg-2)">٥ ث</text>
+<text x="280" y="156" text-anchor="end" font-family="IBM Plex Sans Arabic,sans-serif" font-size="13" fill="var(--fg-2)">١٠ ث</text><text class="lbl yes-lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='yes'>✓ </tspan>Ten seconds, action in the middle"><tspan class="yes">✓ </tspan>عشر ثواني، والحركة في النص</text></svg></span></div></details></li>
+      <li><details><summary><span class="n">٠٥</span><span data-en="Keep the phone close to whoever speaks, or use a small clip-on mic.">قرّب الجوال من اللي يتكلم، أو استخدم مايك صغير.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><use href="#egglime" x="182" y="48" width="130" height="69"/>
 <g fill="none" stroke="var(--fg)" stroke-width="4" stroke-linecap="round"><animateTransform attributeName="transform" type="translate" values="-120 0;-120 0;0 0;0 0;-120 0" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/>
 <rect x="160" y="40" width="22" height="40" rx="11"/><path d="M152 64a19 19 0 0 0 38 0M171 83v14M160 98h22"/></g>
 <g transform="translate(0 158)"><g><rect x="40" y="-30" width="8" height="30" rx="3" fill="var(--fg-2)"/><rect x="53" y="-48" width="8" height="48" rx="3" fill="var(--fg-2)"/><rect x="66" y="-38" width="8" height="38" rx="3" fill="var(--fg-2)"/><rect x="79" y="-60" width="8" height="60" rx="3" fill="var(--fg-2)"/><rect x="92" y="-72" width="8" height="72" rx="3" fill="var(--fg)"/><rect x="105" y="-52" width="8" height="52" rx="3" fill="var(--fg-2)"/><rect x="118" y="-40" width="8" height="40" rx="3" fill="var(--fg-2)"/><rect x="131" y="-26" width="8" height="26" rx="3" fill="var(--fg-2)"/><animateTransform attributeName="transform" type="scale" values="1 .3;1 .3;1 1;1 1;1 .3" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/></g></g><g><animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='no'>✗ </tspan>Far, weak sound"><tspan class="no">✗ </tspan>بعيد، الصوت ضعيف</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl yes-lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='yes'>✓ </tspan>Close, clear sound"><tspan class="yes">✓ </tspan>قريب، الصوت واضح</text></g></svg></span></div></details></li>
-      <li><details><summary><span class="n">06</span><span data-en="Shoot more than you need. Choosing is our job.">صوّر أكثر من اللازم. الاختيار علينا.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g><rect x="44" y="22" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="57" y="38" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.04;0.08;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="125" y="22" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="138" y="38" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.09;0.13;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="206" y="22" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="219" y="38" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.14;0.18;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="44" y="92" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="57" y="108" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.19;0.23;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="125" y="92" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egg" x="138" y="108" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;1;1;0" keyTimes="0;0.24;0.28;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="206" y="92" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="219" y="108" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.29;0.33;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><rect x="122" y="89" width="76" height="62" rx="8" fill="none" stroke="var(--fg)" stroke-width="4" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></rect><g><animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.5;.58;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="Shoot a lot">صوّر كثير</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.5;.58;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl yes-lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='yes'>✓ </tspan>We pick the best"><tspan class="yes">✓ </tspan>واحنا نختار الأحسن</text></g></svg></span></div></details></li>
+      <li><details><summary><span class="n">٠٦</span><span data-en="Shoot more than you need. Choosing is our job.">صوّر أكثر من اللازم. الاختيار علينا.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g><rect x="44" y="22" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="57" y="38" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.04;0.08;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="125" y="22" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="138" y="38" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.09;0.13;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="206" y="22" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="219" y="38" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.14;0.18;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="44" y="92" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="57" y="108" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.19;0.23;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="125" y="92" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egg" x="138" y="108" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;1;1;0" keyTimes="0;0.24;0.28;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="206" y="92" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="219" y="108" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.29;0.33;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><rect x="122" y="89" width="76" height="62" rx="8" fill="none" stroke="var(--fg)" stroke-width="4" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></rect><g><animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.5;.58;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="Shoot a lot">صوّر كثير</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.5;.58;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl yes-lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='yes'>✓ </tspan>We pick the best"><tspan class="yes">✓ </tspan>واحنا نختار الأحسن</text></g></svg></span></div></details></li>
     </ul>
   </div>
 </section>
@@ -372,11 +384,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       <h2 data-en="Five steps, all on your phone.">خمس خطوات، كلها من جوالك.</h2>
     </div>
     <ol class="steps">
-      <li><span class="n">01</span><h3 data-en="You send">ترسل</h3><p class="muted" data-en="On WhatsApp: what you need, where it will run, and a link to the footage.">على واتساب: وش تبي، ووين بتنشره، ورابط المقاطع.</p></li>
-      <li><span class="n">02</span><h3 data-en="We quote">نرسل لك السعر</h3><p class="muted" data-en="One fixed price in writing and a clear delivery date, before you pay anything.">سعر ثابت مكتوب وموعد تسليم واضح، قبل ما تدفع ريال.</p></li>
-      <li><span class="n">03</span><h3 data-en="You pay safely">تدفع بأمان</h3><p class="muted" data-en="Through a secure payment link. Then we start.">عبر رابط دفع آمن. وبعدها نبدأ.</p></li>
-      <li><span class="n">04</span><h3 data-en="You review">تشوف وتعدّل</h3><p class="muted" data-en="You get a first cut, send notes, and approve.">توصلك النسخة الأولى، ترسل ملاحظاتك، وتعتمد.</p></li>
-      <li><span class="n">05</span><h3 data-en="You receive">تستلم</h3><p class="muted" data-en="Final files in every size you asked for.">الملفات النهائية بكل المقاسات اللي طلبتها.</p></li>
+      <li><span class="n">٠١</span><h3 data-en="You send">ترسل</h3><p class="muted" data-en="On WhatsApp: what you need, where it will run, and a link to the footage.">على واتساب: وش تبي، ووين بتنشره، ورابط المقاطع.</p></li>
+      <li><span class="n">٠٢</span><h3 data-en="We quote">نرسل لك السعر</h3><p class="muted" data-en="One fixed price in writing and a clear delivery date, before you pay anything.">سعر ثابت مكتوب، قبل ما تدفع ريال.</p></li>
+      <li><span class="n">٠٣</span><h3 data-en="You pay safely">تدفع بأمان</h3><p class="muted" data-en="Through a secure payment link. Then we start.">عبر رابط دفع آمن. وتبدأ الساعات الثلاث.</p></li>
+      <li><span class="n">٠٤</span><h3 data-en="You review">تشوف وتعدّل</h3><p class="muted" data-en="You get a first cut, send notes, and approve.">خلال ١ إلى ٣ ساعات توصلك النسخة، ترسل ملاحظاتك، وتعتمد.</p></li>
+      <li><span class="n">٠٥</span><h3 data-en="You receive">تستلم</h3><p class="muted" data-en="Final files in every size you asked for.">الملفات النهائية بكل المقاسات اللي طلبتها.</p></li>
     </ol>
     <p class="status">
       <span data-en="You get a message at every stage:">توصلك رسالة مع كل مرحلة:</span><span class="sep">·</span>
@@ -487,9 +499,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       <h2 data-en="Your work stays yours.">شغلك يبقى لك.</h2>
     </div>
     <div class="closed">
-      <div class="card"><span class="k">NDA</span><h3 data-en="Signed before the first upload">اتفاقية سرية قبل أول ملف</h3><p class="muted" data-en="We sign a confidentiality agreement with you before you send anything.">نوقّع معك اتفاقية سرية قبل ما ترسل أي شي.</p></div>
-      <div class="card"><span class="k">CLOSED</span><h3 data-en="No names, no frames">لا اسم ولا لقطة</h3><p class="muted" data-en="We don't show your name or footage, and we don't say we worked with you.">ما نعرض اسمك ولا لقطاتك، ولا نقول إننا اشتغلنا معك.</p></div>
-      <div class="card"><span class="k">+30 D</span><h3 data-en="Raw footage erased">نمسح المواد الخام</h3><p class="muted" data-en="Thirty days after delivery we erase your raw footage and send you a message: Erased.">بعد ٣٠ يوم من التسليم نمسح موادك الخام، ونرسل لك رسالة: انمسحت.</p></div>
+      <div class="card"><span class="k">سرية</span><h3 data-en="Signed before the first upload">اتفاقية سرية قبل أول ملف</h3><p class="muted" data-en="We sign a confidentiality agreement with you before you send anything.">نوقّع معك اتفاقية سرية قبل ما ترسل أي شي.</p></div>
+      <div class="card"><span class="k">مغلق</span><h3 data-en="No names, no frames">لا اسم ولا لقطة</h3><p class="muted" data-en="We don't show your name or footage, and we don't say we worked with you.">ما نعرض اسمك ولا لقطاتك، ولا نقول إننا اشتغلنا معك.</p></div>
+      <div class="card"><span class="k">بعد ٣٠ يوم</span><h3 data-en="Raw footage erased">نمسح المواد الخام</h3><p class="muted" data-en="Thirty days after delivery we erase your raw footage and send you a message: Erased.">بعد ٣٠ يوم من التسليم نمسح موادك الخام، ونرسل لك رسالة: انمسحت.</p></div>
     </div>
   </div>
 </section>
@@ -505,7 +517,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       <details><summary data-en="Does my footage need to be professional?">لازم يكون تصويري احترافي؟</summary><p data-en="No. Most of what reaches us is shot on a phone. The six tips above make a big difference.">لا. أغلب اللي يوصلنا مصوّر بالجوال. النصايح الست فوق تفرق كثير.</p></details>
       <details><summary data-en="How do I send large videos?">كيف أرسل الفيديوهات الكبيرة؟</summary><p data-en="Upload them to Google Drive, WeTransfer or iCloud and send the link. WhatsApp lowers the quality.">ارفعها على Google Drive أو WeTransfer أو iCloud وأرسل الرابط. واتساب يضعّف الجودة.</p></details>
       <details><summary data-en="How much does it cost?">كم السعر؟</summary><p data-en="It depends on the length, the number of sizes and how much footage there is. You get a fixed price in writing before you pay.">يعتمد على طول الفيديو وعدد المقاسات وكمية المواد. يوصلك سعر ثابت مكتوب قبل ما تدفع.</p></details>
-      <details><summary data-en="How long does it take?">كم ياخذ وقت؟</summary><p data-en="The delivery date is written on your quote, and we keep to it.">موعد التسليم مكتوب في عرض السعر، ونلتزم فيه.</p></details>
+      <details><summary data-en="How long does it take?">كم ياخذ وقت؟</summary><p data-en="1 to 3 hours.">من ساعة إلى ٣ ساعات كحد أقصى. الوقت يبدأ من وصول المقاطع كاملة وتأكيد الدفع.</p></details>
       <details><summary data-en="Can I ask for changes?">أقدر أطلب تعديلات؟</summary><p data-en="Yes. You see a first cut and send notes. The number of revision rounds is written on your quote.">أكيد. تشوف النسخة الأولى وترسل ملاحظاتك. عدد جولات التعديل مكتوب في العرض.</p></details>
 
     </div>
@@ -534,7 +546,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 <footer>
   <div class="wrap">
     <span data-en="Blue Yolk · a remote editing lab">بلو يولك · مختبر مونتاج عن بُعد</span>
-    <span class="mono">© 2026 blueyolk.org</span>
+    <span>© ٢٠٢٦ <span dir="ltr">blueyolk.org</span></span>
   </div>
 </footer>
 </div>
@@ -550,7 +562,6 @@ const CONFIG = {
 const page = document.querySelector(".page");
 const root = document.documentElement;
 let lang = "ar";
-try { if (localStorage.getItem("by-lang") === "en") lang = "en"; } catch(e) {}
 
 const waLink = (text) => "https://wa.me/" + CONFIG.whatsapp + (text ? "?text=" + encodeURIComponent(text) : "");
 const T = (ar, en) => lang === "ar" ? ar : en;
@@ -571,17 +582,10 @@ function applyLang(){
   root.dir = page.dir; root.lang = lang;
   tx.forEach(el => el.innerHTML = ar ? el.dataset.ar : el.dataset.en);
   ph.forEach(el => el.placeholder = ar ? el.dataset.arPh : el.dataset.enPh);
-  const lb = document.getElementById("lang");
-  lb.textContent = ar ? "EN" : "ع"; lb.setAttribute("aria-label", ar ? "English" : "العربية");
   document.title = ar ? "بلو يولك · Blue Yolk" : "Blue Yolk · بلو يولك";
   document.querySelectorAll(".ani text[data-en]").forEach(t => t.setAttribute("direction", ar ? "rtl" : "ltr"));
   setWa(); setPay();
 }
-document.getElementById("lang").addEventListener("click", () => {
-  lang = lang === "ar" ? "en" : "ar";
-  try { localStorage.setItem("by-lang", lang); } catch(e) {}
-  applyLang();
-});
 
 /* lights */
 document.getElementById("lights").addEventListener("click", () => {
@@ -591,10 +595,13 @@ document.getElementById("lights").addEventListener("click", () => {
 
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* ident: muted loop; sound on request; still frame with reduced motion; mark tile if the film is missing */
+/* ident: muted loop; sound on request; still frame with reduced motion */
 (() => { const v = document.getElementById("ident"), b = document.getElementById("snd"), box = document.getElementById("identBox"); if (!v) return;
   if (reduce) { v.removeAttribute("autoplay"); v.pause(); }
-  v.addEventListener("error", () => { box.outerHTML = '<div class="mark-tile" aria-hidden="true"><svg viewBox="0 20 120 32"><ellipse cx="60" cy="40" rx="56" ry="6" fill="#0B0B0B"/><path d="M39 37 A21 12.2 0 0 1 81 37 A21 1 0 0 1 39 37 Z" fill="#2055F5"/></svg></div>'; });
+  /* if the phone blocks autoplay (low-power mode), the first tap anywhere starts the film */
+  const kick = () => { if (v.paused && !reduce) v.play().catch(()=>{}); };
+  v.addEventListener("canplay", kick, { once: true });
+  ["touchstart","pointerdown","scroll"].forEach(ev => addEventListener(ev, kick, { once: true, passive: true }));
   b.addEventListener("click", () => {
     const on = v.muted; v.muted = !on; if (on) { v.currentTime = 0; v.play().catch(()=>{}); }
     b.setAttribute("aria-pressed", String(on));
@@ -602,12 +609,6 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
     b.textContent = lang === "ar" ? b.dataset.ar : b.dataset.en;
   });
 })();
-
-/* strip: show the band only once Tony's film loads */
-(() => { const r = document.getElementById("reel"), v = r && r.querySelector("video"); if (!v) return;
-  v.addEventListener("loadeddata", () => { r.hidden = false; v.play().catch(()=>{}); });
-  v.addEventListener("error", () => r.remove());
-  v.src = v.dataset.src; v.preload = "auto"; })();
 
 /* brief → WhatsApp */
 const form = document.getElementById("briefForm");
@@ -663,6 +664,4 @@ applyLang();
 /* tip scenes: with reduced motion, hold the "right" frame */
 if (reduce) document.querySelectorAll(".ani svg").forEach(sv => { try { sv.pauseAnimations(); sv.setCurrentTime(4); } catch(e) {} });
 </script>
-
-</body>
-</html>
+</body></html>
