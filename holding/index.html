@@ -255,6 +255,85 @@ footer a{color:inherit}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.playhead{transition:none!important}}
+
+/* ---------- demo: before / after ---------- */
+.diff{display:grid;grid-template-columns:1fr minmax(0,380px);gap:clamp(28px,5vw,72px);align-items:center}
+@media (max-width:860px){.diff{grid-template-columns:1fr}}
+.ba{position:relative;margin:0;aspect-ratio:9/16;max-height:78vh;justify-self:center;width:100%;max-width:380px;border-radius:28px;overflow:hidden;border:1.5px solid var(--fg);background:var(--bg-3);touch-action:pan-y}
+.ba canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:ew-resize;touch-action:pan-y}
+.ba .tag{position:absolute;top:14px;padding:5px 12px;border-radius:999px;font:600 13px/1.2 var(--f-body);pointer-events:none}
+.ba .tag-b{right:14px;background:rgba(11,11,11,.7);color:#F5F3E9}
+.ba .tag-a{left:14px;background:#F5F3E9;color:#0B0B0B}
+.knob{position:absolute;top:0;bottom:0;left:50%;width:0;pointer-events:none}
+.knob::before{content:"";position:absolute;top:0;bottom:0;left:-1px;width:2px;background:#F5F3E9;box-shadow:0 0 0 1px rgba(11,11,11,.25)}
+.knob span{position:absolute;top:50%;left:-22px;width:44px;height:44px;margin-top:-22px;border-radius:50%;background:#F5F3E9;border:1.5px solid #0B0B0B;display:grid;place-items:center}
+.knob span::before{content:"‹ ›";font:700 17px/1 var(--f-body);color:#0B0B0B;letter-spacing:2px}
+.ba input:focus-visible ~ .knob span,.ba:has(input:focus-visible) .knob span{outline:2px solid var(--blue-text);outline-offset:3px}
+.ear{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:8px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--bg)}
+.seg button{border:0;background:none;color:var(--fg-2);font:600 14px/1 var(--f-body);padding:10px 14px;border-radius:999px;cursor:pointer}
+.seg button.on{background:var(--fg);color:var(--bg)}
+.play{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border-radius:999px;border:1.5px solid var(--fg);background:var(--bg);color:var(--fg);font:600 14px/1 var(--f-body);cursor:pointer}
+.play .ic{width:0;height:0;border-block:6px solid transparent;border-inline-end:10px solid currentColor}
+.play[aria-pressed="true"] .ic{width:10px;height:12px;border:0;border-inline:3px solid currentColor}
+#earMeter{width:120px;height:18px}
+/* ---------- demo: checklist ---------- */
+.tips li{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;align-items:start;border-bottom:1px solid var(--line)}
+.tips details{border-bottom:0}
+.chk{position:relative;margin-top:14px;cursor:pointer}
+.chk input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.chk span{display:grid;place-items:center;width:28px;height:28px;border:1.5px solid var(--fg-2);border-radius:8px;background:var(--bg)}
+.chk svg{width:20px;height:20px;fill:none;stroke:var(--fg);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:scale(.6);transition:opacity .15s,transform .15s}
+.chk input:checked+span{border-color:var(--fg)}
+.chk input:checked+span svg{opacity:1;transform:none}
+.chk input:focus-visible+span{outline:2px solid var(--blue-text);outline-offset:2px}
+.tips li:has(.chk input:checked) summary span:last-child{color:var(--fg-2)}
+.ready{max-width:820px;margin-top:22px;display:grid;gap:12px}
+.ready-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.rbar{height:8px;border-radius:999px;background:var(--bg-3);overflow:hidden}
+.rbar i{display:block;height:100%;width:0;background:var(--blue);border-radius:999px;transition:width .3s}
+/* ---------- demo: bundles ---------- */
+.bund{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(24px,4vw,56px);align-items:start}
+@media (max-width:860px){.bund{grid-template-columns:1fr}}
+.bund-opts{display:grid;gap:22px}
+.opt span em{font-style:normal;font-size:12px;font-weight:600;margin-inline-start:8px;padding:2px 8px;border-radius:999px;background:var(--blue);color:#fff}
+.opt input:checked+span em{background:var(--bg);color:var(--blue-text)}
+.plan{border:1.5px solid var(--fg);border-radius:22px;padding:clamp(20px,3vw,30px);background:var(--bg);display:grid;gap:16px}
+.plan-k{font-weight:700;color:var(--fg-2)}
+.plan-p{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 12px}
+.plan-p b{font-family:var(--f-display);font-size:clamp(2.2rem,4.5vw,3rem);line-height:1;color:var(--blue-text)}
+.plan-p s{color:var(--fg-2)}
+.plan ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.plan ul:not(.ticks) li{display:flex;justify-content:space-between;gap:12px;border-top:1px dashed var(--line);padding-top:10px}
+.plan ul:not(.ticks) b{font-weight:700}
+.plan .save b{color:var(--blue-text)}
+.ticks li{display:flex;gap:10px;align-items:center;font-size:15px}
+.ticks li::before{content:"✓";font-weight:800;color:var(--fg)}
+
+/* ---------- demo: try it on your own shot ---------- */
+.try{display:grid;gap:14px;margin-top:6px}
+.src{display:flex;flex-wrap:wrap;gap:10px}
+.src label.btn{cursor:pointer}
+.mood{gap:8px}
+.status{margin:0;font-size:14px;font-weight:600;color:var(--blue-text);min-height:1.4em}
+.ba #baGL{position:absolute;inset:0;width:100%;height:100%;display:block}
+.listen{margin-inline-start:8px;border:1px solid var(--fg);background:var(--bg);color:var(--fg);border-radius:999px;font:600 12px/1 var(--f-body);padding:5px 10px;cursor:pointer;vertical-align:middle}
+.listen[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+
+[hidden]{display:none!important}
+.ba .empty{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:10px;padding:24px;text-align:center;background:var(--bg-2)}
+.ba .empty svg{width:72px}
+.ba .empty b{font:800 20px/1.4 var(--f-display)}
+.ba .empty span{font-size:14px;color:var(--fg-2);max-width:220px}
+.ba:not(.idle) .empty,.ba.idle .tag,.ba.idle .knob,.ba.idle input{display:none}
+
+.full{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.busy{flex-basis:100%;height:6px;border-radius:999px;background:var(--bg-3);overflow:hidden}
+.busy i{display:block;height:100%;width:30%;border-radius:999px;background:var(--blue);animation:busy 1.2s ease-in-out infinite}
+@keyframes busy{from{transform:translateX(250%)}to{transform:translateX(-100%)}}
+.ba #outV{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#0B0B0B}
+.ba.result .tag,.ba.result .knob,.ba.result input,.ba.result #baGL{display:none}
 </style>
 
 </head><body><div class="page" dir="rtl" lang="ar">
@@ -272,7 +351,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     <nav aria-label="الأقسام">
       <a href="#services" data-en="Services">الخدمات</a>
       <a href="#shoot" data-en="Before you shoot">قبل التصوير</a>
+      <a href="#diff">الفرق</a>
       <a href="#how" data-en="How it works">كيف نشتغل</a>
+      <a href="#bundles">الباقات</a>
       <a href="#pay" data-en="Payment">الدفع</a>
       <a href="#faq" data-en="Questions">أسئلة</a>
     </nav>
@@ -359,38 +440,88 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 </section>
 
 <!-- BEFORE YOU SHOOT -->
+<!-- DIFFERENCE (demo) -->
+<section id="diff">
+  <div class="wrap diff">
+    <div class="sec-head">
+      <p class="eyebrow">[ الفرق ]</p>
+      <h2>جرّبها على لقطتك، الحين.</h2>
+      <p class="muted">افتح كاميرتك أو ارفع مقطع ١٠ إلى ١٥ ثانية، واسحب الخط: على اليمين لقطتك مثل ما هي، وعلى اليسار بعد التثبيت والتلوين. واختار مود الموسيقى.</p>
+      <div class="try">
+        <div class="src" role="group" aria-label="مصدر اللقطة">
+          <button type="button" class="btn btn-primary" id="useCam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span>جرّب بكاميرتك</span></button>
+          <label class="btn btn-ghost" id="useFile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg><span>ارفع مقطع</span><input type="file" id="fileIn" accept="video/*" hidden></label>
+          <button type="button" class="btn btn-ghost" id="useDemo" hidden>وقّف</button>
+        </div>
+        <div class="full" id="fullRow" hidden>
+          <button type="button" class="btn btn-primary" id="fullBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>جهّز لي النسخة الكاملة</span></button>
+          <a class="btn btn-ghost" id="fullDl" hidden download="blueyolk-preview.mp4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>حمّل النسخة</span></a>
+          <button type="button" class="btn btn-ghost" id="fullBack" hidden>رجوع للمعاينة</button>
+          <div class="busy" id="fullBusy" hidden aria-hidden="true"><i></i></div>
+        </div>
+        <fieldset class="mood">
+          <legend>مود الموسيقى</legend>
+          <div class="opts">
+          <label class="opt"><input type="radio" name="tmood" value="none" checked><span>بدون</span></label>
+          <label class="opt"><input type="radio" name="tmood" value="hype"><span>حماسي</span></label>
+          <label class="opt"><input type="radio" name="tmood" value="classic"><span>كلاسيكي</span></label>
+          <label class="opt"><input type="radio" name="tmood" value="calm"><span>هادئ</span></label>
+          <label class="opt"><input type="radio" name="tmood" value="lux"><span>فخم</span></label>
+          </div>
+        </fieldset>
+        <p class="status" id="tryStatus" aria-live="polite"></p>
+        <p class="hint">المعاينة تصير داخل جهازك. النسخة الكاملة (لين ١٥ ثانية و٣٠ ميغا) تنرسل لخادمنا، تتجهّز في ثواني، وتنمسح مباشرة. والمونتاج الحقيقي أدق بكثير.</p>
+      </div>
+      </div>
+    <figure class="ba idle" id="ba">
+      <div class="empty" id="baEmpty"><svg viewBox="0 0 120 64" aria-hidden="true"><ellipse cx="60" cy="40" rx="56" ry="6" fill="var(--fg)"/><path d="M39 37 A21 12.2 0 0 1 81 37 A21 1 0 0 1 39 37 Z" fill="var(--blue)"/></svg><b>لقطتك تطلع هنا</b><span>افتح الكاميرا أو ارفع مقطع ١٠ إلى ١٥ ثانية</span></div>
+      <canvas id="baGL" hidden aria-hidden="true"></canvas>
+      <video id="srcV" playsinline muted loop hidden></video>
+      <video id="outV" playsinline controls loop hidden></video>
+      <span class="tag tag-b">قبل</span><span class="tag tag-a">بعد</span>
+      <span class="knob" id="baKnob" aria-hidden="true"><span></span></span>
+      <input type="range" id="baRange" min="0" max="100" value="50" dir="ltr" aria-label="اسحب للمقارنة بين قبل وبعد">
+    </figure>
+  </div>
+</section>
+
 <section id="shoot">
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow" data-en="[ before you shoot ]">[ قبل ما تصوّر ]</p>
       <h2 data-en="Six things that change the result.">ست نصايح، وتفرق كثير في النتيجة.</h2>
-      <p class="muted" data-en="Open any tip to see it.">افتح أي نصيحة وشوفها.</p>
+      <p class="muted">افتح أي نصيحة وشوفها، وعلّم عليها لما تجهز.</p>
     </div>
     <ul class="tips">
-      <li><details><summary><span class="n">٠١</span><span data-en="Shoot vertical if the video is for Snapchat, TikTok or Reels.">صوّر عمودي إذا الفيديو لسناب أو تيك توك أو الريلز.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g fill="none" stroke="var(--fg)" stroke-width="4"><rect x="110" y="12" width="100" height="150" rx="16"/><path d="M146 24h28" stroke-linecap="round"/>
+      <li><label class="chk"><input type="checkbox" data-tip="1" aria-label="جاهز: النصيحة 1"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></label><details><summary><span class="n">٠١</span><span data-en="Shoot vertical if the video is for Snapchat, TikTok or Reels.">صوّر عمودي إذا الفيديو لسناب أو تيك توك أو الريلز.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g fill="none" stroke="var(--fg)" stroke-width="4"><rect x="110" y="12" width="100" height="150" rx="16"/><path d="M146 24h28" stroke-linecap="round"/>
 <animateTransform attributeName="transform" type="rotate" values="-90 160 87;-90 160 87;0 160 87;0 160 87;-90 160 87" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/></g>
 <use href="#egglime" x="115" y="64" width="90" height="48"/><g><animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='no'>✗ </tspan>Horizontal"><tspan class="no">✗ </tspan>أفقي</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl yes-lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='yes'>✓ </tspan>Vertical 9:16"><tspan class="yes">✓ </tspan>عمودي ٩:١٦</text></g></svg></span></div></details></li>
-      <li><details><summary><span class="n">٠٢</span><span data-en="Hold the phone with both hands, or rest it on something.">ثبّت الجوال بيدينك الثنتين، أو اسنده على شي.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g><animateTransform attributeName="transform" type="translate" values="0 0;-6 3;6 -3;-5 -4;5 4;-4 2;0 0;0 0" keyTimes="0;.08;.16;.24;.32;.4;.48;1" dur="5s" repeatCount="indefinite"/>
+      <li><label class="chk"><input type="checkbox" data-tip="2" aria-label="جاهز: النصيحة 2"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></label><details><summary><span class="n">٠٢</span><span data-en="Hold the phone with both hands, or rest it on something.">ثبّت الجوال بيدينك الثنتين، أو اسنده على شي.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g><animateTransform attributeName="transform" type="translate" values="0 0;-6 3;6 -3;-5 -4;5 4;-4 2;0 0;0 0" keyTimes="0;.08;.16;.24;.32;.4;.48;1" dur="5s" repeatCount="indefinite"/>
 <g fill="none" stroke="var(--fg)" stroke-width="4" stroke-linecap="round"><path d="M70 48V22h28M250 48V22h-28M70 128v26h28M250 128v26h-28"/></g>
 <g opacity=".3"><use href="#egglime" x="80" y="52" width="150" height="80"/><use href="#egglime" x="100" y="58" width="150" height="80"/><animate attributeName="opacity" values=".3;.3;0;0;.3" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/></g>
 <use href="#egglime" x="85" y="55" width="150" height="80"/></g><g><animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='no'>✗ </tspan>Shaky"><tspan class="no">✗ </tspan>يهتز</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl yes-lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='yes'>✓ </tspan>Steady"><tspan class="yes">✓ </tspan>ثابت</text></g></svg></span></div></details></li>
-      <li><details><summary><span class="n">٠٣</span><span data-en="Face the window so light falls on the product, not behind it.">قف قدّام الشباك، والضوء يجي على المنتج مو من وراه.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g><animateTransform attributeName="transform" type="translate" values="150 -22;150 -22;0 0;0 0;150 -22" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/>
+      <li><label class="chk"><input type="checkbox" data-tip="3" aria-label="جاهز: النصيحة 3"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></label><details><summary><span class="n">٠٣</span><span data-en="Face the window so light falls on the product, not behind it.">قف قدّام الشباك، والضوء يجي على المنتج مو من وراه.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g><animateTransform attributeName="transform" type="translate" values="150 -22;150 -22;0 0;0 0;150 -22" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/>
 <polygon points="78,38 78,96 200,128 200,82" fill="var(--fg)" fill-opacity=".1" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/></polygon>
 <g fill="none" stroke="var(--fg)" stroke-width="4"><rect x="40" y="36" width="38" height="60" rx="3"/><path d="M59 36v60M40 66h38"/></g></g>
 <use href="#egglime" x="146" y="62" width="140" height="75"/>
 <use href="#eggshade" x="146" y="62" width="140" height="75"><animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/></use><g><animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='no'>✗ </tspan>Light behind the product"><tspan class="no">✗ </tspan>الضوء من ورا المنتج</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl yes-lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='yes'>✓ </tspan>Light on the product"><tspan class="yes">✓ </tspan>الضوء على المنتج</text></g></svg></span></div></details></li>
-      <li><details><summary><span class="n">٠٤</span><span data-en="Keep every take at least ten seconds. Start before the action and keep rolling after.">خلّ كل لقطة عشر ثواني على الأقل. ابدأ قبل الحركة وكمّل بعدها.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><use href="#egglime" x="90" y="22" width="140" height="75"><animateTransform attributeName="transform" type="translate" values="0 0;0 0;0 -16;0 0;0 0" keyTimes="0;.38;.46;.54;1" dur="5s" repeatCount="indefinite"/></use>
+      <li><label class="chk"><input type="checkbox" data-tip="4" aria-label="جاهز: النصيحة 4"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></label><details><summary><span class="n">٠٤</span><span data-en="Keep every take at least ten seconds. Start before the action and keep rolling after.">خلّ كل لقطة عشر ثواني على الأقل. ابدأ قبل الحركة وكمّل بعدها.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><use href="#egglime" x="90" y="22" width="140" height="75"><animateTransform attributeName="transform" type="translate" values="0 0;0 0;0 -16;0 0;0 0" keyTimes="0;.38;.46;.54;1" dur="5s" repeatCount="indefinite"/></use>
 <rect x="40" y="122" width="240" height="12" rx="6" fill="var(--bg)" stroke="var(--fg)" stroke-width="1.5"/>
 <rect x="40" y="122" width="240" height="12" rx="6" fill="var(--fg)"><animate attributeName="width" values="0;240;240" keyTimes="0;.85;1" dur="5s" repeatCount="indefinite"/></rect>
 <text x="40" y="156" font-family="IBM Plex Sans Arabic,sans-serif" font-size="13" fill="var(--fg-2)">٠ ث</text>
 <text x="160" y="156" text-anchor="middle" font-family="IBM Plex Sans Arabic,sans-serif" font-size="13" fill="var(--fg-2)">٥ ث</text>
 <text x="280" y="156" text-anchor="end" font-family="IBM Plex Sans Arabic,sans-serif" font-size="13" fill="var(--fg-2)">١٠ ث</text><text class="lbl yes-lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='yes'>✓ </tspan>Ten seconds, action in the middle"><tspan class="yes">✓ </tspan>عشر ثواني، والحركة في النص</text></svg></span></div></details></li>
-      <li><details><summary><span class="n">٠٥</span><span data-en="Keep the phone close to whoever speaks, or use a small clip-on mic.">قرّب الجوال من اللي يتكلم، أو استخدم مايك صغير.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><use href="#egglime" x="182" y="48" width="130" height="69"/>
+      <li><label class="chk"><input type="checkbox" data-tip="5" aria-label="جاهز: النصيحة 5"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></label><details><summary><span class="n">٠٥</span><span data-en="Keep the phone close to whoever speaks, or use a small clip-on mic.">قرّب الجوال من اللي يتكلم، أو استخدم مايك صغير.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><use href="#egglime" x="182" y="48" width="130" height="69"/>
 <g fill="none" stroke="var(--fg)" stroke-width="4" stroke-linecap="round"><animateTransform attributeName="transform" type="translate" values="-120 0;-120 0;0 0;0 0;-120 0" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/>
 <rect x="160" y="40" width="22" height="40" rx="11"/><path d="M152 64a19 19 0 0 0 38 0M171 83v14M160 98h22"/></g>
 <g transform="translate(0 158)"><g><rect x="40" y="-30" width="8" height="30" rx="3" fill="var(--fg-2)"/><rect x="53" y="-48" width="8" height="48" rx="3" fill="var(--fg-2)"/><rect x="66" y="-38" width="8" height="38" rx="3" fill="var(--fg-2)"/><rect x="79" y="-60" width="8" height="60" rx="3" fill="var(--fg-2)"/><rect x="92" y="-72" width="8" height="72" rx="3" fill="var(--fg)"/><rect x="105" y="-52" width="8" height="52" rx="3" fill="var(--fg-2)"/><rect x="118" y="-40" width="8" height="40" rx="3" fill="var(--fg-2)"/><rect x="131" y="-26" width="8" height="26" rx="3" fill="var(--fg-2)"/><animateTransform attributeName="transform" type="scale" values="1 .3;1 .3;1 1;1 1;1 .3" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/></g></g><g><animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='no'>✗ </tspan>Far, weak sound"><tspan class="no">✗ </tspan>بعيد، الصوت ضعيف</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.4;.52;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl yes-lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='yes'>✓ </tspan>Close, clear sound"><tspan class="yes">✓ </tspan>قريب، الصوت واضح</text></g></svg></span></div></details></li>
-      <li><details><summary><span class="n">٠٦</span><span data-en="Shoot more than you need. Choosing is our job.">صوّر أكثر من اللازم. الاختيار علينا.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g><rect x="44" y="22" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="57" y="38" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.04;0.08;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="125" y="22" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="138" y="38" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.09;0.13;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="206" y="22" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="219" y="38" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.14;0.18;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="44" y="92" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="57" y="108" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.19;0.23;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="125" y="92" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egg" x="138" y="108" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;1;1;0" keyTimes="0;0.24;0.28;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="206" y="92" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="219" y="108" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.29;0.33;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><rect x="122" y="89" width="76" height="62" rx="8" fill="none" stroke="var(--fg)" stroke-width="4" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></rect><g><animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.5;.58;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="Shoot a lot">صوّر كثير</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.5;.58;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl yes-lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='yes'>✓ </tspan>We pick the best"><tspan class="yes">✓ </tspan>واحنا نختار الأحسن</text></g></svg></span></div></details></li>
+      <li><label class="chk"><input type="checkbox" data-tip="6" aria-label="جاهز: النصيحة 6"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></label><details><summary><span class="n">٠٦</span><span data-en="Shoot more than you need. Choosing is our job.">صوّر أكثر من اللازم. الاختيار علينا.</span></summary><div class="open-body"><span class="ani" aria-hidden="true"><svg viewBox="0 0 320 200"><g><rect x="44" y="22" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="57" y="38" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.04;0.08;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="125" y="22" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="138" y="38" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.09;0.13;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="206" y="22" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="219" y="38" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.14;0.18;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="44" y="92" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="57" y="108" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.19;0.23;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="125" y="92" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egg" x="138" y="108" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;1;1;0" keyTimes="0;0.24;0.28;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><g><rect x="206" y="92" width="70" height="56" rx="6" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><use href="#egglime" x="219" y="108" width="44" height="24"/><animate attributeName="opacity" values="0;0;1;1;.2;.2;0" keyTimes="0;0.29;0.33;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></g><rect x="122" y="89" width="76" height="62" rx="8" fill="none" stroke="var(--fg)" stroke-width="4" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.5;.6;.94;1" dur="5s" repeatCount="indefinite"/></rect><g><animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.5;.58;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="Shoot a lot">صوّر كثير</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.5;.58;.94;1" dur="5s" repeatCount="indefinite"/><text class="lbl yes-lbl" x="160" y="188" text-anchor="middle" direction="rtl" data-en="<tspan class='yes'>✓ </tspan>We pick the best"><tspan class="yes">✓ </tspan>واحنا نختار الأحسن</text></g></svg></span></div></details></li>
     </ul>
+    <div class="ready" id="ready">
+      <div class="ready-row"><b id="readyTxt">جاهز للتصوير: ٠ من ٦</b><a class="btn btn-ghost" href="/media/guide.pdf" download="blueyolk-before-you-shoot.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>حمّل الدليل PDF</span></a></div>
+      <div class="rbar" aria-hidden="true"><i id="readyBar"></i></div>
+      <p class="hint" id="readyDone" hidden>جاهز. صوّر، ارفع المقاطع، و<a href="#brief">ابدأ طلبك</a>.</p>
+    </div>
   </div>
 </section>
 
@@ -412,6 +543,60 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       <span data-en="You get a message at every stage:">توصلك رسالة مع كل مرحلة:</span><span class="sep">·</span>
       <b data-en="Received">استلمنا</b><span class="sep">›</span><b data-en="Mounted">ركّبنا</b><span class="sep">›</span><b data-en="In the bay">في غرفة المونتاج</b><span class="sep">›</span><b data-en="Locked">اعتمدنا</b><span class="sep">›</span><b data-en="Finished">خلصنا</b><span class="sep">›</span><b data-en="Landed">وصلت</b><span class="sep">›</span><b data-en="Erased">انمسحت</b>
     </p>
+  </div>
+</section>
+
+<!-- BUNDLES (demo) -->
+<section id="bundles">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">[ باقات شهرية ]</p>
+      <h2>محتوى كل شهر، بسعر أقل لكل ريل.</h2>
+      <p class="muted">اختار كم ريل تحتاج في الشهر، وشوف السعر يتغيّر قدامك. نفس السرعة: كل ريل يوصلك خلال ١ إلى ٣ ساعات.</p>
+    </div>
+    <div class="bund">
+      <form class="bund-opts" id="bundForm" onsubmit="return false">
+        <fieldset>
+          <legend>كم ريل في الشهر؟</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="bn" value="4"><span>٤</span></label>
+            <label class="opt"><input type="radio" name="bn" value="8" checked><span>٨ <em>ننصح فيها</em></span></label>
+            <label class="opt"><input type="radio" name="bn" value="12"><span>١٢</span></label>
+            <label class="opt"><input type="radio" name="bn" value="20"><span>٢٠</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>مدة الريل</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="bl" value="15" checked><span>لين ١٥ ثانية</span></label>
+            <label class="opt"><input type="radio" name="bl" value="30"><span>لين ٣٠ ثانية</span></label>
+            <label class="opt"><input type="radio" name="bl" value="60"><span>لين دقيقة</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>مع كل ريل <span class="hint">(اختياري)</span></legend>
+          <div class="opts">
+            <label class="opt"><input type="checkbox" name="bx" value="text"><span>نص وترجمة</span></label>
+            <label class="opt"><input type="checkbox" name="bx" value="grade"><span>تلوين احترافي</span></label>
+            <label class="opt"><input type="checkbox" name="bx" value="audio"><span>تنظيف الصوت</span></label>
+          </div>
+        </fieldset>
+      </form>
+      <div class="plan" aria-live="polite">
+        <span class="plan-k" id="planName">باقة ٨ ريلز</span>
+        <div class="plan-p"><b id="planEach">—</b><span>للريل</span><s id="planWas"></s></div>
+        <ul>
+          <li><span>المجموع الشهري</span><b id="planTotal">—</b></li>
+          <li class="save"><span>توفّر كل شهر</span><b id="planSave">—</b></li>
+        </ul>
+        <ul class="ticks">
+          <li>كل ريل خلال ١ إلى ٣ ساعات</li>
+          <li>نفس الأسلوب والخط والألوان كل شهر</li>
+          <li>شهر بشهر، توقف متى ما تبي</li>
+        </ul>
+        <a class="btn btn-primary" id="planGo" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8L4 20z"/></svg><span>ابدأ الباقة على واتساب</span></a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -460,6 +645,17 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
           <label class="opt"><input type="checkbox" name="extra" value="text"><span>نص وترجمة على الشاشة</span></label>
           <label class="opt"><input type="checkbox" name="extra" value="grade"><span>تلوين احترافي</span></label>
           <label class="opt"><input type="checkbox" name="extra" value="audio"><span>تنظيف الصوت</span></label>
+        </div>
+      </fieldset>
+      <fieldset data-for="video">
+        <legend>مود الموسيقى <button type="button" class="listen" id="moodListen" aria-pressed="false">▶ اسمع</button></legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="bmood" value="auto" checked><span>خلّوه علينا</span></label>
+          <label class="opt"><input type="radio" name="bmood" value="hype"><span>حماسي</span></label>
+          <label class="opt"><input type="radio" name="bmood" value="classic"><span>كلاسيكي</span></label>
+          <label class="opt"><input type="radio" name="bmood" value="calm"><span>هادئ</span></label>
+          <label class="opt"><input type="radio" name="bmood" value="lux"><span>فخم</span></label>
+          <label class="opt"><input type="radio" name="bmood" value="none"><span>بدون موسيقى</span></label>
         </div>
       </fieldset>
       <fieldset>
@@ -722,7 +918,7 @@ form.addEventListener("submit", (e) => {
   const who = document.getElementById("who").value.trim() || "—";
   const note = document.getElementById("note").value.trim();
   const msg = T(
-    "السلام عليكم، طلب مونتاج جديد:\n• الشغل: " + kind + "\n" + quote.lines.map(([a, v]) => "  - " + a + ": " + (v < 0 ? "−" : "") + sar(Math.abs(v))).join("\n") + "\n• السعر التقريبي: " + sar(quote.total) + "\n• النشر على: " + where + "\n• رابط المقاطع: " + link + "\n• التسليم: " + when + "\n• الاسم والنشاط: " + who + (note ? "\n• ملاحظات: " + note : ""),
+    "السلام عليكم، طلب مونتاج جديد:\n• الشغل: " + kind + "\n" + quote.lines.map(([a, v]) => "  - " + a + ": " + (v < 0 ? "−" : "") + sar(Math.abs(v))).join("\n") + "\n• السعر التقريبي: " + sar(quote.total) + (form.querySelector("input[name=kind]:checked").id !== "k-photo" ? "\n• مود الموسيقى: " + ({auto:"خلّوه علينا",hype:"حماسي",classic:"كلاسيكي",calm:"هادئ",lux:"فخم",none:"بدون موسيقى"})[form.querySelector("input[name=bmood]:checked").value] : "") + "\n• النشر على: " + where + "\n• رابط المقاطع: " + link + "\n• التسليم: " + when + "\n• الاسم والنشاط: " + who + (note ? "\n• ملاحظات: " + note : ""),
     "Hi, a new editing request:\n• Work: " + kind + "\n• Runs on: " + where + "\n• Footage link: " + link + "\n• Needed by: " + when + "\n• Name and business: " + who + (note ? "\n• Notes: " + note : "")
   );
   document.getElementById("msg").textContent = msg;
@@ -764,5 +960,250 @@ calc();
 
 /* tip scenes: with reduced motion, hold the "right" frame */
 if (reduce) document.querySelectorAll(".ani svg").forEach(sv => { try { sv.pauseAnimations(); sv.setCurrentTime(4); } catch(e) {} });
+</script>
+<script>
+/* ===== demo: before / after drag line ===== */
+(() => { const r = document.getElementById("baRange"), k = document.getElementById("baKnob");
+  const set = () => k.style.left = r.value + "%"; r.addEventListener("input", set); set(); })();
+
+/* ===== demo: checklist ===== */
+(() => {
+  const boxes = [...document.querySelectorAll(".chk input")];
+  let saved = []; try { saved = JSON.parse(localStorage.getItem("by-ready") || "[]"); } catch(e) {}
+  boxes.forEach(b => { b.checked = saved.includes(b.dataset.tip); b.addEventListener("change", upd); });
+  function upd(){ const on = boxes.filter(b => b.checked); const n = on.length;
+    document.getElementById("readyTxt").textContent = "جاهز للتصوير: " + nAr(n) + " من ٦";
+    document.getElementById("readyBar").style.width = (n / 6 * 100) + "%";
+    document.getElementById("readyDone").hidden = n < 6;
+    try { localStorage.setItem("by-ready", JSON.stringify(on.map(b => b.dataset.tip))); } catch(e) {} }
+  upd();
+})();
+
+/* ===== demo: monthly bundles ===== */
+(() => {
+  const f = document.getElementById("bundForm");
+  const OFF = { 4: .15, 8: .20, 12: .25, 20: .30 };           // discount by reels per month
+  const r10 = (v) => Math.round(v / 10) * 10;
+  function upd(){
+    const n = +f.querySelector("input[name=bn]:checked").value, len = f.querySelector("input[name=bl]:checked").value;
+    const ex = [...f.querySelectorAll("input[name=bx]:checked")].map(x => x.value);
+    const single = PRICES.video[len] + ex.reduce((a, k) => a + PRICES.extra[k], 0);
+    const each = r10(single * (1 - OFF[n])), total = each * n, save = single * n - total;
+    document.getElementById("planName").textContent = "باقة " + nAr(n) + " ريلز";
+    document.getElementById("planEach").textContent = sar(each);
+    document.getElementById("planWas").textContent = sar(single);
+    document.getElementById("planTotal").textContent = sar(total) + " / شهر";
+    document.getElementById("planSave").textContent = sar(save) + " (" + nAr(OFF[n] * 100) + "٪)";
+    const L = { text: "نص وترجمة", grade: "تلوين احترافي", audio: "تنظيف الصوت" };
+    document.getElementById("planGo").href = waLink("السلام عليكم، أبغى أبدأ باقة شهرية:\n• " + nAr(n) + " ريلز في الشهر، كل ريل " + LBL[len] +
+      (ex.length ? "\n• مع: " + ex.map(k => L[k]).join("، ") : "") + "\n• " + sar(each) + " للريل، " + sar(total) + " في الشهر");
+  }
+  f.addEventListener("change", upd); upd();
+})();
+</script>
+<script>
+/* ===== demo: mood music, made live in the browser (no tracks, no copyright) ===== */
+const BYMusic = (() => {
+  let ac, out, timer, mood = null, step = 0, next = 0, noiseBuf;
+  const BPM = { hype: 124, classic: 76, calm: 72, lux: 88 };
+  const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+  const PROG = [[57, 60, 64], [53, 57, 60], [48, 52, 55], [55, 59, 62]];       // Am F C G
+  const HIJAZ = [62, 63, 66, 67, 69, 70, 72, 74];                               // D hijaz
+  function init(){
+    if (ac) return; ac = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = ac.createDynamicsCompressor(); out = ac.createGain(); out.gain.value = .7; out.connect(comp); comp.connect(ac.destination);
+    noiseBuf = ac.createBuffer(1, ac.sampleRate, ac.sampleRate); const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  }
+  function env(g, t, a, peak, dec){ g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(0.0001, t + a + dec); }
+  function tone(t, f, type, peak, a, dec, cut){ const o = ac.createOscillator(), g = ac.createGain(); o.type = type; o.frequency.value = f;
+    let n = o; if (cut) { const fl = ac.createBiquadFilter(); fl.type = "lowpass"; fl.frequency.value = cut; o.connect(fl); n = fl; }
+    n.connect(g); g.connect(out); env(g, t, a, peak, dec); o.start(t); o.stop(t + a + dec + .05); }
+  function noise(t, peak, dec, type, f){ const s = ac.createBufferSource(), fl = ac.createBiquadFilter(), g = ac.createGain(); s.buffer = noiseBuf; fl.type = type; fl.frequency.value = f;
+    s.connect(fl); fl.connect(g); g.connect(out); env(g, t, .002, peak, dec); s.start(t); s.stop(t + dec + .05); }
+  function kick(t, p = .9){ const o = ac.createOscillator(), g = ac.createGain(); o.frequency.setValueAtTime(140, t); o.frequency.exponentialRampToValueAtTime(42, t + .25); o.connect(g); g.connect(out); env(g, t, .004, p, .3); o.start(t); o.stop(t + .35); }
+  function pattern(t, i){            // i = 16th-note index
+    const bar = Math.floor(i / 16) % 4, s16 = i % 16, ch = PROG[bar], sp = 60 / BPM[mood] / 4;
+    if (mood === "hype") {
+      if (s16 % 4 === 0) kick(t);
+      if (s16 === 4 || s16 === 12) noise(t, .35, .18, "bandpass", 1800);
+      if (s16 % 2 === 0) noise(t, .08, .04, "highpass", 8000);
+      if (s16 % 2 === 0) tone(t, hz(ch[0] - 24), "sawtooth", .16, .005, sp * 1.6, 500);
+      if (s16 === 2 || s16 === 10) ch.forEach(m => tone(t, hz(m + 12), "square", .035, .005, .16, 2600));
+    } else if (mood === "classic") {
+      const arp = [0, 1, 2, 1]; if (s16 % 2 === 0) tone(t, hz(ch[arp[(s16 / 2) % 4]] + 12), "triangle", .16, .004, .9);
+      if (s16 === 0) { ch.forEach(m => tone(t, hz(m), "sawtooth", .03, .6, sp * 16, 1400)); tone(t, hz(ch[0] - 12), "sine", .18, .05, sp * 15); }
+    } else if (mood === "calm") {
+      if (s16 === 0) ch.forEach(m => tone(t, hz(m), "sine", .07, 1.2, sp * 18));
+      if (s16 === 6 || s16 === 11) tone(t, hz(ch[(s16 / 5 | 0) % 3] + 24), "sine", .07, .01, 1.4);
+      if (s16 % 4 === 2) noise(t, .025, .08, "highpass", 6000);
+    } else if (mood === "lux") {
+      const dum = [0, 6, 8], tak = [4, 12];
+      if (dum.includes(s16)) { const o = ac.createOscillator(), g = ac.createGain(); o.frequency.setValueAtTime(110, t); o.frequency.exponentialRampToValueAtTime(60, t + .2); o.connect(g); g.connect(out); env(g, t, .003, .6, .28); o.start(t); o.stop(t + .32); }
+      if (tak.includes(s16)) noise(t, .22, .09, "bandpass", 2500);
+      if (s16 % 2 === 0 && (s16 !== 14)) { const m = HIJAZ[(i * 3 + bar * 2) % 8 % 8]; const o = ac.createOscillator(), fl = ac.createBiquadFilter(), g = ac.createGain();
+        o.type = "sawtooth"; o.frequency.value = hz(m - 12); fl.type = "bandpass"; fl.frequency.value = 1200; fl.Q.value = 2; o.connect(fl); fl.connect(g); g.connect(out); env(g, t, .003, .2, .35); o.start(t); o.stop(t + .4); }
+      if (s16 === 0) tone(t, hz(38), "sine", .22, .05, sp * 15);
+    }
+  }
+  function sched(){ while (next < ac.currentTime + .15) { pattern(next, step); step++; next += 60 / BPM[mood] / 4; } }
+  return {
+    play(m){ init(); ac.resume(); if (!m || m === "none" || m === "auto") return this.stop(); if (mood === m && timer) return; mood = m; step = 0; next = ac.currentTime + .06; clearInterval(timer); sched(); timer = setInterval(sched, 40); },
+    stop(){ clearInterval(timer); timer = null; mood = null; },
+    get playing(){ return !!timer; }
+  };
+})();
+
+/* ===== demo: your own shot, steadied and graded live (WebGL, all on the device) ===== */
+(() => {
+  const fig = document.getElementById("ba"), gl2 = document.getElementById("baGL"), v = document.getElementById("srcV"), range = document.getElementById("baRange");
+  const st = document.getElementById("tryStatus"), demoBtn = document.getElementById("useDemo");
+  const say = (t) => st.textContent = t;
+  let gl, prog, tex, U = {}, stream = null, running = false, mirror = 0, objUrl = null;
+  // ---- looks per mood (the grade follows the music) ----
+  const LOOK = { none: { sat: 1.12, con: .3, warm: .08, vig: .18 }, hype: { sat: 1.32, con: .55, warm: .12, vig: .28 }, classic: { sat: .95, con: .25, warm: .45, vig: .32 },
+                 calm: { sat: .88, con: .08, warm: .18, vig: .1 }, lux: { sat: 1.05, con: .5, warm: .32, vig: .48 } };
+  let look = LOOK.none;
+  function setup(){
+    if (gl) return true;
+    gl = gl2.getContext("webgl", { premultipliedAlpha: false }); if (!gl) return false;
+    const vs = "attribute vec2 p;varying vec2 uv;void main(){uv=vec2(p.x*.5+.5,.5-p.y*.5);gl_Position=vec4(p,0.,1.);}";
+    const fs = `precision mediump float;varying vec2 uv;uniform sampler2D t;uniform vec2 cover,off;uniform float split,zoom,mir,sat,con,warm,vig,blk,wht;uniform vec3 gain;
+      vec2 fit(vec2 q){q=(q-.5)*cover+.5;if(mir>.5)q.x=1.-q.x;return q;}
+      void main(){
+        if(uv.x>split){gl_FragColor=texture2D(t,fit(uv));return;}
+        vec2 q=(uv-.5)/zoom+.5+off; vec3 c=texture2D(t,fit(q)).rgb*gain;
+        c=clamp((c-blk)/max(wht-blk,.2),0.,1.); c=mix(c,c*c*(3.-2.*c),con);
+        float l=dot(c,vec3(.299,.587,.114)); c=mix(vec3(l),c,sat); c.r+=warm*.06; c.b-=warm*.06;
+        c*=1.-vig*smoothstep(.35,.9,distance(uv,vec2(.5)));
+        gl_FragColor=vec4(clamp(c,0.,1.),1.);}`;
+    const sh = (type, src) => { const x = gl.createShader(type); gl.shaderSource(x, src); gl.compileShader(x); return x; };
+    prog = gl.createProgram(); gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(prog); gl.useProgram(prog);
+    const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, "p"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+    [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach(k => gl.texParameteri(gl.TEXTURE_2D, k, gl.CLAMP_TO_EDGE));
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    "cover off split zoom mir sat con warm vig blk wht gain".split(" ").forEach(n => U[n] = gl.getUniformLocation(prog, n));
+    return true;
+  }
+  // ---- analysis: global motion (for steadying) and colour stats (for white balance and levels) ----
+  const an = document.createElement("canvas"), ax = an.getContext("2d", { willReadFrequently: true });
+  let prev = null, pos = [0, 0], smooth = [0, 0], gain = [1, 1, 1], blk = 0, wht = 1, fcount = 0;
+  function analyse(){
+    const aw = 80, ah = Math.max(1, Math.round(aw * v.videoHeight / v.videoWidth)); if (an.width !== aw || an.height !== ah) { an.width = aw; an.height = ah; prev = null; }
+    ax.drawImage(v, 0, 0, aw, ah); const d = ax.getImageData(0, 0, aw, ah).data, g = new Float32Array(aw * ah);
+    let sr = 0, sg = 0, sb = 0; const hist = new Uint32Array(64);
+    for (let i = 0, j = 0; i < d.length; i += 4, j++) { const l = .299 * d[i] + .587 * d[i+1] + .114 * d[i+2]; g[j] = l; sr += d[i]; sg += d[i+1]; sb += d[i+2]; hist[l >> 2]++; }
+    if (prev) {
+      const R = 6; let best = 1e18, bx = 0, by = 0;
+      for (let dy = -R; dy <= R; dy++) for (let dx = -R; dx <= R; dx++) { let sum = 0;
+        for (let y = R; y < ah - R; y += 2) { const r1 = y * aw, r2 = (y + dy) * aw + dx; for (let x = R; x < aw - R; x += 2) { const e = g[r1 + x] - prev[r2 + x]; sum += e < 0 ? -e : e; } }
+        if (sum < best) { best = sum; bx = dx; by = dy; } }
+      pos[0] += bx / aw; pos[1] += by / ah;
+      smooth[0] += (pos[0] - smooth[0]) * .06; smooth[1] += (pos[1] - smooth[1]) * .06;
+    }
+    prev = g;
+    if (fcount++ % 6 === 0) { const n = aw * ah, mr = sr / n, mg = sg / n, mb = sb / n, m = (mr + mg + mb) / 3;
+      const tg = [m / mr, m / mg, m / mb].map(x => Math.min(1.35, Math.max(.75, x)));
+      gain = gain.map((x, k) => x + (tg[k] - x) * .3);
+      let acc = 0, lo = 0, hi = 63; for (let k = 0; k < 64; k++) { acc += hist[k]; if (acc < n * .02) lo = k; if (acc < n * .985) hi = k; }
+      blk += (Math.min(.25, lo / 64) - blk) * .3; wht += (Math.max(.7, (hi + 1) / 64) - wht) * .3; }
+  }
+  function draw(){
+    if (!running) return;
+    if (v.readyState >= 2 && v.videoWidth) {
+      analyse();
+      const r = fig.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1), W = Math.round(r.width * dpr), H = Math.round(r.height * dpr);
+      if (gl2.width !== W || gl2.height !== H) { gl2.width = W; gl2.height = H; }
+      gl.viewport(0, 0, W, H);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, v);
+      const va = v.videoWidth / v.videoHeight, ca = W / H; gl.uniform2f(U.cover, ca < va ? ca / va : 1, ca < va ? 1 : va / ca);
+      const ox = Math.max(-.06, Math.min(.06, smooth[0] - pos[0])), oy = Math.max(-.06, Math.min(.06, smooth[1] - pos[1]));
+      gl.uniform2f(U.off, mirror ? -ox : ox, oy); gl.uniform1f(U.split, +range.value / 100); gl.uniform1f(U.zoom, 1.12); gl.uniform1f(U.mir, mirror);
+      gl.uniform1f(U.sat, look.sat); gl.uniform1f(U.con, look.con); gl.uniform1f(U.warm, look.warm); gl.uniform1f(U.vig, look.vig);
+      gl.uniform1f(U.blk, blk); gl.uniform1f(U.wht, wht); gl.uniform3f(U.gain, gain[0], gain[1], gain[2]);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+    requestAnimationFrame(draw);
+  }
+  function stopSrc(){ if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; } if (objUrl) { URL.revokeObjectURL(objUrl); objUrl = null; } v.pause(); v.removeAttribute("src"); v.srcObject = null; }
+  function goLive(){ if (!setup()) { say("المتصفح هذا ما يدعم المعاينة. جرّب من متصفح ثاني."); return false; }
+    prev = null; pos = [0, 0]; smooth = [0, 0]; window.byLive = true; gl2.hidden = false; demoBtn.hidden = false; fig.classList.remove("idle"); if (!running) { running = true; requestAnimationFrame(draw); } return true; }
+  function backToDemo(){ running = false; stopSrc(); gl2.hidden = true; demoBtn.hidden = true; window.byLive = false; fig.classList.add("idle"); say(""); }
+  document.getElementById("useCam").addEventListener("click", async () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { say("الكاميرا مو متاحة في هذي الصفحة."); return; }
+    say("نفتح الكاميرا…");
+    try {
+      stopSrc(); stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: "environment" }, width: { ideal: 1280 } }, audio: false });
+      const fm = stream.getVideoTracks()[0].getSettings().facingMode; mirror = fm === "environment" ? 0 : 1;
+      v.srcObject = stream; v.muted = true; await v.play();
+      if (goLive()) say("حرّك الجوال شوي، واسحب الخط وشوف الفرق.");
+    } catch (e) { say(e && e.name === "NotAllowedError" ? "ما سمحت للكاميرا. تقدر ترفع مقطع بدالها." : "ما قدرنا نفتح الكاميرا هنا. ارفع مقطع بدالها."); }
+  });
+  document.getElementById("fileIn").addEventListener("change", async (e) => {
+    const f = e.target.files[0]; if (!f) return; stopSrc(); mirror = 0;
+    objUrl = URL.createObjectURL(f); v.src = objUrl; v.muted = true; v.loop = true;
+    v.onloadedmetadata = () => { if (v.duration > 20) say("مقطعك أطول من ١٥ ثانية، نعرض أول ١٥ ثانية."); else say("اسحب الخط وشوف الفرق."); };
+    v.ontimeupdate = () => { if (v.currentTime > 15) v.currentTime = 0; };
+    try { await v.play(); goLive(); } catch (err) { say("ما قدرنا نشغّل المقطع. جرّب مقطع MP4 أو MOV."); }
+    e.target.value = "";
+  });
+  demoBtn.addEventListener("click", backToDemo);
+  document.querySelectorAll("input[name=tmood]").forEach(r => r.addEventListener("change", () => {
+    look = LOOK[r.value] || LOOK.none; BYMusic.play(r.value);
+    if (r.value === "none") say(window.byLive ? "بدون موسيقى." : ""); else if (!window.byLive) say("المود يغيّر الموسيقى والتلوين. افتح الكاميرا أو ارفع مقطع وشوف.");
+  }));
+})();
+
+/* ===== demo: listen to the brief's mood ===== */
+(() => {
+  const b = document.getElementById("moodListen"); let t;
+  const sel = () => document.querySelector("input[name=bmood]:checked").value;
+  function stop(){ BYMusic.stop(); b.setAttribute("aria-pressed", "false"); b.textContent = "▶ اسمع"; clearTimeout(t); }
+  b.addEventListener("click", () => {
+    if (b.getAttribute("aria-pressed") === "true") return stop();
+    let m = sel(); if (m === "none") return; if (m === "auto") m = "classic";
+    BYMusic.play(m); b.setAttribute("aria-pressed", "true"); b.textContent = "■ وقّف"; t = setTimeout(stop, 12000);
+  });
+  document.querySelectorAll("input[name=bmood]").forEach(r => r.addEventListener("change", () => { if (b.getAttribute("aria-pressed") === "true") { const m = r.value; if (m === "none") stop(); else BYMusic.play(m === "auto" ? "classic" : m); } }));
+})();
+</script>
+<script>
+/* ===== full version: send the uploaded clip to the treatment service, get the finished file back ===== */
+(() => {
+  const row = document.getElementById("fullRow"), btn = document.getElementById("fullBtn"), dl = document.getElementById("fullDl"), back = document.getElementById("fullBack");
+  const busy = document.getElementById("fullBusy"), st = document.getElementById("tryStatus"), fig = document.getElementById("ba"), out = document.getElementById("outV");
+  const LIMIT = 30 * 1024 * 1024;
+  let file = null, url = null;
+  const say = (t) => st.textContent = t;
+  function reset(){ fig.classList.remove("result"); out.pause(); out.hidden = true; out.removeAttribute("src"); if (url) { URL.revokeObjectURL(url); url = null; } dl.hidden = true; back.hidden = true; btn.hidden = false; btn.disabled = false; busy.hidden = true; }
+  document.getElementById("fileIn").addEventListener("change", (e) => { const f = e.target.files[0]; reset(); file = f || null; row.hidden = !file;
+    if (file && file.size > LIMIT) { btn.disabled = true; setTimeout(() => say("المقطع أكبر من ٣٠ ميغا. المعاينة تشتغل، بس النسخة الكاملة تحتاج مقطع أصغر."), 50); } });
+  document.getElementById("useCam").addEventListener("click", () => { reset(); file = null; row.hidden = true; });
+  document.getElementById("useDemo").addEventListener("click", () => { reset(); file = null; row.hidden = true; });
+  back.addEventListener("click", () => { reset(); say("اسحب الخط وشوف الفرق."); });
+  async function send(mood, tries){
+    const r = await fetch("/api/treat?mood=" + encodeURIComponent(mood), { method: "POST", headers: { "Content-Type": "application/octet-stream" }, body: file });
+    if (r.status >= 500 && tries > 0) { await new Promise(z => setTimeout(z, 3000)); return send(mood, tries - 1); }
+    return r;
+  }
+  btn.addEventListener("click", async () => {
+    if (!file) return;
+    const mood = (document.querySelector("input[name=tmood]:checked") || {}).value || "none";
+    btn.disabled = true; busy.hidden = false; say("نجهّز نسختك… حوالي ٢٠ ثانية.");
+    try {
+      const r = await send(mood, 1);
+      if (r.status === 429) throw new Error("جرّبت كثير. انتظر دقيقة وجرّب مرة ثانية.");
+      if (r.status === 413) throw new Error("المقطع أكبر من ٣٠ ميغا.");
+      if (!r.ok) throw new Error("ما قدرنا نجهّز المقطع هذي المرة. جرّب مرة ثانية بعد شوي.");
+      const blob = await r.blob(); url = URL.createObjectURL(blob);
+      typeof BYMusic !== "undefined" && BYMusic.stop();
+      out.src = url; out.hidden = false; fig.classList.add("result"); out.play().catch(() => {});
+      dl.href = url; dl.hidden = false; back.hidden = false; btn.hidden = true;
+      say("نسختك جاهزة. شغّلها بالصوت، وحمّلها لو تبي.");
+    } catch (e) { say(e.message || "صار خطأ. جرّب مرة ثانية."); btn.disabled = false; }
+    busy.hidden = true;
+  });
+})();
 </script>
 </body></html>
