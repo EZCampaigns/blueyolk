@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>الخصوصية والشروط · بلو يولك</title>
+<meta name="description" content="كيف نتعامل مع بياناتك وملفاتك في بلو يولك، وشروط الطلب والدفع والاسترجاع.">
+
+<meta name="theme-color" content="#F5F3E9">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&family=Aref+Ruqaa:wght@700&display=swap">
+<style>:root{
+  --cream:#F5F3E9; --night:#0B0B0B; --blue-master:#2055F5; --blue-deep:#0017F5; --blue-lit:#4A78FF;
+  --lime:#C6F432; --stone:#5E5C55; --ash:#A3A19A;
+  --bg:var(--cream); --bg-2:#ECE9DC; --bg-3:#E2DECF; --line:#D9D5C6;
+  --fg:var(--night); --fg-2:var(--stone); --egg:var(--cream);
+  --blue:var(--blue-master); --blue-text:var(--blue-deep);
+  --btn:var(--lime); --on-btn:var(--night);
+  --clip-a:#C9D4FB; --clip-b:#DCD8C9; --wave:var(--ash);
+  --tile-top:rgba(255,255,255,.7); --tile-bot:rgba(255,255,255,.25); --tile-edge:rgba(11,11,11,.12);
+  --f-display:"Noto Kufi Arabic","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --egg-disc:#FFFFFF;
+  --tick-edge:var(--night);
+  --knock-bg:var(--bg-2); --knock-ink:#000; --knock-blend:screen;
+  --ph-a:#0B0B0B; --ph-b:#2055F5; --ph-c:#5E5C55;
+  --film-filter:brightness(.85) contrast(1.2) saturate(1.1);
+  --r:14px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:17px;line-height:1.8;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin-inline:auto;padding-inline:max(16px,env(safe-area-inset-left,0px))}
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1180px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg);font-family:var(--f-display);font-weight:700;font-size:17px}
+.brand svg{width:40px;height:auto}
+.back{color:var(--fg-2);font-size:15px;text-decoration:none}
+.back:hover{color:var(--fg)}
+h1,h2{font-family:var(--f-display);margin:0;line-height:1.4;text-wrap:balance}
+h1{font-size:clamp(30px,5vw,44px);font-weight:800}
+h2{font-size:21px;font-weight:700;margin-top:36px}
+p,li{color:var(--fg)}
+.muted,.hint{color:var(--fg-2)}
+.hint{font-size:14px}
+main{padding-block:clamp(40px,8vw,88px)}
+ul{padding-inline-start:22px;margin:8px 0}
+li{margin-bottom:6px}
+a{color:var(--blue-text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;font:700 16px/1 var(--f-body);text-decoration:none;cursor:pointer;border:1px solid transparent}
+.btn-primary{background:var(--btn);color:var(--on-btn)}
+.btn-ghost{border-color:var(--line);color:var(--fg);background:transparent}
+.btn svg{width:20px;height:20px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 8px;padding:0;list-style:none}
+.toc a{display:inline-flex;min-height:38px;align-items:center;padding:0 14px;border:1px solid var(--line);border-radius:999px;color:var(--fg);text-decoration:none;font-size:15px}
+section{scroll-margin-top:20px}
+.box{border:1.5px solid var(--fg);border-radius:20px;padding:clamp(22px,4vw,36px);background:var(--bg);display:grid;gap:16px;justify-items:start}
+.code{font-family:"IBM Plex Mono",monospace;direction:ltr;unicode-bidi:isolate;background:var(--bg-2);border-radius:8px;padding:2px 10px}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--blue);display:inline-block;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(.6);opacity:.5}}
+@media (prefers-reduced-motion:reduce){.dot{animation:none}}
+.mark{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--fg)}
+.mark svg{width:34px;height:34px}
+input[type=text]{width:100%;max-width:320px;min-height:48px;border-radius:12px;border:1px solid var(--fg-2);background:var(--bg-2);color:var(--fg);padding:10px 14px;font:16px/1.5 var(--f-body)}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+footer{border-top:1px solid var(--line);padding-block:24px;font-size:14px;color:var(--fg-2)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;max-width:1180px}
+footer a{color:inherit}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="/"><svg viewBox="0 0 120 64" aria-hidden="true"><ellipse cx="60" cy="40" rx="56" ry="6" fill="var(--egg)"/><path d="M39 37 A21 12.2 0 0 1 81 37 A21 1 0 0 1 39 37 Z" fill="var(--blue)"/></svg><span>بلو يولك</span></a><a class="back" href="/">→ الرئيسية</a></div></header>
+<main><div class="wrap">
+<p class="hint">آخر تحديث: ١٣ نوفمبر ٢٠٢٦</p>
+<h1>الخصوصية والشروط</h1>
+<p class="muted">باختصار: نجمع أقل شي نحتاجه عشان نسلّم شغلك، ما نعرضه لأحد، ونمسحه بعد التسليم.</p>
+<ul class="toc"><li><a href="#privacy">الخصوصية</a></li><li><a href="#terms">شروط الخدمة</a></li><li><a href="#refunds">الدفع والاسترجاع</a></li></ul>
+
+<section id="privacy">
+<h2>١. وش نجمع</h2>
+<ul>
+<li>اسمك واسم نشاطك.</li>
+<li>رقم واتساب اللي تتواصل منه.</li>
+<li>روابط المقاطع والصور اللي ترسلها، وملاحظاتك على الشغل.</li>
+<li>بيانات الفاتورة: رمز المشروع، المبلغ، وتاريخ الدفع.</li>
+</ul>
+<p>ما نجمع رقم بطاقتك ولا بياناتها. الدفع يتم في صفحة بوابة الدفع نفسها، واحنا نشوف بس إن الدفعة وصلت.</p>
+
+<h2>٢. ليش نجمعها</h2>
+<p>عشان ننفّذ طلبك، نرسل لك عرض السعر والفاتورة، ونتواصل معك عن المشروع. ما نستخدم بياناتك للإعلانات، وما نبيعها ولا نشاركها مع أحد.</p>
+
+<h2>٣. الموقع نفسه</h2>
+<ul>
+<li>ما فيه حسابات ولا تسجيل دخول، ولا ملفات تتبّع (كوكيز) للإعلانات أو التحليلات.</li>
+<li>نموذج الطلب ما يرسل شي لخوادمنا: يجهّز رسالة واتساب، وأنت اللي ترسلها بنفسك.</li>
+<li>الموقع مستضاف على Cloudflare، والخطوط من Google Fonts. هذي الخدمات تشوف بيانات تقنية عامة مثل عنوان الإنترنت ونوع المتصفح، لأغراض الحماية والتشغيل.</li>
+</ul>
+
+<h2>٤. السرية</h2>
+<p>نوقّع معك اتفاقية سرية قبل أول ملف. ما نعرض اسمك ولا لقطاتك، ولا نقول إننا اشتغلنا معك، إلا إذا طلبت أنت ذلك كتابياً.</p>
+
+<h2>٥. متى نمسح ملفاتك</h2>
+<p>بعد ٣٠ يوم من التسليم نمسح المواد الخام والملفات النهائية من أجهزتنا، ونرسل لك رسالة: انمسحت. نحتفظ فقط بالفواتير وسجلّ الدفع للمدة اللي يتطلبها النظام المحاسبي.</p>
+
+<h2>٦. من يشوف بياناتك</h2>
+<ul>
+<li>فريق بلو يولك اللي يشتغل على مشروعك فقط.</li>
+<li>بوابة الدفع، لمعالجة الدفعة.</li>
+<li>خدمة التخزين اللي تختارها أنت لرفع الملفات (مثل Google Drive أو WeTransfer).</li>
+</ul>
+
+<h2>٧. حقوقك</h2>
+<p>تقدر في أي وقت تطلب نسخة من بياناتك، أو تصحيحها، أو مسحها قبل الموعد. أرسل لنا على واتساب ونرد عليك خلال يوم عمل.</p>
+</section>
+
+<section id="terms">
+<h2>٨. كيف يمشي الطلب</h2>
+<ul>
+<li>السعر اللي يطلع لك في الموقع تقريبي. السعر النهائي يوصلك مكتوب على واتساب، برمز المشروع، قبل ما تدفع.</li>
+<li>نبدأ الشغل بعد ثلاث أشياء: موافقتك على العرض، تأكيد الدفع، ووصول المقاطع كاملة.</li>
+<li>التسليم خلال ١ إلى ٣ ساعات للطلبات الموجودة في الموقع (مقاطع لين ٣ دقايق وصور المنتج). الطلبات الأكبر موعد تسليمها مكتوب في العرض. وإذا وصل طلبك خارج أوقات العمل، نخبرك بموعد البدء قبل ما تدفع.</li>
+<li>كل طلب يشمل جولتين تعديل مجانية على نفس الفكرة. التغيير الكامل للفكرة أو المواد يعتبر طلب جديد.</li>
+</ul>
+
+<h2>٩. المواد والحقوق</h2>
+<ul>
+<li>الملفات النهائية لك بالكامل بعد الدفع.</li>
+<li>أنت مسؤول إن عندك حق استخدام المقاطع والصور والموسيقى اللي ترسلها.</li>
+<li>الموسيقى اللي نضيفها احنا تكون مرخّصة للاستخدام التجاري على المنصات اللي حددتها.</li>
+</ul>
+</section>
+
+<section id="refunds">
+<h2>١٠. الدفع والاسترجاع</h2>
+<ul>
+<li>الأسعار بالريال السعودي، وتدفع عبر رابط دفع آمن باسم المشروع ورمزه. ما نطلب رقم بطاقة ولا رمز تحقق على واتساب أبداً.</li>
+<li>إذا ألغيت قبل ما نبدأ الشغل: نرجّع لك المبلغ كامل.</li>
+<li>إذا تأخرنا عن موعد التسليم المكتوب بسببنا: تقدر تطلب استرجاع كامل.</li>
+<li>بعد ما تستلم الملفات وتعتمدها: ما فيه استرجاع، لكن جولات التعديل متاحة.</li>
+<li>الاسترجاع يرجع لنفس طريقة الدفع، وتختلف مدة وصوله حسب البنك.</li>
+</ul>
+
+<h2>١١. تواصل معنا</h2>
+<p>أي سؤال عن خصوصيتك أو عن الشروط، أرسل لنا على واتساب.</p>
+<p><a class="btn btn-primary" href="https://wa.me/966538133750?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%B9%D9%86%D8%AF%D9%8A%20%D8%B3%D8%A4%D8%A7%D9%84%20%D8%B9%D9%86%20%D8%A7%D9%84%D8%AE%D8%B5%D9%88%D8%B5%D9%8A%D8%A9" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8L4 20z"/></svg><span>راسلنا على واتساب</span></a></p>
+</section>
+</div></main>
+<footer><div class="wrap"><span>بلو يولك · مختبر مونتاج عن بُعد</span><span><a href="/privacy/">الخصوصية والشروط</a> · © ٢٠٢٦ <span dir="ltr">blueyolk.org</span></span></div></footer>
+
+</body>
+</html>
