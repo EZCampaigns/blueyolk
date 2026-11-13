@@ -194,6 +194,23 @@ legend,label.l{font-weight:600;font-size:15px;padding:0;margin-bottom:2px}
 .opt input:checked+span{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .opt input:focus-visible+span{outline:2px solid var(--blue-text);outline-offset:2px}
 .field{display:grid;gap:8px}
+.qty-row{display:flex;flex-wrap:wrap;gap:12px 28px}
+.qty{display:grid;gap:8px}
+.qty .l{font-weight:600;font-size:15px}
+.step{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;background:var(--bg);width:max-content}
+.step button{width:44px;height:42px;border:0;background:none;font:500 20px/1 var(--f-body);color:var(--fg);cursor:pointer;border-radius:999px}
+.step button:hover{background:var(--bg-2)}
+.step output{min-width:36px;text-align:center;font-weight:700;font-size:17px}
+.bill{border:1.5px solid var(--fg);border-radius:18px;padding:18px 20px;background:var(--bg);display:grid;gap:12px}
+.bill-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-weight:700}
+.bill ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:15px}
+.bill li{display:flex;justify-content:space-between;gap:16px;color:var(--fg-2)}
+.bill li b{color:var(--fg);font-weight:600;white-space:nowrap}
+.bill li.off b{color:var(--blue-text)}
+.bill-t{display:flex;justify-content:space-between;align-items:baseline;border-top:1px dashed var(--line);padding-top:12px;font-weight:700}
+.bill-t b{font-family:var(--f-display);font-size:clamp(1.6rem,3vw,2.1rem);color:var(--blue-text);transition:transform .18s}
+.bill-t b.bump{transform:scale(1.06)}
+[data-for][aria-hidden="true"]{display:none}
 input[type=text],input[type=url],input[type=date],textarea{width:100%;min-height:48px;border-radius:12px;border:1px solid var(--fg-2);background:var(--bg-2);color:var(--fg);padding:10px 14px;font:16px/1.5 var(--f-body)}
 input::placeholder,textarea::placeholder{color:var(--fg-2)}
 .hint{font-size:13px;color:var(--fg-2)}
@@ -234,6 +251,7 @@ details p{padding-bottom:20px;color:var(--fg-2);max-width:62ch}
 .contact{display:grid;gap:14px}
 .contact .line{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:18px}
 footer{border-top:1px solid var(--line);padding-block:28px;font-size:14px;color:var(--fg-2)}
+footer a{color:inherit}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.playhead{transition:none!important}}
@@ -415,6 +433,35 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
           <label class="opt"><input type="radio" name="kind" id="k-both" value="الاثنين|Both"><span data-en="Both">الاثنين</span></label>
         </div>
       </fieldset>
+      <fieldset data-for="video">
+        <legend>نوع الفيديو</legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="vtype" value="reel" checked><span>ريل / مقطع قصير</span></label>
+          <label class="opt"><input type="radio" name="vtype" value="ad"><span>إعلان</span></label>
+          <label class="opt"><input type="radio" name="vtype" value="product"><span>فيديو منتج</span></label>
+        </div>
+      </fieldset>
+      <fieldset data-for="video">
+        <legend>مدة كل مقطع</legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="len" value="15"><span>لين ١٥ ثانية</span></label>
+          <label class="opt"><input type="radio" name="len" value="30" checked><span>لين ٣٠ ثانية</span></label>
+          <label class="opt"><input type="radio" name="len" value="60"><span>لين دقيقة</span></label>
+          <label class="opt"><input type="radio" name="len" value="180"><span>لين ٣ دقايق</span></label>
+        </div>
+      </fieldset>
+      <div class="qty-row">
+        <div class="qty" data-for="video"><span class="l" id="qvL">كم مقطع؟</span><div class="step" role="group" aria-labelledby="qvL"><button type="button" data-q="qv" data-d="-1" aria-label="أقل">−</button><output id="qv">١</output><button type="button" data-q="qv" data-d="1" aria-label="أكثر">+</button></div></div>
+        <div class="qty" data-for="photo"><span class="l" id="qpL">كم صورة؟</span><div class="step" role="group" aria-labelledby="qpL"><button type="button" data-q="qp" data-d="-1" aria-label="أقل">−</button><output id="qp">٥</output><button type="button" data-q="qp" data-d="1" aria-label="أكثر">+</button></div></div>
+      </div>
+      <fieldset data-for="video">
+        <legend>إضافات <span class="hint">(اختياري)</span></legend>
+        <div class="opts">
+          <label class="opt"><input type="checkbox" name="extra" value="text"><span>نص وترجمة على الشاشة</span></label>
+          <label class="opt"><input type="checkbox" name="extra" value="grade"><span>تلوين احترافي</span></label>
+          <label class="opt"><input type="checkbox" name="extra" value="audio"><span>تنظيف الصوت</span></label>
+        </div>
+      </fieldset>
       <fieldset>
         <legend data-en="Where will it run?">وين بتنشره؟</legend>
         <div class="opts">
@@ -424,7 +471,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
           <label class="opt"><input type="checkbox" name="where" id="w-yt" value="يوتيوب|YouTube"><span data-en="YouTube">يوتيوب</span></label>
           <label class="opt"><input type="checkbox" name="where" id="w-store" value="المتجر|Online store"><span data-en="Online store">المتجر</span></label>
         </div>
+        <span class="hint">كل مقاس إضافي (عمودي، عريض، مربّع) له سعر صغير.</span>
       </fieldset>
+      <div class="bill" aria-live="polite">
+        <div class="bill-h"><span>سعرك التقريبي</span><span class="hint">يتحدّث مع كل اختيار</span></div>
+        <ul id="billLines"></ul>
+        <div class="bill-t"><span>المجموع</span><b id="billTotal">—</b></div>
+        <p class="hint">السعر النهائي يوصلك مكتوب على واتساب قبل ما تدفع. التسليم خلال ١ إلى ٣ ساعات.</p>
+      </div>
       <div class="field">
         <label class="l" for="link" data-en="Link to the footage">رابط المقاطع</label>
         <input type="url" id="link" inputmode="url" placeholder="https://drive.google.com/…" dir="ltr">
@@ -546,7 +600,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 <footer>
   <div class="wrap">
     <span data-en="Blue Yolk · a remote editing lab">بلو يولك · مختبر مونتاج عن بُعد</span>
-    <span>© ٢٠٢٦ <span dir="ltr">blueyolk.org</span></span>
+    <span><a href="/privacy/">الخصوصية والشروط</a> · © ٢٠٢٦ <span dir="ltr">blueyolk.org</span></span>
   </div>
 </footer>
 </div>
@@ -610,8 +664,54 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   });
 })();
 
-/* brief → WhatsApp */
 const form = document.getElementById("briefForm");
+form.addEventListener("change", () => calc());
+/* ===== Prices (SAR): edit these numbers, everything else updates by itself ===== */
+const PRICES = {
+  video: { 15: 129, 30: 179, 60: 249, 180: 449 },          // one clip, by length
+  type:  { reel: 1, ad: 1.3, product: 1.15 },              // ad and product clips cost a little more
+  extra: { text: 39, grade: 49, audio: 29 },               // per clip
+  size: 19,                                                // each extra size (vertical, wide, square), per clip
+  photo: 19,                                               // per photo
+  bulk: [[5, 0.15], [3, 0.10]]                             // 5+ clips: 15% off, 3+ clips: 10% off
+};
+const LBL = { reel: "ريل", ad: "إعلان", product: "فيديو منتج", 15: "١٥ ث", 30: "٣٠ ث", 60: "دقيقة", 180: "٣ دقايق",
+  text: "نص وترجمة", grade: "تلوين احترافي", audio: "تنظيف الصوت" };
+const nAr = (n) => Number(n).toLocaleString("ar-SA");
+const sar = (n) => nAr(Math.round(n)) + " ر.س";
+const qty = { qv: 1, qp: 5 };
+let quote = { lines: [], total: 0 };
+
+function calc(){
+  const kind = form.querySelector("input[name=kind]:checked").id;
+  const hasV = kind !== "k-photo", hasP = kind !== "k-video";
+  document.querySelectorAll("[data-for]").forEach(el => el.setAttribute("aria-hidden", (el.dataset.for === "video" ? hasV : hasP) ? "false" : "true"));
+  const lines = []; let total = 0;
+  if (hasV) {
+    const t = form.querySelector("input[name=vtype]:checked").value, len = form.querySelector("input[name=len]:checked").value, n = qty.qv;
+    const one = Math.round(PRICES.video[len] * PRICES.type[t]);
+    lines.push([LBL[t] + " · " + LBL[len] + " × " + nAr(n), one * n]); total += one * n;
+    form.querySelectorAll("input[name=extra]:checked").forEach(x => { const v = PRICES.extra[x.value] * n; lines.push([LBL[x.value] + " × " + nAr(n), v]); total += v; });
+    const w = [...form.querySelectorAll("input[name=where]:checked")].map(i => i.id);
+    const sizes = new Set(w.map(id => id === "w-yt" ? "wide" : id === "w-store" ? "square" : "tall")).size;
+    if (sizes > 1) { const v = PRICES.size * (sizes - 1) * n; lines.push(["مقاسات إضافية (" + nAr(sizes - 1) + ") × " + nAr(n), v]); total += v; }
+    const b = PRICES.bulk.find(([min]) => n >= min);
+    if (b) { const v = -Math.round(total * b[1]); lines.push(["خصم الكمية " + nAr(b[1] * 100) + "٪", v, "off"]); total += v; }
+  }
+  if (hasP) { const v = PRICES.photo * qty.qp; lines.push(["صور منتج × " + nAr(qty.qp), v]); total += v; }
+  quote = { lines, total };
+  const ul = document.getElementById("billLines"); ul.replaceChildren();
+  lines.forEach(([a, v, c]) => { const li = document.createElement("li"); if (c) li.className = c; li.append(a); const b = document.createElement("b"); b.textContent = (v < 0 ? "− " : "") + sar(Math.abs(v)); li.append(b); ul.append(li); });
+  const tEl = document.getElementById("billTotal"); const txt = sar(total);
+  if (tEl.textContent !== txt) { tEl.textContent = txt; tEl.classList.remove("bump"); void tEl.offsetWidth; tEl.classList.add("bump"); }
+}
+document.querySelectorAll(".step button").forEach(btn => btn.addEventListener("click", () => {
+  const k = btn.dataset.q, lim = k === "qv" ? [1, 20] : [1, 100];
+  qty[k] = Math.min(lim[1], Math.max(lim[0], qty[k] + Number(btn.dataset.d)));
+  document.getElementById(k).textContent = nAr(qty[k]); calc();
+}));
+
+/* brief → WhatsApp */
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const pick = (v) => { const [a, b] = v.split("|"); return T(a, b); };
@@ -622,7 +722,7 @@ form.addEventListener("submit", (e) => {
   const who = document.getElementById("who").value.trim() || "—";
   const note = document.getElementById("note").value.trim();
   const msg = T(
-    "السلام عليكم، طلب مونتاج جديد:\n• الشغل: " + kind + "\n• النشر على: " + where + "\n• رابط المقاطع: " + link + "\n• التسليم: " + when + "\n• الاسم والنشاط: " + who + (note ? "\n• ملاحظات: " + note : ""),
+    "السلام عليكم، طلب مونتاج جديد:\n• الشغل: " + kind + "\n" + quote.lines.map(([a, v]) => "  - " + a + ": " + (v < 0 ? "−" : "") + sar(Math.abs(v))).join("\n") + "\n• السعر التقريبي: " + sar(quote.total) + "\n• النشر على: " + where + "\n• رابط المقاطع: " + link + "\n• التسليم: " + when + "\n• الاسم والنشاط: " + who + (note ? "\n• ملاحظات: " + note : ""),
     "Hi, a new editing request:\n• Work: " + kind + "\n• Runs on: " + where + "\n• Footage link: " + link + "\n• Needed by: " + when + "\n• Name and business: " + who + (note ? "\n• Notes: " + note : "")
   );
   document.getElementById("msg").textContent = msg;
@@ -648,7 +748,7 @@ const payBtn = document.getElementById("payBtn"), code = document.getElementById
 function setPay(){
   const c = code.value.trim();
   if (CONFIG.payUrl) {
-    payBtn.href = CONFIG.payUrl;
+    payBtn.href = "/pay/" + (c ? "?c=" + encodeURIComponent(c) : "");
     document.getElementById("payLabel").textContent = T("ادفع الآن", "Pay now");
     document.getElementById("payNote").textContent = T("تنفتح صفحة الدفع المشفّرة في نافذة جديدة. تأكد من الرمز قبل ما تدفع.", "The encrypted payment page opens in a new tab. Check the code before you pay.");
   } else {
@@ -660,6 +760,7 @@ function setPay(){
 code.addEventListener("input", setPay);
 
 applyLang();
+calc();
 
 /* tip scenes: with reduced motion, hold the "right" frame */
 if (reduce) document.querySelectorAll(".ani svg").forEach(sv => { try { sv.pauseAnimations(); sv.setCurrentTime(4); } catch(e) {} });
