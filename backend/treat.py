@@ -36,19 +36,28 @@ def treat(src, dst, mood="none", work=None):
     work = work or tempfile.mkdtemp(prefix="by-")
     dur, has_audio = probe(src)
     dur = min(dur, MAX_SECONDS)
-    trf = os.path.join(work, "t.trf")
-    # pass 1: measure the shake
-    run(["ffmpeg", "-y", "-t", str(dur), "-i", src, "-vf", f"{PRE},vidstabdetect=shakiness=7:accuracy=9:stepsize=8:result={trf}", "-f", "null", "-"])
-    # pass 2: steady, frame to 9:16, auto levels and white balance, mood grade, vignette
-    w, k = look["warm"], look["vig"]
+    trf = os.path.join(work, "t.trf"); stats = os.path.join(work, "stats.txt")
+    # pass 1: measure the shake, and the light and colour (on a tiny copy)
+    run(["ffmpeg", "-y", "-t", str(dur), "-i", src, "-vf",
+         f"{PRE},vidstabdetect=shakiness=7:accuracy=6:stepsize=12:result={trf},scale=90:160,signalstats,metadata=print:file={stats}",
+         "-f", "null", "-"])
+    vals = {"YLOW": [], "YHIGH": [], "UAVG": [], "VAVG": []}
+    for line in open(stats):
+        for k in vals:
+            if f"signalstats.{k}=" in line: vals[k].append(float(line.split("=")[1]))
+    avg = lambda k, d: sum(vals[k]) / len(vals[k]) if vals[k] else d
+    ylo, yhi = min(avg("YLOW", 16), 60), max(avg("YHIGH", 235), 170)
+    w = look["warm"]
+    du = (128 - avg("UAVG", 128)) * 0.6 - w * 40        # neutralise the colour cast, then warm it up
+    dv = (128 - avg("VAVG", 128)) * 0.6 + w * 40
+    # pass 2: steady, frame to 9:16, levels and white balance, mood grade, vignette (all in YUV: fast)
     vf = ",".join([
         PRE,
         f"vidstabtransform=input={trf}:smoothing=24:zoom=4:optzoom=0:interpol=bilinear",
-        "unsharp=5:5:0.5",
-        "normalize=blackpt=black:whitept=white:smoothing=24:independence=0.5:strength=0.6",
+        "unsharp=3:3:0.6",
+        f"lutyuv=y='clip((val-{ylo:.1f})*{219 / (yhi - ylo):.4f}+16,16,235)':u='clip(val+{du:.1f},16,240)':v='clip(val+{dv:.1f},16,240)'",
         f"eq=contrast={look['con']}:saturation={look['sat']}",
-        f"colorbalance=rm={w}:bm={-w}:rh={w/2}:bh={-w/2}",
-        f"vignette=angle={0.2 + k * 0.5:.2f}",
+        f"vignette=angle={0.2 + look['vig'] * 0.5:.2f}",
         "format=yuv420p",
     ])
     inputs = ["-t", str(dur), "-i", src]
