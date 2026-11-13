@@ -2,6 +2,7 @@
 import { DurableObject } from "cloudflare:workers";
 
 const IDLE_MS = 90 * 1000;              // stop the container after 90 idle seconds (saves money)
+const TREAT_ON = false;                 // the public "instant treatment" is switched off (kept for later)
 const MAX_BYTES = 30 * 1024 * 1024;     // 30 MB per clip, to keep costs down
 
 export class Treat extends DurableObject {
@@ -34,6 +35,7 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === "/api/treat") {
+      if (!TREAT_ON) return new Response("Not available.", { status: 404 });
       if (request.method !== "POST") return new Response("POST a video to this address.", { status: 405 });
       const len = Number(request.headers.get("Content-Length") || 0);
       if (!len || len > MAX_BYTES) return new Response("Clip too large.", { status: 413 });
