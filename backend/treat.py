@@ -10,7 +10,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 MAX_SECONDS = 15
-MAX_BYTES = 80 * 1024 * 1024
+MAX_BYTES = 30 * 1024 * 1024
 SIZE = (720, 1280)   # quick preview size; the real delivery is edited by hand at full size
 PRE = f"scale={SIZE[0]}:{SIZE[1]}:force_original_aspect_ratio=increase,crop={SIZE[0]}:{SIZE[1]}"
 MOODS = {  # colour look and music bed per mood
