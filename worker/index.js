@@ -2,7 +2,7 @@
 import { DurableObject } from "cloudflare:workers";
 
 const IDLE_MS = 3 * 60 * 1000;          // stop the container after 3 idle minutes
-const MAX_BYTES = 80 * 1024 * 1024;
+const MAX_BYTES = 30 * 1024 * 1024;     // 30 MB per clip, to keep costs down
 
 export class Treat extends DurableObject {
   async ready() {
@@ -42,7 +42,7 @@ export default {
         if (!success) return new Response("Too many tries, wait a minute.", { status: 429 });
       }
       const mood = (url.searchParams.get("mood") || "none").replace(/[^a-z]/g, "").slice(0, 10);
-      const stub = env.TREAT.get(env.TREAT.idFromName("pool-" + Math.floor(Math.random() * 3)));
+      const stub = env.TREAT.get(env.TREAT.idFromName("pool-" + Math.floor(Math.random() * 2)));
       try {
         const r = await stub.fetch("https://treat/treat?mood=" + mood, { method: "POST", headers: { "Content-Length": String(len) }, body: request.body });
         const h = new Headers(r.headers); h.set("Cache-Control", "no-store");
