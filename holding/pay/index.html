@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>الدفع · بلو يولك</title>
+<meta name="description" content="صفحة الدفع الآمن لمشاريع بلو يولك.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F5F3E9">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&family=Aref+Ruqaa:wght@700&display=swap">
+<style>:root{
+  --cream:#F5F3E9; --night:#0B0B0B; --blue-master:#2055F5; --blue-deep:#0017F5; --blue-lit:#4A78FF;
+  --lime:#C6F432; --stone:#5E5C55; --ash:#A3A19A;
+  --bg:var(--cream); --bg-2:#ECE9DC; --bg-3:#E2DECF; --line:#D9D5C6;
+  --fg:var(--night); --fg-2:var(--stone); --egg:var(--cream);
+  --blue:var(--blue-master); --blue-text:var(--blue-deep);
+  --btn:var(--lime); --on-btn:var(--night);
+  --clip-a:#C9D4FB; --clip-b:#DCD8C9; --wave:var(--ash);
+  --tile-top:rgba(255,255,255,.7); --tile-bot:rgba(255,255,255,.25); --tile-edge:rgba(11,11,11,.12);
+  --f-display:"Noto Kufi Arabic","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --egg-disc:#FFFFFF;
+  --tick-edge:var(--night);
+  --knock-bg:var(--bg-2); --knock-ink:#000; --knock-blend:screen;
+  --ph-a:#0B0B0B; --ph-b:#2055F5; --ph-c:#5E5C55;
+  --film-filter:brightness(.85) contrast(1.2) saturate(1.1);
+  --r:14px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:17px;line-height:1.8;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin-inline:auto;padding-inline:max(16px,env(safe-area-inset-left,0px))}
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1180px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg);font-family:var(--f-display);font-weight:700;font-size:17px}
+.brand svg{width:40px;height:auto}
+.back{color:var(--fg-2);font-size:15px;text-decoration:none}
+.back:hover{color:var(--fg)}
+h1,h2{font-family:var(--f-display);margin:0;line-height:1.4;text-wrap:balance}
+h1{font-size:clamp(30px,5vw,44px);font-weight:800}
+h2{font-size:21px;font-weight:700;margin-top:36px}
+p,li{color:var(--fg)}
+.muted,.hint{color:var(--fg-2)}
+.hint{font-size:14px}
+main{padding-block:clamp(40px,8vw,88px)}
+ul{padding-inline-start:22px;margin:8px 0}
+li{margin-bottom:6px}
+a{color:var(--blue-text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;font:700 16px/1 var(--f-body);text-decoration:none;cursor:pointer;border:1px solid transparent}
+.btn-primary{background:var(--btn);color:var(--on-btn)}
+.btn-ghost{border-color:var(--line);color:var(--fg);background:transparent}
+.btn svg{width:20px;height:20px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 8px;padding:0;list-style:none}
+.toc a{display:inline-flex;min-height:38px;align-items:center;padding:0 14px;border:1px solid var(--line);border-radius:999px;color:var(--fg);text-decoration:none;font-size:15px}
+section{scroll-margin-top:20px}
+.box{border:1.5px solid var(--fg);border-radius:20px;padding:clamp(22px,4vw,36px);background:var(--bg);display:grid;gap:16px;justify-items:start}
+.code{font-family:"IBM Plex Mono",monospace;direction:ltr;unicode-bidi:isolate;background:var(--bg-2);border-radius:8px;padding:2px 10px}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--blue);display:inline-block;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(.6);opacity:.5}}
+@media (prefers-reduced-motion:reduce){.dot{animation:none}}
+.mark{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--fg)}
+.mark svg{width:34px;height:34px}
+input[type=text]{width:100%;max-width:320px;min-height:48px;border-radius:12px;border:1px solid var(--fg-2);background:var(--bg-2);color:var(--fg);padding:10px 14px;font:16px/1.5 var(--f-body)}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+footer{border-top:1px solid var(--line);padding-block:24px;font-size:14px;color:var(--fg-2)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;max-width:1180px}
+footer a{color:inherit}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="/"><svg viewBox="0 0 120 64" aria-hidden="true"><ellipse cx="60" cy="40" rx="56" ry="6" fill="var(--egg)"/><path d="M39 37 A21 12.2 0 0 1 81 37 A21 1 0 0 1 39 37 Z" fill="var(--blue)"/></svg><span>بلو يولك</span></a><a class="back" href="/">→ الرئيسية</a></div></header>
+<main><div class="wrap">
+<div class="box" id="go" hidden>
+  <span class="dot" aria-hidden="true"></span>
+  <h1>نحوّلك لصفحة الدفع الآمنة…</h1>
+  <p class="muted" id="goCode"></p>
+  <p class="hint">تأكد إن الرمز هو نفسه اللي في عرض السعر. ما نطلب رقم بطاقة ولا رمز تحقق على واتساب أبداً.</p>
+  <a class="btn btn-primary" id="goBtn" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>إذا ما انتقلت، اضغط هنا</span></a>
+</div>
+
+<div class="box" id="ask" hidden>
+  <div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
+  <h1>رابط الدفع يوصلك مع عرض السعر.</h1>
+  <p class="muted">نرسل لك رابط دفع آمن على واتساب، باسم المشروع ورمزه. اكتب رمز مشروعك إذا عندك.</p>
+  <input type="text" id="askCode" dir="ltr" placeholder="BY-0000" autocomplete="off" aria-label="رمز المشروع">
+  <a class="btn btn-primary" id="askBtn" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8L4 20z"/></svg><span>اطلب رابط الدفع على واتساب</span></a>
+</div>
+
+<div class="box" id="paid" hidden>
+  <div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+  <h1>وصلتنا دفعتك. شكراً لك.</h1>
+  <p class="muted">نأكّد الدفعة ونرسل لك الفاتورة على واتساب، ويبدأ الشغل. التسليم خلال ١ إلى ٣ ساعات من وصول المقاطع كاملة.</p>
+  <p class="hint" id="paidRef"></p>
+  <div class="row"><a class="btn btn-primary" id="paidBtn" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8L4 20z"/></svg><span>أرسل لنا تأكيد الدفع</span></a><a class="btn btn-ghost" href="/">الرئيسية</a></div>
+</div>
+
+<div class="box" id="fail" hidden>
+  <div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+  <h1>ما تمّت الدفعة.</h1>
+  <p class="muted">ما انخصم منك شي. جرّب مرة ثانية، أو راسلنا ونرسل لك رابط جديد.</p>
+  <div class="row"><a class="btn btn-primary" id="retryBtn" href="#" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>جرّب مرة ثانية</span></a><a class="btn btn-ghost" id="failBtn" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8L4 20z"/></svg><span>راسلنا على واتساب</span></a></div>
+</div>
+<noscript><div class="box"><h1>رابط الدفع يوصلك مع عرض السعر.</h1><p><a class="btn btn-primary" href="https://wa.me/966538133750">راسلنا على واتساب</a></p></div></noscript>
+</div></main>
+<footer><div class="wrap"><span>بلو يولك · مختبر مونتاج عن بُعد</span><span><a href="/privacy/">الخصوصية والشروط</a> · © ٢٠٢٦ <span dir="ltr">blueyolk.org</span></span></div></footer>
+<script>
+/* ===== Settings: paste the payment link here when it is ready (Moyasar, Tap, HyperPay…) ===== */
+const PAY_URL = "";
+const WHATSAPP = "966538133750";
+/* =========================================================================================== */
+const q = new URLSearchParams(location.search);
+const clean = (v) => (v && /^[A-Za-z0-9_-]{1,40}$/.test(v)) ? v : "";
+const code = clean(q.get("c") || q.get("code"));
+const ref = clean(q.get("id") || q.get("tap_id") || q.get("ref"));
+const status = (q.get("status") || "").toLowerCase();
+const wa = (t) => "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(t);
+const show = (id) => document.getElementById(id).hidden = false;
+const safePay = /^https:\/\//.test(PAY_URL) ? PAY_URL : "";
+
+if (status === "paid" || status === "captured" || (q.get("tap_id") && status !== "failed")) {
+  show("paid");
+  if (ref) document.getElementById("paidRef").textContent = "رقم العملية: " + ref;
+  document.getElementById("paidBtn").href = wa("السلام عليكم، دفعت لمشروعي" + (code ? " " + code : "") + (ref ? "\nرقم العملية: " + ref : "") + "\nبانتظار التأكيد.");
+} else if (status === "failed" || status === "canceled" || status === "cancelled") {
+  show("fail");
+  if (safePay) { const r = document.getElementById("retryBtn"); r.href = location.pathname + (code ? "?c=" + code : ""); r.hidden = false; }
+  document.getElementById("failBtn").href = wa("السلام عليكم، ما تمّت الدفعة لمشروعي" + (code ? " " + code : "") + ". أبغى رابط جديد.");
+} else if (safePay) {
+  show("go");
+  document.getElementById("goCode").textContent = code ? "رمز المشروع: " + code : "صفحة الدفع المشفّرة لبلو يولك.";
+  document.getElementById("goBtn").href = safePay;
+  setTimeout(() => location.replace(safePay), 1800);
+} else {
+  show("ask");
+  const inp = document.getElementById("askCode"), btn = document.getElementById("askBtn");
+  inp.value = code;
+  const set = () => { const c = clean(inp.value.trim()); btn.href = wa("السلام عليكم، أبغى رابط الدفع لمشروعي" + (c ? ": " + c : ".")); };
+  inp.addEventListener("input", set); set();
+}
+</script>
+</body>
+</html>
