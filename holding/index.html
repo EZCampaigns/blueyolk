@@ -14,9 +14,7 @@
 <meta name="description" content="بلو يولك: مختبر مونتاج عن بُعد لأصحاب المشاريع. صوّرت بجوالك؟ ارسل المقاطع ونرجّعها لك جاهزة للنشر.">
 <meta property="og:title" content="بلو يولك · صوّرتها؟ المونتاج علينا.">
 <meta property="og:description" content="مختبر مونتاج عن بُعد لأصحاب المشاريع في السعودية. ابدأ على واتساب.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&family=Aref+Ruqaa:wght@700&display=swap">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 /* Layout: an edit bay. Hero = headline beside a working timeline; sections read like the stages of a cut.
    Colour: the Post Lab 2.0 identity, bright first. Cream ground, near-black ink, deep blue type, lime buttons,
@@ -117,7 +115,7 @@ nav a:hover{color:var(--fg)}
 .lead strong{color:var(--fg);font-weight:600}
 .cta-row{display:flex;flex-wrap:wrap;gap:12px}
 .promise{display:inline-flex;align-items:center;gap:10px;justify-self:start;font-size:17px;padding:8px 16px 8px 18px;border-radius:999px;border:1.5px solid var(--fg);background:var(--bg)}
-.promise b{color:var(--blue-text);font-weight:700}
+.promise b{color:var(--blue-text);font-weight:700;white-space:nowrap}
 .clock{width:16px;height:16px;border-radius:50%;border:2px solid var(--fg);position:relative;flex:none}
 .clock::before,.clock::after{content:"";position:absolute;left:50%;bottom:50%;width:2px;background:var(--fg);transform-origin:50% 100%;border-radius:1px}
 .clock::before{height:5px;margin-left:-1px}
@@ -299,7 +297,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 .bund-opts{display:grid;gap:22px}
 .opt span em{font-style:normal;font-size:12px;font-weight:600;margin-inline-start:8px;padding:2px 8px;border-radius:999px;background:var(--blue);color:#fff}
 .opt input:checked+span em{background:var(--bg);color:var(--blue-text)}
-.plan{border:1.5px solid var(--fg);border-radius:22px;padding:clamp(20px,3vw,30px);background:var(--bg);display:grid;gap:16px}
+.plan{position:sticky;top:96px;border:1.5px solid var(--fg);border-radius:22px;padding:clamp(20px,3vw,30px);background:var(--bg);display:grid;gap:16px}
 .plan-k{font-weight:700;color:var(--fg-2)}
 .plan-p{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 12px}
 .plan-p b{font-family:var(--f-display);font-size:clamp(2.2rem,4.5vw,3rem);line-height:1;color:var(--blue-text)}
@@ -334,6 +332,56 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 @keyframes busy{from{transform:translateX(250%)}to{transform:translateX(-100%)}}
 .ba #outV{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#0B0B0B}
 .ba.result .tag,.ba.result .knob,.ba.result input,.ba.result #baGL{display:none}
+
+/* ---------- custom bundles ---------- */
+.chip{border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;font:600 15px/1 var(--f-body);padding:12px 16px;cursor:pointer}
+.chip:hover{border-color:var(--fg)}
+.chip.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chip em{font-style:normal;font-size:12px;font-weight:600;margin-inline-start:6px;padding:2px 8px;border-radius:999px;background:var(--blue);color:#fff}
+.brows{display:grid;gap:8px}
+.brow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid var(--line);border-radius:14px;background:var(--bg);transition:border-color .2s}
+.brow.on{border-color:var(--fg)}
+.bl{display:grid;gap:2px}
+.bl b{font-weight:700;font-size:16px}
+.plan ul#planLines{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:15px}
+.plan ul#planLines li{display:flex;justify-content:space-between;gap:12px;color:var(--fg-2)}
+.plan ul#planLines li b{color:var(--fg);font-weight:600;white-space:nowrap}
+.plan ul#planLines li.empty{color:var(--ash)}
+.plan .sum li{display:flex;justify-content:space-between;gap:12px;border-top:1px dashed var(--line);padding-top:10px}
+.plan .sum s{color:var(--fg-2)}
+.plan .sum b{font-weight:700}
+.tier{margin:0;font-size:14px;font-weight:600;color:var(--blue-text);min-height:1.4em}
+.plan-p b{transition:transform .18s}
+.plan-p b.bump{transform:scale(1.05)}
+#planGo[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.plan-mini{position:fixed;z-index:30;left:16px;right:16px;bottom:max(16px,env(safe-area-inset-bottom));display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;background:var(--fg);color:var(--bg);text-decoration:none;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.plan-mini b{font-family:var(--f-display);font-size:18px;color:var(--bg)}
+.plan-mini .go{margin-inline-start:auto;font-size:14px}
+@media (min-width:861px){.plan-mini{display:none!important}}
+
+/* ---------- before / after samples ---------- */
+.samples{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(240px,300px);gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;margin-top:8px}
+@media (min-width:1000px){.samples{grid-auto-flow:row;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));overflow:visible}}
+.smp{margin:0;scroll-snap-align:start;display:grid;gap:10px}
+.smp .frame{position:relative;aspect-ratio:9/16;border-radius:24px;overflow:hidden;border:1.5px solid var(--fg);background:#0B0B0B;--x:50%;touch-action:pan-y}
+.smp video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.smp video.a{clip-path:inset(0 calc(100% - var(--x)) 0 0)}
+.smp input{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:ew-resize;touch-action:pan-y}
+.smp .tag{position:absolute;top:12px;padding:4px 11px;border-radius:999px;font:600 12px/1.2 var(--f-body);pointer-events:none}
+.smp .tag-b{right:12px;background:rgba(11,11,11,.7);color:#F5F3E9}
+.smp .tag-a{left:12px;background:#F5F3E9;color:#0B0B0B}
+.smp .knob{position:absolute;top:0;bottom:0;left:var(--x);width:0;pointer-events:none}
+.smp .knob::before{content:"";position:absolute;top:0;bottom:0;left:-1px;width:2px;background:#F5F3E9}
+.smp .knob span{direction:ltr;position:absolute;top:50%;left:-20px;width:40px;height:40px;margin-top:-20px;border-radius:50%;background:#F5F3E9;border:1.5px solid #0B0B0B;display:grid;place-items:center}
+.smp .knob span::before{content:"‹ ›";font:700 15px/1 var(--f-body);color:#0B0B0B;letter-spacing:2px}
+.smp .smp-snd{position:absolute;bottom:12px;left:12px;right:auto;width:auto;z-index:2;border:0;border-radius:999px;padding:7px 12px;background:rgba(11,11,11,.72);color:#F5F3E9;font:600 12px/1 var(--f-body);cursor:pointer}
+.smp .smp-snd[aria-pressed="true"]{background:#F5F3E9;color:#0B0B0B}
+.smp figcaption{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.smp figcaption b{font-weight:700}
+.smp figcaption span{font-size:14px;color:var(--fg-2)}
+.opt input:disabled+span{opacity:.4;cursor:not-allowed}
+.hint.warn{color:var(--fg)}
+.opt span em{font-style:normal;font-size:12px;font-weight:600;margin-inline-start:6px;padding:2px 8px;border-radius:999px;background:var(--blue);color:#fff}
 </style>
 
 </head><body><div class="page" dir="rtl" lang="ar">
@@ -351,7 +399,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     <nav aria-label="الأقسام">
       <a href="#services" data-en="Services">الخدمات</a>
       <a href="#shoot" data-en="Before you shoot">قبل التصوير</a>
-      <a href="#diff">الفرق</a>
+      <a href="#diff" id="navDiff" hidden>قبل وبعد</a>
       <a href="#how" data-en="How it works">كيف نشتغل</a>
       <a href="#bundles">الباقات</a>
       <a href="#pay" data-en="Payment">الدفع</a>
@@ -384,7 +432,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
         </a>
         <a class="btn btn-ghost" href="#how" data-en="See how it works">شوف كيف نشتغل</a>
       </div>
-      <p class="promise"><span class="clock" aria-hidden="true"></span>التسليم خلال <b>١ إلى ٣ ساعات</b> كحد أقصى.</p>
+      <p class="promise"><span class="clock" aria-hidden="true"></span><span>نسختك الأولى خلال <b>٢٤ ساعة</b> · والسريع <b>١ إلى ٣ ساعات</b></span></p>
     </div>
 
     <figure class="ident" id="identBox">
@@ -395,7 +443,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 </div>
 
 <!-- CRAWL -->
-<div class="reel" aria-hidden="true"><div class="run"><span class="set"><span class="w"><span class="t f-wide">ريلز</span></span><span class="w"><span class="t f-it">إعلانات</span></span><span class="w"><span class="t f-cond">فيديو منتج</span></span><span class="w"><span class="t f-wide">فيديو كليب</span></span><span class="w"><span class="t f-it">بودكاست</span></span><span class="w"><span class="t f-cond">مقابلات</span></span><span class="w"><span class="t f-wide">تغطية فعاليات</span></span><span class="w"><span class="t f-it">صور منتجات</span></span><span class="w"><span class="t f-cond">فيديو تعريفي</span></span><span class="w"><span class="t f-wide">أفلام قصيرة</span></span><span class="w"><span class="t f-cond">محاضرات جغرافيا</span></span><span class="w"><span class="t f-it">حملات</span></span><span class="w"><span class="t f-wide f-blue">التسليم خلال ١ إلى ٣ ساعات</span></span></span><span class="set"><span class="w"><span class="t f-wide">ريلز</span></span><span class="w"><span class="t f-it">إعلانات</span></span><span class="w"><span class="t f-cond">فيديو منتج</span></span><span class="w"><span class="t f-wide">فيديو كليب</span></span><span class="w"><span class="t f-it">بودكاست</span></span><span class="w"><span class="t f-cond">مقابلات</span></span><span class="w"><span class="t f-wide">تغطية فعاليات</span></span><span class="w"><span class="t f-it">صور منتجات</span></span><span class="w"><span class="t f-cond">فيديو تعريفي</span></span><span class="w"><span class="t f-wide">أفلام قصيرة</span></span><span class="w"><span class="t f-cond">محاضرات جغرافيا</span></span><span class="w"><span class="t f-it">حملات</span></span><span class="w"><span class="t f-wide f-blue">التسليم خلال ١ إلى ٣ ساعات</span></span></span></div></div>
+<div class="reel" aria-hidden="true"><div class="run"><span class="set"><span class="w"><span class="t f-wide">ريلز</span></span><span class="w"><span class="t f-it">إعلانات</span></span><span class="w"><span class="t f-cond">فيديو منتج</span></span><span class="w"><span class="t f-wide">فيديو كليب</span></span><span class="w"><span class="t f-it">بودكاست</span></span><span class="w"><span class="t f-cond">مقابلات</span></span><span class="w"><span class="t f-wide">تغطية فعاليات</span></span><span class="w"><span class="t f-it">صور منتجات</span></span><span class="w"><span class="t f-cond">فيديو تعريفي</span></span><span class="w"><span class="t f-wide">أفلام قصيرة</span></span><span class="w"><span class="t f-cond">محاضرات جغرافيا</span></span><span class="w"><span class="t f-it">حملات</span></span><span class="w"><span class="t f-wide f-blue">نسختك الأولى خلال ٢٤ ساعة</span></span></span><span class="set"><span class="w"><span class="t f-wide">ريلز</span></span><span class="w"><span class="t f-it">إعلانات</span></span><span class="w"><span class="t f-cond">فيديو منتج</span></span><span class="w"><span class="t f-wide">فيديو كليب</span></span><span class="w"><span class="t f-it">بودكاست</span></span><span class="w"><span class="t f-cond">مقابلات</span></span><span class="w"><span class="t f-wide">تغطية فعاليات</span></span><span class="w"><span class="t f-it">صور منتجات</span></span><span class="w"><span class="t f-cond">فيديو تعريفي</span></span><span class="w"><span class="t f-wide">أفلام قصيرة</span></span><span class="w"><span class="t f-cond">محاضرات جغرافيا</span></span><span class="w"><span class="t f-it">حملات</span></span><span class="w"><span class="t f-wide f-blue">نسختك الأولى خلال ٢٤ ساعة</span></span></span></div></div>
 
 <!-- SERVICES -->
 <section id="services" class="band">
@@ -440,48 +488,15 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 </section>
 
 <!-- BEFORE YOU SHOOT -->
-<!-- DIFFERENCE (demo) -->
-<section id="diff">
-  <div class="wrap diff">
+<!-- SAMPLES: before / after (our own shoots) -->
+<section id="diff" hidden>
+  <div class="wrap">
     <div class="sec-head">
-      <p class="eyebrow">[ الفرق ]</p>
-      <h2>جرّبها على لقطتك، الحين.</h2>
-      <p class="muted">افتح كاميرتك أو ارفع مقطع ١٠ إلى ١٥ ثانية، واسحب الخط: على اليمين لقطتك مثل ما هي، وعلى اليسار بعد التثبيت والتلوين. واختار مود الموسيقى.</p>
-      <div class="try">
-        <div class="src" role="group" aria-label="مصدر اللقطة">
-          <button type="button" class="btn btn-primary" id="useCam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span>جرّب بكاميرتك</span></button>
-          <label class="btn btn-ghost" id="useFile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg><span>ارفع مقطع</span><input type="file" id="fileIn" accept="video/*" hidden></label>
-          <button type="button" class="btn btn-ghost" id="useDemo" hidden>وقّف</button>
-        </div>
-        <div class="full" id="fullRow" hidden>
-          <button type="button" class="btn btn-primary" id="fullBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>جهّز لي النسخة الكاملة</span></button>
-          <a class="btn btn-ghost" id="fullDl" hidden download="blueyolk-preview.mp4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>حمّل النسخة</span></a>
-          <button type="button" class="btn btn-ghost" id="fullBack" hidden>رجوع للمعاينة</button>
-          <div class="busy" id="fullBusy" hidden aria-hidden="true"><i></i></div>
-        </div>
-        <fieldset class="mood">
-          <legend>مود الموسيقى</legend>
-          <div class="opts">
-          <label class="opt"><input type="radio" name="tmood" value="none" checked><span>بدون</span></label>
-          <label class="opt"><input type="radio" name="tmood" value="hype"><span>حماسي</span></label>
-          <label class="opt"><input type="radio" name="tmood" value="classic"><span>كلاسيكي</span></label>
-          <label class="opt"><input type="radio" name="tmood" value="calm"><span>هادئ</span></label>
-          <label class="opt"><input type="radio" name="tmood" value="lux"><span>فخم</span></label>
-          </div>
-        </fieldset>
-        <p class="status" id="tryStatus" aria-live="polite"></p>
-        <p class="hint">المعاينة تصير داخل جهازك. النسخة الكاملة (لين ١٥ ثانية و٣٠ ميغا) تنرسل لخادمنا، تتجهّز في ثواني، وتنمسح مباشرة. والمونتاج الحقيقي أدق بكثير.</p>
-      </div>
-      </div>
-    <figure class="ba idle" id="ba">
-      <div class="empty" id="baEmpty"><svg viewBox="0 0 120 64" aria-hidden="true"><ellipse cx="60" cy="40" rx="56" ry="6" fill="var(--fg)"/><path d="M39 37 A21 12.2 0 0 1 81 37 A21 1 0 0 1 39 37 Z" fill="var(--blue)"/></svg><b>لقطتك تطلع هنا</b><span>افتح الكاميرا أو ارفع مقطع ١٠ إلى ١٥ ثانية</span></div>
-      <canvas id="baGL" hidden aria-hidden="true"></canvas>
-      <video id="srcV" playsinline muted loop hidden></video>
-      <video id="outV" playsinline controls loop hidden></video>
-      <span class="tag tag-b">قبل</span><span class="tag tag-a">بعد</span>
-      <span class="knob" id="baKnob" aria-hidden="true"><span></span></span>
-      <input type="range" id="baRange" min="0" max="100" value="50" dir="ltr" aria-label="اسحب للمقارنة بين قبل وبعد">
-    </figure>
+      <p class="eyebrow">[ قبل وبعد ]</p>
+      <h2>نفس اللقطة، بعد ما مرّت علينا.</h2>
+      <p class="muted">لقطات صوّرناها بنفسنا بالجوال، مثل ما تصوّر أنت. اسحب الخط وشوف الفرق، وشغّل الصوت.</p>
+    </div>
+    <div class="samples" id="samples"></div>
   </div>
 </section>
 
@@ -535,8 +550,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     <ol class="steps">
       <li><span class="n">٠١</span><h3 data-en="You send">ترسل</h3><p class="muted" data-en="On WhatsApp: what you need, where it will run, and a link to the footage.">على واتساب: وش تبي، ووين بتنشره، ورابط المقاطع.</p></li>
       <li><span class="n">٠٢</span><h3 data-en="We quote">نرسل لك السعر</h3><p class="muted" data-en="One fixed price in writing and a clear delivery date, before you pay anything.">سعر ثابت مكتوب، قبل ما تدفع ريال.</p></li>
-      <li><span class="n">٠٣</span><h3 data-en="You pay safely">تدفع بأمان</h3><p class="muted" data-en="Through a secure payment link. Then we start.">عبر رابط دفع آمن. وتبدأ الساعات الثلاث.</p></li>
-      <li><span class="n">٠٤</span><h3 data-en="You review">تشوف وتعدّل</h3><p class="muted" data-en="You get a first cut, send notes, and approve.">خلال ١ إلى ٣ ساعات توصلك النسخة، ترسل ملاحظاتك، وتعتمد.</p></li>
+      <li><span class="n">٠٣</span><h3 data-en="You pay safely">تدفع بأمان</h3><p class="muted" data-en="Through a secure payment link. Then we start.">عبر رابط دفع آمن. وبعدها نبدأ.</p></li>
+      <li><span class="n">٠٤</span><h3 data-en="You review">تشوف وتعدّل</h3><p class="muted" data-en="You get a first cut, send notes, and approve.">خلال ٢٤ ساعة توصلك النسخة الأولى (أو ١ إلى ٣ ساعات بالسريع)، ترسل ملاحظاتك، وتعتمد.</p></li>
       <li><span class="n">٠٥</span><h3 data-en="You receive">تستلم</h3><p class="muted" data-en="Final files in every size you asked for.">الملفات النهائية بكل المقاسات اللي طلبتها.</p></li>
     </ol>
     <p class="status">
@@ -546,27 +561,33 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
   </div>
 </section>
 
-<!-- BUNDLES (demo) -->
+<!-- BUNDLES -->
 <section id="bundles">
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">[ باقات شهرية ]</p>
-      <h2>محتوى كل شهر، بسعر أقل لكل ريل.</h2>
-      <p class="muted">اختار كم ريل تحتاج في الشهر، وشوف السعر يتغيّر قدامك. نفس السرعة: كل ريل يوصلك خلال ١ إلى ٣ ساعات.</p>
+      <h2>باقة شهرية، مفصّلة عليك.</h2>
+      <p class="muted">شغل شخصي ومخصّص لنشاطك: نفس العين ونفس الأسلوب كل شهر. اختار وش تحتاج، ونتفق سوا على جدول تسليم شهري حسب تقويمك. وكل ما كبرت الباقة، نزل سعر القطعة.</p>
     </div>
     <div class="bund">
       <form class="bund-opts" id="bundForm" onsubmit="return false">
         <fieldset>
-          <legend>كم ريل في الشهر؟</legend>
-          <div class="opts">
-            <label class="opt"><input type="radio" name="bn" value="4"><span>٤</span></label>
-            <label class="opt"><input type="radio" name="bn" value="8" checked><span>٨ <em>ننصح فيها</em></span></label>
-            <label class="opt"><input type="radio" name="bn" value="12"><span>١٢</span></label>
-            <label class="opt"><input type="radio" name="bn" value="20"><span>٢٠</span></label>
+          <legend>ابدأ من</legend>
+          <div class="opts" id="bPresets">
+            <button type="button" class="chip" data-p="start">بداية</button>
+            <button type="button" class="chip" data-p="grow">نمو <em>ننصح فيها</em></button>
+            <button type="button" class="chip" data-p="full">حضور كامل</button>
+            <button type="button" class="chip" data-p="clear">من الصفر</button>
           </div>
         </fieldset>
         <fieldset>
-          <legend>مدة الريل</legend>
+          <legend>وش تحتاج كل شهر؟</legend>
+          <div class="brows">
+            <div class="brow" data-k="reel"><div class="bl"><b>ريلز</b><span class="hint" id="bu-reel"></span></div><div class="step" role="group" aria-label="ريلز"><button type="button" data-b="reel" data-d="-1" aria-label="أقل">−</button><output id="bq-reel">٠</output><button type="button" data-b="reel" data-d="1" aria-label="أكثر">+</button></div></div><div class="brow" data-k="ad"><div class="bl"><b>إعلانات</b><span class="hint" id="bu-ad"></span></div><div class="step" role="group" aria-label="إعلانات"><button type="button" data-b="ad" data-d="-1" aria-label="أقل">−</button><output id="bq-ad">٠</output><button type="button" data-b="ad" data-d="1" aria-label="أكثر">+</button></div></div><div class="brow" data-k="product"><div class="bl"><b>فيديو منتج</b><span class="hint" id="bu-product"></span></div><div class="step" role="group" aria-label="فيديو منتج"><button type="button" data-b="product" data-d="-1" aria-label="أقل">−</button><output id="bq-product">٠</output><button type="button" data-b="product" data-d="1" aria-label="أكثر">+</button></div></div><div class="brow" data-k="long"><div class="bl"><b>فيديو طويل</b><span class="hint" id="bu-long">لين ٣ دقايق</span></div><div class="step" role="group" aria-label="فيديو طويل"><button type="button" data-b="long" data-d="-1" aria-label="أقل">−</button><output id="bq-long">٠</output><button type="button" data-b="long" data-d="1" aria-label="أكثر">+</button></div></div><div class="brow" data-k="photo"><div class="bl"><b>صور منتج</b><span class="hint" id="bu-photo"></span></div><div class="step" role="group" aria-label="صور منتج"><button type="button" data-b="photo" data-d="-1" aria-label="أقل">−</button><output id="bq-photo">٠</output><button type="button" data-b="photo" data-d="1" aria-label="أكثر">+</button></div></div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>مدة الريلز والإعلانات</legend>
           <div class="opts">
             <label class="opt"><input type="radio" name="bl" value="15" checked><span>لين ١٥ ثانية</span></label>
             <label class="opt"><input type="radio" name="bl" value="30"><span>لين ٣٠ ثانية</span></label>
@@ -574,27 +595,45 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
           </div>
         </fieldset>
         <fieldset>
-          <legend>مع كل ريل <span class="hint">(اختياري)</span></legend>
+          <legend>مع كل فيديو <span class="hint">(اختياري)</span></legend>
           <div class="opts">
             <label class="opt"><input type="checkbox" name="bx" value="text"><span>نص وترجمة</span></label>
             <label class="opt"><input type="checkbox" name="bx" value="grade"><span>تلوين احترافي</span></label>
             <label class="opt"><input type="checkbox" name="bx" value="audio"><span>تنظيف الصوت</span></label>
           </div>
         </fieldset>
+        <fieldset>
+          <legend>مود الموسيقى للباقة</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="bm" value="auto" checked><span>خلّوه علينا</span></label>
+            <label class="opt"><input type="radio" name="bm" value="hype"><span>حماسي</span></label>
+            <label class="opt"><input type="radio" name="bm" value="classic"><span>كلاسيكي</span></label>
+            <label class="opt"><input type="radio" name="bm" value="calm"><span>هادئ</span></label>
+            <label class="opt"><input type="radio" name="bm" value="lux"><span>فخم</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>مدة الاشتراك</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="bc" value="1" checked><span>شهر بشهر</span></label>
+            <label class="opt"><input type="radio" name="bc" value="3"><span>٣ شهور <em>−٥٪ زيادة</em></span></label>
+            <label class="opt"><input type="radio" name="bc" value="6"><span>٦ شهور <em>−١٠٪ زيادة</em></span></label>
+          </div>
+        </fieldset>
       </form>
-      <div class="plan" aria-live="polite">
-        <span class="plan-k" id="planName">باقة ٨ ريلز</span>
-        <div class="plan-p"><b id="planEach">—</b><span>للريل</span><s id="planWas"></s></div>
-        <ul>
-          <li><span>المجموع الشهري</span><b id="planTotal">—</b></li>
+      <a class="plan-mini" id="planMini" href="#planBox" hidden><span>باقتك</span><b id="planMiniT">—</b><span class="go">التفاصيل ↓</span></a>
+      <div class="plan" id="planBox" aria-live="polite">
+        <span class="plan-k" id="planName">باقتك</span>
+        <div class="plan-p"><b id="planTotal">—</b><span>/ شهر</span></div>
+        <ul id="planLines"></ul>
+        <ul class="sum">
+          <li><span>بدون باقة</span><s id="planWas">—</s></li>
           <li class="save"><span>توفّر كل شهر</span><b id="planSave">—</b></li>
+          <li><span>متوسط سعر الفيديو</span><b id="planEach">—</b></li>
         </ul>
-        <ul class="ticks">
-          <li>كل ريل خلال ١ إلى ٣ ساعات</li>
-          <li>نفس الأسلوب والخط والألوان كل شهر</li>
-          <li>شهر بشهر، توقف متى ما تبي</li>
-        </ul>
+        <p class="tier" id="planTier"></p>
         <a class="btn btn-primary" id="planGo" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8L4 20z"/></svg><span>ابدأ الباقة على واتساب</span></a>
+        <p class="hint">نتفق معك على التفاصيل وجدول التسليم والسعر النهائي على واتساب قبل أول دفعة.</p>
       </div>
     </div>
   </div>
@@ -659,6 +698,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
         </div>
       </fieldset>
       <fieldset>
+        <legend>متى تحتاجه؟</legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="speed" id="spN" value="std" checked><span>عادي · خلال ٢٤ ساعة</span></label>
+          <label class="opt"><input type="radio" name="speed" id="spX" value="express"><span>سريع · ١ إلى ٣ ساعات <em>+٥٠٪</em></span></label>
+        </div>
+        <span class="hint" id="spXnote">السريع لطلبات لين ٣ مقاطع كل واحد لين دقيقة، أو لين ١٠ صور، في أوقات العمل.</span>
+      </fieldset>
+      <fieldset>
         <legend data-en="Where will it run?">وين بتنشره؟</legend>
         <div class="opts">
           <label class="opt"><input type="checkbox" name="where" id="w-snap" value="سناب|Snapchat"><span data-en="Snapchat">سناب</span></label>
@@ -673,7 +720,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
         <div class="bill-h"><span>سعرك التقريبي</span><span class="hint">يتحدّث مع كل اختيار</span></div>
         <ul id="billLines"></ul>
         <div class="bill-t"><span>المجموع</span><b id="billTotal">—</b></div>
-        <p class="hint">السعر النهائي يوصلك مكتوب على واتساب قبل ما تدفع. التسليم خلال ١ إلى ٣ ساعات.</p>
+        <p class="hint">السعر النهائي يوصلك مكتوب على واتساب قبل ما تدفع. <span id="billWhen">نسختك الأولى خلال ٢٤ ساعة.</span></p>
       </div>
       <div class="field">
         <label class="l" for="link" data-en="Link to the footage">رابط المقاطع</label>
@@ -767,7 +814,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       <details><summary data-en="Does my footage need to be professional?">لازم يكون تصويري احترافي؟</summary><p data-en="No. Most of what reaches us is shot on a phone. The six tips above make a big difference.">لا. أغلب اللي يوصلنا مصوّر بالجوال. النصايح الست فوق تفرق كثير.</p></details>
       <details><summary data-en="How do I send large videos?">كيف أرسل الفيديوهات الكبيرة؟</summary><p data-en="Upload them to Google Drive, WeTransfer or iCloud and send the link. WhatsApp lowers the quality.">ارفعها على Google Drive أو WeTransfer أو iCloud وأرسل الرابط. واتساب يضعّف الجودة.</p></details>
       <details><summary data-en="How much does it cost?">كم السعر؟</summary><p data-en="It depends on the length, the number of sizes and how much footage there is. You get a fixed price in writing before you pay.">يعتمد على طول الفيديو وعدد المقاسات وكمية المواد. يوصلك سعر ثابت مكتوب قبل ما تدفع.</p></details>
-      <details><summary data-en="How long does it take?">كم ياخذ وقت؟</summary><p data-en="1 to 3 hours.">من ساعة إلى ٣ ساعات كحد أقصى. الوقت يبدأ من وصول المقاطع كاملة وتأكيد الدفع.</p></details>
+      <details><summary data-en="How long does it take?">كم ياخذ وقت؟</summary><p data-en="24 hours.">النسخة الأولى توصلك خلال ٢٤ ساعة من وصول المقاطع كاملة وتأكيد الدفع. تبي أسرع؟ الخدمة السريعة توصلك النسخة الأولى خلال ١ إلى ٣ ساعات، لطلبات لين ٣ مقاطع كل واحد لين دقيقة (أو لين ١٠ صور)، في أوقات العمل. والباقات الشهرية لها جدول تسليم نتفق عليه.</p></details>
       <details><summary data-en="Can I ask for changes?">أقدر أطلب تعديلات؟</summary><p data-en="Yes. You see a first cut and send notes. The number of revision rounds is written on your quote.">أكيد. تشوف النسخة الأولى وترسل ملاحظاتك. عدد جولات التعديل مكتوب في العرض.</p></details>
 
     </div>
@@ -869,7 +916,8 @@ const PRICES = {
   extra: { text: 150, grade: 190, audio: 110 },               // per clip
   size: 70,                                                // each extra size (vertical, wide, square), per clip
   photo: 70,                                               // per photo
-  bulk: [[5, 0.15], [3, 0.10]]                             // 5+ clips: 15% off, 3+ clips: 10% off
+  bulk: [[5, 0.15], [3, 0.10]],                            // 5+ clips: 15% off, 3+ clips: 10% off
+  express: 0.5                                             // express (1-3 h first cut): +50%
 };
 const LBL = { reel: "ريل", ad: "إعلان", product: "فيديو منتج", 15: "١٥ ث", 30: "٣٠ ث", 60: "دقيقة", 180: "٣ دقايق",
   text: "نص وترجمة", grade: "تلوين احترافي", audio: "تنظيف الصوت" };
@@ -895,13 +943,20 @@ function calc(){
     if (b) { const v = -Math.round(total * b[1]); lines.push(["خصم الكمية " + nAr(b[1] * 100) + "٪", v, "off"]); total += v; }
   }
   if (hasP) { const v = PRICES.photo * qty.qp; lines.push(["صور منتج × " + nAr(qty.qp), v]); total += v; }
-  quote = { lines, total };
+  const len0 = +form.querySelector("input[name=len]:checked").value;
+  const okX = (!hasV || (qty.qv <= 3 && len0 <= 60)) && (!hasP || qty.qp <= 10);
+  const xi = document.getElementById("spX"); xi.disabled = !okX; if (!okX && xi.checked) document.getElementById("spN").checked = true;
+  document.getElementById("spXnote").classList.toggle("warn", !okX);
+  const fast = okX && xi.checked;
+  if (fast) { const v = Math.round(total * PRICES.express); lines.push(["خدمة سريعة +" + nAr(PRICES.express * 100) + "٪", v]); total += v; }
+  document.getElementById("billWhen").textContent = fast ? "نسختك الأولى خلال ١ إلى ٣ ساعات." : "نسختك الأولى خلال ٢٤ ساعة.";
+  quote = { lines, total, fast };
   const ul = document.getElementById("billLines"); ul.replaceChildren();
   lines.forEach(([a, v, c]) => { const li = document.createElement("li"); if (c) li.className = c; li.append(a); const b = document.createElement("b"); b.textContent = (v < 0 ? "− " : "") + sar(Math.abs(v)); li.append(b); ul.append(li); });
   const tEl = document.getElementById("billTotal"); const txt = sar(total);
   if (tEl.textContent !== txt) { tEl.textContent = txt; tEl.classList.remove("bump"); void tEl.offsetWidth; tEl.classList.add("bump"); }
 }
-document.querySelectorAll(".step button").forEach(btn => btn.addEventListener("click", () => {
+document.querySelectorAll(".step button[data-q]").forEach(btn => btn.addEventListener("click", () => {
   const k = btn.dataset.q, lim = k === "qv" ? [1, 20] : [1, 100];
   qty[k] = Math.min(lim[1], Math.max(lim[0], qty[k] + Number(btn.dataset.d)));
   document.getElementById(k).textContent = nAr(qty[k]); calc();
@@ -918,7 +973,7 @@ form.addEventListener("submit", (e) => {
   const who = document.getElementById("who").value.trim() || "—";
   const note = document.getElementById("note").value.trim();
   const msg = T(
-    "السلام عليكم، طلب مونتاج جديد:\n• الشغل: " + kind + "\n" + quote.lines.map(([a, v]) => "  - " + a + ": " + (v < 0 ? "−" : "") + sar(Math.abs(v))).join("\n") + "\n• السعر التقريبي: " + sar(quote.total) + (form.querySelector("input[name=kind]:checked").id !== "k-photo" ? "\n• مود الموسيقى: " + ({auto:"خلّوه علينا",hype:"حماسي",classic:"كلاسيكي",calm:"هادئ",lux:"فخم",none:"بدون موسيقى"})[form.querySelector("input[name=bmood]:checked").value] : "") + "\n• النشر على: " + where + "\n• رابط المقاطع: " + link + "\n• التسليم: " + when + "\n• الاسم والنشاط: " + who + (note ? "\n• ملاحظات: " + note : ""),
+    "السلام عليكم، طلب مونتاج جديد:\n• الشغل: " + kind + "\n" + quote.lines.map(([a, v]) => "  - " + a + ": " + (v < 0 ? "−" : "") + sar(Math.abs(v))).join("\n") + "\n• السعر التقريبي: " + sar(quote.total) + "\n• السرعة: " + (quote.fast ? "سريع (١ إلى ٣ ساعات)" : "عادي (٢٤ ساعة)") + (form.querySelector("input[name=kind]:checked").id !== "k-photo" ? "\n• مود الموسيقى: " + ({auto:"خلّوه علينا",hype:"حماسي",classic:"كلاسيكي",calm:"هادئ",lux:"فخم",none:"بدون موسيقى"})[form.querySelector("input[name=bmood]:checked").value] : "") + "\n• النشر على: " + where + "\n• رابط المقاطع: " + link + "\n• التسليم: " + when + "\n• الاسم والنشاط: " + who + (note ? "\n• ملاحظات: " + note : ""),
     "Hi, a new editing request:\n• Work: " + kind + "\n• Runs on: " + where + "\n• Footage link: " + link + "\n• Needed by: " + when + "\n• Name and business: " + who + (note ? "\n• Notes: " + note : "")
   );
   document.getElementById("msg").textContent = msg;
@@ -962,10 +1017,6 @@ calc();
 if (reduce) document.querySelectorAll(".ani svg").forEach(sv => { try { sv.pauseAnimations(); sv.setCurrentTime(4); } catch(e) {} });
 </script>
 <script>
-/* ===== demo: before / after drag line ===== */
-(() => { const r = document.getElementById("baRange"), k = document.getElementById("baKnob");
-  const set = () => k.style.left = r.value + "%"; r.addEventListener("input", set); set(); })();
-
 /* ===== demo: checklist ===== */
 (() => {
   const boxes = [...document.querySelectorAll(".chk input")];
@@ -979,26 +1030,59 @@ if (reduce) document.querySelectorAll(".ani svg").forEach(sv => { try { sv.pause
   upd();
 })();
 
-/* ===== demo: monthly bundles ===== */
+/* ===== custom monthly bundles ===== */
 (() => {
   const f = document.getElementById("bundForm");
-  const OFF = { 4: .15, 8: .20, 12: .25, 20: .30 };           // discount by reels per month
-  const r10 = (v) => Math.round(v / 10) * 10;
+  const TIERS = [[20, .30], [12, .25], [8, .20], [4, .15]];   // videos per month → discount
+  const COMMIT = { 1: 0, 3: .05, 6: .10 };                      // extra for committing
+  const NAME = { reel: "ريلز", ad: "إعلانات", product: "فيديو منتج", long: "فيديو طويل", photo: "صور منتج" };
+  const PRESETS = { start: { reel: 4 }, grow: { reel: 8, ad: 2, photo: 10 }, full: { reel: 12, ad: 4, product: 4, long: 1, photo: 20 }, clear: {} };
+  const q = { reel: 0, ad: 0, product: 0, long: 0, photo: 0 };
+  const LIM = { reel: 30, ad: 15, product: 15, long: 8, photo: 100 };
+  let shownTotal = -1;
+  function unit(k, len){ if (k === "photo") return PRICES.photo; if (k === "long") return PRICES.video[180];
+    return Math.round(PRICES.video[len] * PRICES.type[k === "reel" ? "reel" : k]); }
   function upd(){
-    const n = +f.querySelector("input[name=bn]:checked").value, len = f.querySelector("input[name=bl]:checked").value;
-    const ex = [...f.querySelectorAll("input[name=bx]:checked")].map(x => x.value);
-    const single = PRICES.video[len] + ex.reduce((a, k) => a + PRICES.extra[k], 0);
-    const each = r10(single * (1 - OFF[n])), total = each * n, save = single * n - total;
-    document.getElementById("planName").textContent = "باقة " + nAr(n) + " ريلز";
-    document.getElementById("planEach").textContent = sar(each);
-    document.getElementById("planWas").textContent = sar(single);
-    document.getElementById("planTotal").textContent = sar(total) + " / شهر";
-    document.getElementById("planSave").textContent = sar(save) + " (" + nAr(OFF[n] * 100) + "٪)";
-    const L = { text: "نص وترجمة", grade: "تلوين احترافي", audio: "تنظيف الصوت" };
-    document.getElementById("planGo").href = waLink("السلام عليكم، أبغى أبدأ باقة شهرية:\n• " + nAr(n) + " ريلز في الشهر، كل ريل " + LBL[len] +
-      (ex.length ? "\n• مع: " + ex.map(k => L[k]).join("، ") : "") + "\n• " + sar(each) + " للريل، " + sar(total) + " في الشهر");
+    const len = f.querySelector("input[name=bl]:checked").value, c = +f.querySelector("input[name=bc]:checked").value;
+    const ex = [...f.querySelectorAll("input[name=bx]:checked")].map(x => x.value), exEach = ex.reduce((a, k) => a + PRICES.extra[k], 0);
+    const vids = q.reel + q.ad + q.product + q.long;
+    const tier = (TIERS.find(([m]) => vids >= m) || [0, 0])[1], off = Math.min(.4, tier + (vids ? COMMIT[c] : 0));
+    const lines = document.getElementById("planLines"); lines.replaceChildren(); let full = 0, parts = [];
+    Object.keys(q).forEach(k => {
+      const u = unit(k, len) + (k === "photo" ? 0 : exEach); document.getElementById("bu-" + k).textContent = sar(Math.round(u * (1 - off))) + " للقطعة" + (k === "long" ? " · لين ٣ دقايق" : "");
+      document.getElementById("bq-" + k).textContent = nAr(q[k]); document.querySelector('.brow[data-k="' + k + '"]').classList.toggle("on", q[k] > 0);
+      if (!q[k]) return; full += u * q[k]; parts.push(nAr(q[k]) + " " + NAME[k]);
+      const li = document.createElement("li"); li.append(NAME[k] + " × " + nAr(q[k])); const b = document.createElement("b"); b.textContent = sar(Math.round(u * (1 - off)) * q[k]); li.append(b); lines.append(li);
+    });
+    if (!parts.length) { const li = document.createElement("li"); li.className = "empty"; li.textContent = "اختار من القائمة، أو ابدأ من باقة جاهزة."; lines.append(li); }
+    const total = Object.keys(q).reduce((a, k) => a + Math.round((unit(k, len) + (k === "photo" ? 0 : exEach)) * (1 - off)) * q[k], 0);
+    const t = document.getElementById("planTotal"); t.textContent = total ? sar(total) : "—";
+    document.getElementById("planMiniT").textContent = total ? sar(total) + " / شهر" : "—";
+    if (total !== shownTotal) { t.classList.remove("bump"); void t.offsetWidth; t.classList.add("bump"); shownTotal = total; }
+    document.getElementById("planName").textContent = parts.length ? "باقتك: " + parts.join(" + ") : "باقتك";
+    document.getElementById("planWas").textContent = total ? sar(Math.round(full)) : "—";
+    document.getElementById("planSave").textContent = total && full - total > 0 ? sar(Math.round(full - total)) + " (" + nAr(Math.round(off * 100)) + "٪)" : "—";
+    const vidTotal = total - Math.round(PRICES.photo * (1 - off)) * q.photo;
+    document.getElementById("planEach").textContent = vids ? sar(Math.round(vidTotal / vids)) : "—";
+    const next = [...TIERS].reverse().find(([m]) => vids < m);
+    document.getElementById("planTier").textContent = !vids ? "" : next ? "أضف " + nAr(next[0] - vids) + " فيديو ويصير خصمك " + nAr(Math.round(Math.min(.4, next[1] + COMMIT[c]) * 100)) + "٪." : "وصلت لأعلى خصم.";
+    const go = document.getElementById("planGo"); go.setAttribute("aria-disabled", total ? "false" : "true");
+    const L = { text: "نص وترجمة", grade: "تلوين احترافي", audio: "تنظيف الصوت" }, M = { auto: "خلّوه علينا", hype: "حماسي", classic: "كلاسيكي", calm: "هادئ", lux: "فخم" };
+    go.href = waLink("السلام عليكم، أبغى أبدأ باقة شهرية:\n" + Object.keys(q).filter(k => q[k]).map(k => "• " + NAME[k] + " × " + nAr(q[k])).join("\n") +
+      "\n• مدة الريلز والإعلانات: " + LBL[len] + (ex.length ? "\n• مع كل فيديو: " + ex.map(k => L[k]).join("، ") : "") +
+      "\n• مود الموسيقى: " + M[f.querySelector("input[name=bm]:checked").value] + "\n• الاشتراك: " + (c === 1 ? "شهر بشهر" : nAr(c) + " شهور") +
+      "\n• السعر التقريبي: " + sar(total) + " في الشهر");
   }
-  f.addEventListener("change", upd); upd();
+  f.querySelectorAll("button[data-b]").forEach(b => b.addEventListener("click", () => { const k = b.dataset.b; q[k] = Math.max(0, Math.min(LIM[k], q[k] + (+b.dataset.d) * (k === "photo" ? 5 : 1))); clearChips(); upd(); }));
+  const chips = f.querySelectorAll("#bPresets .chip"); const clearChips = () => chips.forEach(x => x.classList.remove("on"));
+  chips.forEach(ch => ch.addEventListener("click", () => { Object.keys(q).forEach(k => q[k] = PRESETS[ch.dataset.p][k] || 0); clearChips(); ch.classList.add("on"); upd(); }));
+  f.addEventListener("change", upd);
+  Object.assign(q, PRESETS.grow); chips[1].classList.add("on"); upd();
+  // phones: keep the total in sight while choosing
+  const mini = document.getElementById("planMini"); let inForm = false, seePlan = false;
+  const show = () => mini.hidden = !(inForm && !seePlan);
+  new IntersectionObserver(es => { inForm = es[0].isIntersecting; show(); }).observe(f);
+  new IntersectionObserver(es => { seePlan = es[0].isIntersecting; show(); }, { threshold: .2 }).observe(document.getElementById("planBox"));
 })();
 </script>
 <script>
@@ -1053,108 +1137,6 @@ const BYMusic = (() => {
   };
 })();
 
-/* ===== demo: your own shot, steadied and graded live (WebGL, all on the device) ===== */
-(() => {
-  const fig = document.getElementById("ba"), gl2 = document.getElementById("baGL"), v = document.getElementById("srcV"), range = document.getElementById("baRange");
-  const st = document.getElementById("tryStatus"), demoBtn = document.getElementById("useDemo");
-  const say = (t) => st.textContent = t;
-  let gl, prog, tex, U = {}, stream = null, running = false, mirror = 0, objUrl = null;
-  // ---- looks per mood (the grade follows the music) ----
-  const LOOK = { none: { sat: 1.12, con: .3, warm: .08, vig: .18 }, hype: { sat: 1.32, con: .55, warm: .12, vig: .28 }, classic: { sat: .95, con: .25, warm: .45, vig: .32 },
-                 calm: { sat: .88, con: .08, warm: .18, vig: .1 }, lux: { sat: 1.05, con: .5, warm: .32, vig: .48 } };
-  let look = LOOK.none;
-  function setup(){
-    if (gl) return true;
-    gl = gl2.getContext("webgl", { premultipliedAlpha: false }); if (!gl) return false;
-    const vs = "attribute vec2 p;varying vec2 uv;void main(){uv=vec2(p.x*.5+.5,.5-p.y*.5);gl_Position=vec4(p,0.,1.);}";
-    const fs = `precision mediump float;varying vec2 uv;uniform sampler2D t;uniform vec2 cover,off;uniform float split,zoom,mir,sat,con,warm,vig,blk,wht;uniform vec3 gain;
-      vec2 fit(vec2 q){q=(q-.5)*cover+.5;if(mir>.5)q.x=1.-q.x;return q;}
-      void main(){
-        if(uv.x>split){gl_FragColor=texture2D(t,fit(uv));return;}
-        vec2 q=(uv-.5)/zoom+.5+off; vec3 c=texture2D(t,fit(q)).rgb*gain;
-        c=clamp((c-blk)/max(wht-blk,.2),0.,1.); c=mix(c,c*c*(3.-2.*c),con);
-        float l=dot(c,vec3(.299,.587,.114)); c=mix(vec3(l),c,sat); c.r+=warm*.06; c.b-=warm*.06;
-        c*=1.-vig*smoothstep(.35,.9,distance(uv,vec2(.5)));
-        gl_FragColor=vec4(clamp(c,0.,1.),1.);}`;
-    const sh = (type, src) => { const x = gl.createShader(type); gl.shaderSource(x, src); gl.compileShader(x); return x; };
-    prog = gl.createProgram(); gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(prog); gl.useProgram(prog);
-    const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
-    const loc = gl.getAttribLocation(prog, "p"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-    tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
-    [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach(k => gl.texParameteri(gl.TEXTURE_2D, k, gl.CLAMP_TO_EDGE));
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    "cover off split zoom mir sat con warm vig blk wht gain".split(" ").forEach(n => U[n] = gl.getUniformLocation(prog, n));
-    return true;
-  }
-  // ---- analysis: global motion (for steadying) and colour stats (for white balance and levels) ----
-  const an = document.createElement("canvas"), ax = an.getContext("2d", { willReadFrequently: true });
-  let prev = null, pos = [0, 0], smooth = [0, 0], gain = [1, 1, 1], blk = 0, wht = 1, fcount = 0;
-  function analyse(){
-    const aw = 80, ah = Math.max(1, Math.round(aw * v.videoHeight / v.videoWidth)); if (an.width !== aw || an.height !== ah) { an.width = aw; an.height = ah; prev = null; }
-    ax.drawImage(v, 0, 0, aw, ah); const d = ax.getImageData(0, 0, aw, ah).data, g = new Float32Array(aw * ah);
-    let sr = 0, sg = 0, sb = 0; const hist = new Uint32Array(64);
-    for (let i = 0, j = 0; i < d.length; i += 4, j++) { const l = .299 * d[i] + .587 * d[i+1] + .114 * d[i+2]; g[j] = l; sr += d[i]; sg += d[i+1]; sb += d[i+2]; hist[l >> 2]++; }
-    if (prev) {
-      const R = 6; let best = 1e18, bx = 0, by = 0;
-      for (let dy = -R; dy <= R; dy++) for (let dx = -R; dx <= R; dx++) { let sum = 0;
-        for (let y = R; y < ah - R; y += 2) { const r1 = y * aw, r2 = (y + dy) * aw + dx; for (let x = R; x < aw - R; x += 2) { const e = g[r1 + x] - prev[r2 + x]; sum += e < 0 ? -e : e; } }
-        if (sum < best) { best = sum; bx = dx; by = dy; } }
-      pos[0] += bx / aw; pos[1] += by / ah;
-      smooth[0] += (pos[0] - smooth[0]) * .06; smooth[1] += (pos[1] - smooth[1]) * .06;
-    }
-    prev = g;
-    if (fcount++ % 6 === 0) { const n = aw * ah, mr = sr / n, mg = sg / n, mb = sb / n, m = (mr + mg + mb) / 3;
-      const tg = [m / mr, m / mg, m / mb].map(x => Math.min(1.35, Math.max(.75, x)));
-      gain = gain.map((x, k) => x + (tg[k] - x) * .3);
-      let acc = 0, lo = 0, hi = 63; for (let k = 0; k < 64; k++) { acc += hist[k]; if (acc < n * .02) lo = k; if (acc < n * .985) hi = k; }
-      blk += (Math.min(.25, lo / 64) - blk) * .3; wht += (Math.max(.7, (hi + 1) / 64) - wht) * .3; }
-  }
-  function draw(){
-    if (!running) return;
-    if (v.readyState >= 2 && v.videoWidth) {
-      analyse();
-      const r = fig.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1), W = Math.round(r.width * dpr), H = Math.round(r.height * dpr);
-      if (gl2.width !== W || gl2.height !== H) { gl2.width = W; gl2.height = H; }
-      gl.viewport(0, 0, W, H);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, v);
-      const va = v.videoWidth / v.videoHeight, ca = W / H; gl.uniform2f(U.cover, ca < va ? ca / va : 1, ca < va ? 1 : va / ca);
-      const ox = Math.max(-.06, Math.min(.06, smooth[0] - pos[0])), oy = Math.max(-.06, Math.min(.06, smooth[1] - pos[1]));
-      gl.uniform2f(U.off, mirror ? -ox : ox, oy); gl.uniform1f(U.split, +range.value / 100); gl.uniform1f(U.zoom, 1.12); gl.uniform1f(U.mir, mirror);
-      gl.uniform1f(U.sat, look.sat); gl.uniform1f(U.con, look.con); gl.uniform1f(U.warm, look.warm); gl.uniform1f(U.vig, look.vig);
-      gl.uniform1f(U.blk, blk); gl.uniform1f(U.wht, wht); gl.uniform3f(U.gain, gain[0], gain[1], gain[2]);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-    }
-    requestAnimationFrame(draw);
-  }
-  function stopSrc(){ if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; } if (objUrl) { URL.revokeObjectURL(objUrl); objUrl = null; } v.pause(); v.removeAttribute("src"); v.srcObject = null; }
-  function goLive(){ if (!setup()) { say("المتصفح هذا ما يدعم المعاينة. جرّب من متصفح ثاني."); return false; }
-    prev = null; pos = [0, 0]; smooth = [0, 0]; window.byLive = true; gl2.hidden = false; demoBtn.hidden = false; fig.classList.remove("idle"); if (!running) { running = true; requestAnimationFrame(draw); } return true; }
-  function backToDemo(){ running = false; stopSrc(); gl2.hidden = true; demoBtn.hidden = true; window.byLive = false; fig.classList.add("idle"); say(""); }
-  document.getElementById("useCam").addEventListener("click", async () => {
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { say("الكاميرا مو متاحة في هذي الصفحة."); return; }
-    say("نفتح الكاميرا…");
-    try {
-      stopSrc(); stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: "environment" }, width: { ideal: 1280 } }, audio: false });
-      const fm = stream.getVideoTracks()[0].getSettings().facingMode; mirror = fm === "environment" ? 0 : 1;
-      v.srcObject = stream; v.muted = true; await v.play();
-      if (goLive()) say("حرّك الجوال شوي، واسحب الخط وشوف الفرق.");
-    } catch (e) { say(e && e.name === "NotAllowedError" ? "ما سمحت للكاميرا. تقدر ترفع مقطع بدالها." : "ما قدرنا نفتح الكاميرا هنا. ارفع مقطع بدالها."); }
-  });
-  document.getElementById("fileIn").addEventListener("change", async (e) => {
-    const f = e.target.files[0]; if (!f) return; stopSrc(); mirror = 0;
-    objUrl = URL.createObjectURL(f); v.src = objUrl; v.muted = true; v.loop = true;
-    v.onloadedmetadata = () => { if (v.duration > 20) say("مقطعك أطول من ١٥ ثانية، نعرض أول ١٥ ثانية."); else say("اسحب الخط وشوف الفرق."); };
-    v.ontimeupdate = () => { if (v.currentTime > 15) v.currentTime = 0; };
-    try { await v.play(); goLive(); } catch (err) { say("ما قدرنا نشغّل المقطع. جرّب مقطع MP4 أو MOV."); }
-    e.target.value = "";
-  });
-  demoBtn.addEventListener("click", backToDemo);
-  document.querySelectorAll("input[name=tmood]").forEach(r => r.addEventListener("change", () => {
-    look = LOOK[r.value] || LOOK.none; BYMusic.play(r.value);
-    if (r.value === "none") say(window.byLive ? "بدون موسيقى." : ""); else if (!window.byLive) say("المود يغيّر الموسيقى والتلوين. افتح الكاميرا أو ارفع مقطع وشوف.");
-  }));
-})();
-
 /* ===== demo: listen to the brief's mood ===== */
 (() => {
   const b = document.getElementById("moodListen"); let t;
@@ -1169,40 +1151,39 @@ const BYMusic = (() => {
 })();
 </script>
 <script>
-/* ===== full version: send the uploaded clip to the treatment service, get the finished file back ===== */
+/* ===== before / after samples: add a line per pair (same cut, same length; vertical 9:16) ===== */
+const SAMPLES = [
+  /*SAMPLES*/
+];
 (() => {
-  const row = document.getElementById("fullRow"), btn = document.getElementById("fullBtn"), dl = document.getElementById("fullDl"), back = document.getElementById("fullBack");
-  const busy = document.getElementById("fullBusy"), st = document.getElementById("tryStatus"), fig = document.getElementById("ba"), out = document.getElementById("outV");
-  const LIMIT = 30 * 1024 * 1024;
-  let file = null, url = null;
-  const say = (t) => st.textContent = t;
-  function reset(){ fig.classList.remove("result"); out.pause(); out.hidden = true; out.removeAttribute("src"); if (url) { URL.revokeObjectURL(url); url = null; } dl.hidden = true; back.hidden = true; btn.hidden = false; btn.disabled = false; busy.hidden = true; }
-  document.getElementById("fileIn").addEventListener("change", (e) => { const f = e.target.files[0]; reset(); file = f || null; row.hidden = !file;
-    if (file && file.size > LIMIT) { btn.disabled = true; setTimeout(() => say("المقطع أكبر من ٣٠ ميغا. المعاينة تشتغل، بس النسخة الكاملة تحتاج مقطع أصغر."), 50); } });
-  document.getElementById("useCam").addEventListener("click", () => { reset(); file = null; row.hidden = true; });
-  document.getElementById("useDemo").addEventListener("click", () => { reset(); file = null; row.hidden = true; });
-  back.addEventListener("click", () => { reset(); say("اسحب الخط وشوف الفرق."); });
-  async function send(mood, tries){
-    const r = await fetch("/api/treat?mood=" + encodeURIComponent(mood), { method: "POST", headers: { "Content-Type": "application/octet-stream" }, body: file });
-    if (r.status >= 500 && tries > 0) { await new Promise(z => setTimeout(z, 3000)); return send(mood, tries - 1); }
-    return r;
-  }
-  btn.addEventListener("click", async () => {
-    if (!file) return;
-    const mood = (document.querySelector("input[name=tmood]:checked") || {}).value || "none";
-    btn.disabled = true; busy.hidden = false; say("نجهّز نسختك… حوالي ٢٠ ثانية.");
-    try {
-      const r = await send(mood, 1);
-      if (r.status === 429) throw new Error("جرّبت كثير. انتظر دقيقة وجرّب مرة ثانية.");
-      if (r.status === 413) throw new Error("المقطع أكبر من ٣٠ ميغا.");
-      if (!r.ok) throw new Error("ما قدرنا نجهّز المقطع هذي المرة. جرّب مرة ثانية بعد شوي.");
-      const blob = await r.blob(); url = URL.createObjectURL(blob);
-      typeof BYMusic !== "undefined" && BYMusic.stop();
-      out.src = url; out.hidden = false; fig.classList.add("result"); out.play().catch(() => {});
-      dl.href = url; dl.hidden = false; back.hidden = false; btn.hidden = true;
-      say("نسختك جاهزة. شغّلها بالصوت، وحمّلها لو تبي.");
-    } catch (e) { say(e.message || "صار خطأ. جرّب مرة ثانية."); btn.disabled = false; }
-    busy.hidden = true;
+  const sec = document.getElementById("diff"), box = document.getElementById("samples");
+  if (!SAMPLES.length) return;
+  sec.hidden = false; document.getElementById("navDiff").hidden = false;
+  const mk = (t, c, a = {}) => { const e = document.createElement(t); if (c) e.className = c; Object.assign(e, a); return e; };
+  SAMPLES.forEach((smp, n) => {
+    const fig = mk("figure", "smp"), fr = mk("div", "frame");
+    const vb = mk("video", "b", { muted: true, loop: true, playsInline: true, preload: "none" });
+    const va = mk("video", "a", { muted: true, loop: true, playsInline: true, preload: "none" });
+    if (smp.poster) { vb.poster = smp.poster; va.poster = smp.poster; }
+    vb.dataset.src = smp.before; va.dataset.src = smp.after;
+    const tb = mk("span", "tag tag-b", { textContent: "قبل" }), ta = mk("span", "tag tag-a", { textContent: "بعد" });
+    const knob = mk("span", "knob"); knob.append(mk("span"));
+    const r = mk("input", "", { type: "range", min: 0, max: 100, value: 50 }); r.dir = "ltr"; r.setAttribute("aria-label", "اسحب للمقارنة: " + smp.title);
+    const snd = mk("button", "smp-snd", { type: "button", textContent: "🔈 صوت" }); snd.setAttribute("aria-pressed", "false");
+    fr.append(vb, va, tb, ta, knob, r, snd);
+    const cap = mk("figcaption"); cap.append(mk("b", "", { textContent: smp.title }), mk("span", "", { textContent: smp.meta || "" }));
+    fig.append(fr, cap); box.append(fig);
+    const set = () => fr.style.setProperty("--x", r.value + "%"); r.addEventListener("input", set); set();
+    // keep "before" in step with "after"
+    va.addEventListener("timeupdate", () => { if (Math.abs(vb.currentTime - va.currentTime) > .08) vb.currentTime = va.currentTime; });
+    va.addEventListener("play", () => vb.play().catch(() => {})); va.addEventListener("pause", () => vb.pause());
+    snd.addEventListener("click", () => { const on = snd.getAttribute("aria-pressed") !== "true";
+      box.querySelectorAll(".smp-snd").forEach(x => { x.setAttribute("aria-pressed", "false"); x.textContent = "🔈 صوت"; });
+      box.querySelectorAll("video.a").forEach(x => x.muted = true);
+      if (on) { va.muted = false; snd.setAttribute("aria-pressed", "true"); snd.textContent = "🔊 صوت"; va.play().catch(() => {}); } });
+    new IntersectionObserver(es => { const vis = es[0].isIntersecting;
+      if (vis) { [vb, va].forEach(v => { if (!v.src) { v.src = v.dataset.src; v.preload = "auto"; } }); if (!matchMedia("(prefers-reduced-motion: reduce)").matches) va.play().catch(() => {}); }
+      else { va.pause(); } }, { threshold: .35 }).observe(fr);
   });
 })();
 </script>
