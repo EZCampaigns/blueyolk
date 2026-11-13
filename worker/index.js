@@ -1,7 +1,7 @@
 // blueyolk.org Worker: serves the site files, and sends /api/treat to the video treatment container.
 import { DurableObject } from "cloudflare:workers";
 
-const IDLE_MS = 3 * 60 * 1000;          // stop the container after 3 idle minutes
+const IDLE_MS = 90 * 1000;              // stop the container after 90 idle seconds (saves money)
 const MAX_BYTES = 30 * 1024 * 1024;     // 30 MB per clip, to keep costs down
 
 export class Treat extends DurableObject {
